@@ -1,0 +1,189 @@
+<div tabset class="nav-tabs-alt">
+    <div tab ng-if="type==486" ng-click="returnToMyProducts('486')">
+        <div tab-heading>
+            <div class="font-bold">柜台市场产品赎回申请</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="redeemPrd(prd)">
+                        <table class="table m-b-none" data-page-size="5">
+                            <tr>
+                                <th class="bg-light col-xs-2">产品代码</th>
+                                <td class="col-xs-4">{{prd.INST_CODE}}</td>
+                                <th class="bg-light col-xs-2">产品编码</th>
+                                <td class="col-xs-4">{{prd.INST_ID}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">产品简称</th>
+                                <td class="col-xs-4">{{prd.INST_SNAME}}</td>
+                                <th class="bg-light col-xs-2">份额余额</th>
+                                <td class="col-xs-4">{{prd.INST_BLN}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">可用份额</th>
+                                <td class="col-xs-4">{{prd.INST_AVL}}</td>
+                                <th class="bg-light col-xs-2">在途份额</th>
+                                <td class="col-xs-4">{{prd.INST_OTD}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">净值</th>
+                                <td class="col-xs-4">{{prd.NET_VAL}}</td>
+                                <th class="bg-light col-xs-2">市值</th>
+                                <td class="col-xs-4 b-b">{{prd.MKT_VAL}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">赎回份额</th>
+                                <td class="col-xs-4">
+                                    <input type="text" class="form-control w-lg" placeholder="请输入赎回份额" name="trd_qty" ng-model="prd.trd_qty" required ng-pattern="/^[1-9][0-9]*$/" ui-focus="true"></td>
+                                <th class="col-xs-6" colspan="2">
+                                    <span class="text-danger" ng-show="myForm.trd_qty.$error.required">请输入赎回份额</span>
+                                    <span class="text-danger" ng-show="!myForm.trd_qty.$error.required && myForm.trd_qty.$invalid">请输入正确的赎回份额</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-xs-2"></th>
+                                <td class="col-xs-4">
+                                    <button type="submit" class="btn btn-sm btn-info w-lg" ng-disabled="myForm.trd_qty.$invalid">确认</button>
+                                </td>
+                                <th class="col-xs-6" colspan="2"></th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div tab ng-if="type==4" ng-click="returnToMyProducts('4')">
+        <div tab-heading>
+            <div class="font-bold">资管产品赎回申请</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="redeemPrd(prd)">
+                        <table class="table m-b-none" data-filter="#filter" data-page-size="5">
+                            <tr>
+                                <th class="bg-light col-xs-2">基金代码</th>
+                                <td class="col-xs-4">{{prd.OFCODE}}</td>
+                                <th class="bg-light col-xs-2">收费方式</th>
+                                <td class="col-xs-4">{{prd.SHARECLASS_DESC}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">基金余额</th>
+                                <td class="col-xs-4">{{prd.OFBAL}}</td>
+                                <th class="bg-light col-xs-2">可用份额</th>
+                                <td class="col-xs-4">{{prd.OFAVL}}</td>
+                            </tr>
+                            <tr>
+
+                                <th class="bg-light col-xs-2">基金冻结数</th>
+                                <td class="col-xs-4">{{countQty(prd.OFTRDFRZ, prd.OFLONGFRZ)}}</td>
+                                <th class="bg-light col-xs-2">基金买入成本(元)</th>
+                                <td class="col-xs-4">{{prd.CURRENTCOST}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">基金证券市值</th>
+                                <td colspan="3" class="col-xs-10">{{prd.MARKETVALUE}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">赎回份额</th>
+                                <td class="col-xs-4">
+                                    <input type="text" class="form-control w-lg" placeholder="请输入赎回份额" name="trd_qty" ng-model="prd.trd_qty" required ng-pattern="/^[1-9][0-9]*$/" ui-focus="true"></td>
+                                <th class="col-xs-6" colspan="2">
+                                    <span class="text-danger" ng-show="myForm.trd_qty.$error.required">请输入赎回份额</span>
+                                    <span class="text-danger" ng-show="!myForm.trd_qty.$error.required && myForm.trd_qty.$invalid">请输入正确的赎回份额</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-xs-2"></th>
+                                <td class="col-xs-4">
+                                    <button type="submit" class="btn btn-sm btn-info w-lg" ng-disabled="myForm.trd_qty.$invalid">确认</button>
+                                </td>
+                                <th class="col-xs-6" colspan="2"></th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div tab ng-if="type==6" ng-click="returnToMyProducts('6')">
+        <div tab-heading>
+            <div class="font-bold">公募基金产品赎回申请</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="redeemPrd(prd)">
+                        <table class="table m-b-none" data-filter="#filter" data-page-size="5">
+                            <!--<tr>-->
+                            <!--<th class="bg-light col-xs-2">基金代码</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFCODE}}</td>-->
+                            <!--<th class="bg-light col-xs-2">收费方式</th>-->
+                            <!--<td class="col-xs-4">{{prd.SHARECLASS}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--<th class="bg-light col-xs-2">基金昨日余额</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFLASTBAL}}</td>-->
+                            <!--<th class="bg-light col-xs-2">基金余额</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFBAL}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--<th class="bg-light col-xs-2">可用份额</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFAVL}}</td>-->
+                            <!--<th class="bg-light col-xs-2">基金交易冻结数</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFTRDFRZ}}</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--<th class="bg-light col-xs-2">基金长期冻结数</th>-->
+                            <!--<td class="col-xs-4">{{prd.OFLONGFRZ}}</td>-->
+                            <!--<th class="bg-light col-xs-2">基金买入成本(元)</th>-->
+                            <!--<td class="col-xs-4">{{prd.CURRENTCOST}}</td>-->
+                            <!--</tr>-->
+                            <tr>
+                                <th class="bg-light col-xs-2">基金代码</th>
+                                <td class="col-xs-4">{{prd.OFCODE}}</td>
+                                <th class="bg-light col-xs-2">收费方式</th>
+                                <td class="col-xs-4">{{prd.SHARECLASS_DESC}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">基金余额</th>
+                                <td class="col-xs-4">{{prd.OFBAL}}</td>
+                                <th class="bg-light col-xs-2">可用份额</th>
+                                <td class="col-xs-4">{{prd.OFAVL}}</td>
+                            </tr>
+                            <tr>
+
+                                <th class="bg-light col-xs-2">基金冻结数</th>
+                                <td class="col-xs-4">{{countQty(prd.OFTRDFRZ, prd.OFLONGFRZ)}}</td>
+                                <th class="bg-light col-xs-2">基金买入成本(元)</th>
+                                <td class="col-xs-4">{{prd.CURRENTCOST}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">基金证券市值</th>
+                                <td class="col-xs-4" colspan="3">{{prd.MARKETVALUE}}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light col-xs-2">赎回份额</th>
+                                <td class="col-xs-4"><input type="text" class="form-control w-lg" placeholder="请输入赎回份额" name="trd_qty" ng-model="prd.trd_qty" required ng-pattern="/^[1-9][0-9]*$/" ui-focus="true"></td>
+                                <th class="col-xs-6" colspan="2">
+                                    <span class="text-danger" ng-show="myForm.trd_qty.$error.required">请输入赎回份额</span>
+                                    <span class="text-danger" ng-show="!myForm.trd_qty.$error.required && myForm.trd_qty.$invalid">请输入正确的赎回份额</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-xs-2"></th>
+                                <td class="col-xs-4">
+                                    <button type="submit" class="btn btn-sm btn-info w-lg" ng-disabled="myForm.trd_qty.$invalid">确认</button>
+                                </td>
+                                <th class="col-xs-6" colspan="2"></th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!type">您没有选择要赎回的产品。<a ui-sref="page.account.products">查看我的产品</a></div>
+</div>

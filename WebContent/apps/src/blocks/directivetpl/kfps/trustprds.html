@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <img src="public/images/icon-left.png"/>
+            <span class="font-bold text-lg m-t-xs">为你推荐</span>
+        </div>
+        <div class="m-t-md">
+            <div set-ng-animate="false" class="row">
+                <div slide ng-repeat="ft in tuijlist">
+                    <div class="col-lg-3 col-md-3 col-sm-6  ">
+                        <div>
+                            <div class="panel b-a ">
+                                <div class="b-b b-light">
+                                    <img src="public/images/mall-prd-info-pic{{($index % 3) + 1}}.png" class="w-full"/>
+                                </div>
+                                <div class="wrapper-xs padder-md">
+                                    <h3 class="text-ellipsis">{{ft.title}}</h3>
+                                </div>
+
+                                <div class="wrapper-xs padder-md">
+                                    <div class="text-center text-ellipsis-2row" style="height: 40px;">{{ft.des}}</div>
+                                </div>
+
+                                <div class="wrapper-xs padder-md clear ng-scope m-b">
+                                    <div class="col-sm-6"><span class="text-xl text-danger">{{ft.fee}}元/年</span></div>
+                                    <div class="col-sm-6"><a href=""
+                                                             class="padder-lg btn btn-info btn-sm font-bold">购买</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

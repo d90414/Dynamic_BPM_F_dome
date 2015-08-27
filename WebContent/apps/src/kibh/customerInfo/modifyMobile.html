@@ -1,0 +1,117 @@
+<div>
+    <div class="wrapper-sm b-b clear">
+        <span class="pull-left font-bold" ng-bind-html="title"></span>
+        <span class="pull-right"><i class="fa fa-times i-checks" ng-click="cancel()"></i></span>
+    </div>
+    <div class="modal-body clear">
+        <div ng-switch on="step">
+            <div ng-switch-when="1">
+                <form name="form" role="form" class="form-horizontal form-validation"
+                      ng-submit="subForm(3, form.verifycode.$modelValue)" novalidate>
+                    <div class="list-group text-center">
+                        <span class="text-info">请输入您的新手机号码。</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">新手机号码：</label>
+
+                        <div class="col-xs-6">
+                            <input type="text" placeholder="请输入新手机号码" ng-pattern="/^1[0-9]{10}$/" class="form-control"
+                                   name="mobile" ng-model="mobile" ng-disabled="codetip!='免费获取'"
+                                   ui-focus="{{step == 1}}" ng-required>
+                            <span class="help-block m-b-none text-danger"
+                                  ng-show="form.mobile.$dirty && form.mobile.$invalid">请输入11位数字手机号码(仅支持大陆手机号段)</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">验证码：</label>
+
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <input type="text" placeholder="请输入验证码" ng-pattern="/^[0-9]{6}$/"
+                                       ng-disabled="form.mobile.$invalid" class="form-control" name="verifycode"
+                                       ng-model="verifycode" ng-required>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-info" ng-bind-html="codetip"
+                                            ng-click="getcode(form.mobile.$modelValue)"
+                                            ng-disabled="!mobile || form.mobile.$invalid || codetip!='免费获取'"></button>
+								</span>
+                            </div>
+                            <span class="help-block m-b-none text-danger"
+                                  ng-show="form.verifycode.$dirty && form.verifycode.$invalid">请输入6位验证码</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <button type="submit" class="btn btn-info btn-block" ng-bind-html="subtip"
+                                    ng-disabled="!mobile || !verifycode || form.mobile.$invalid || form.verifycode.$invalid || submitting"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div ng-switch-when="2">
+                <form name="form" role="form" class="form-horizontal form-validation" ng-submit="cancel()" novalidate>
+                    <div class="list-group text-center">
+                        <span class="text-info">请输入您的新手机号码。</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">新手机号码：</label>
+                        <div class="col-xs-6">
+                            <input type="text" placeholder="请输入新手机号码" ng-pattern="/^1[0-9]{10}$/" class="form-control" name="mobile" ng-model="mobile" ng-disabled="codetip!='免费获取'" ng-required>
+                            <span class="help-block m-b-none text-danger" ng-show="form.mobile.$dirty && form.mobile.$invalid">请输入11位数字手机号码(仅支持大陆手机号段)</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">验证码：</label>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <input type="text" placeholder="请输入验证码" ng-pattern="/^[0-9]{6}$/" ng-disabled="form.mobile.$invalid" class="form-control" name="code" ng-model="code" ng-required>
+                                <span class="input-group-btn">
+                                    <input type="button" class="btn btn-info" value="{{codetip}}" ng-click="getcode()" ng-disabled="!mobile || form.mobile.$invalid || codetip!='免费获取'">
+                                </span>
+                            </div>
+                            <span class="help-block m-b-none text-danger" ng-show="form.code.$dirty && form.code.$invalid">请输入6位验证码</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <button type="submit" class="btn btn-info btn-block" ng-bind-html="subtip" ng-disabled="form.$invalid || submitting"></button>
+                        </div>
+                    </div>
+                </form>
+            </div> -->
+            <div ng-switch-when="3">
+                <form name="form" role="form" class="form-horizontal form-validation" ng-submit="subForm(4)" novalidate>
+                    <div class="list-group text-center">
+                        <span class="text-info">出于安全考虑，我们需要验证您原来的手机号码。</span>
+                    </div>
+                    <div safe-level bizid="bizid" busilogno="busilogno" code="code" fundpwd="fundpwd"></div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <button type="submit" class="btn btn-info btn-block" ng-bind-html="subtip"
+                                    ng-disabled="!code || !fundpwd || form.fundpwd.$invalid || form.code.$invalid || submitting"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div ng-switch-when="4">
+                <div class="wrapper-xl">
+                    <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>您已成功修改手机号码</div>
+                </div>
+            </div>
+            <div ng-switch-default class="list-group h3">
+                <a class="list-group-item m-b" ng-click="subForm(1)">
+                    <i class="fa fa-chevron-right text-muted wrapper-sm"></i>
+
+                    <div class="h4 text-info m-b">原手机能接收短信</div>
+                    <div class="h5">通过原手机号接收短信校验码的方式修改</div>
+                </a>
+                <a class="list-group-item" ng-click="subForm(2)">
+                    <i class="fa fa-chevron-right text-muted wrapper-sm"></i>
+
+                    <div class="h4 text-info m-b">原手机无法接收短信（功能即将上线）</div>
+                    <div class="h5">原手机号已丢失或停用，使用非手机身份验证方式修改</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

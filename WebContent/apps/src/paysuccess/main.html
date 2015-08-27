@@ -1,0 +1,45 @@
+<div>
+    <div class="pull-right"><span class="pull-right m-t"><a href="#/page/help/2#18" target="_blank"
+                                                            class="text-right m-t help-link">常见问题</a></span></div>
+    <div class="row m-t m-b">
+        <div class="col-xs-offset-2 col-xs-10">
+            <div class="row text-left">
+                <div class="col-xs-3 no-padder"
+                     style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                    <div class="m-t-xs">订单检查</div>
+                </div>
+                <div class="col-xs-3 no-padder"
+                     style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                    <div class="m-t-xs">订单申请</div>
+                </div>
+                <div class="col-xs-3 no-padder"
+                     style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">3</span></div>
+                    <div class="m-t-xs">订单支付</div>
+                </div>
+                <div class="col-xs-3 no-padder">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">4</span></div>
+                    <div class="m-t-xs">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div class="wrapper-lg m-r-xxl m-l-xxl m-t b b-2x b-danger" style="background: #fDf1f3;">
+            <div class="wrapper-sm text-center text-lg">
+                <i class="fa fa-check m-r-xs text-danger"></i><span>你已成功下单！</span>
+            </div>
+            <div class="wrapper-sm text-center">
+                <span>你可以通过<a ui-sref="page.account.orders({order_type: 'acceptedOrders'})" class="text-info">我的订单</a>查看购买情况，或者<a ui-sref="kfps.index"
+                                                                                                  class="text-info">随便逛逛</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div recm-prds></div>
+    </div>
+</div>

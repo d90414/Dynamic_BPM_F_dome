@@ -1,0 +1,68 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table prdlist">
+        <thead>
+        <tr>
+            <th class="text-center">序号</th>
+            <th>产品代码</th>
+            <th>产品简称</th>
+            <th>销售状态</th>
+            <th>风险级别</th>
+            <th>发行状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in prds">
+            <td class="text-center">{{(((pagination.currentpage == 0 ? 1 : pagination.currentpage) - 1) * pagination.pagesize) + $index + 1}}</td>
+            <td><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}">{{p.PRO_CODE}}</a></td>
+            <td><a class="text-ellipsis" ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}" title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a></td>
+            <td>{{p.SALE_STA_DESC}}</td>
+            <td>{{p.RISK_LVL_DESC}}</td>
+            <td>
+                <a ng-if="p.DIST_STAT == 2" class="label bg-info dk">{{p.DIST_STAT_DESC}}</a>
+                <span ng-if="p.DIST_STAT != 2" class="label bg-light dk">{{p.DIST_STAT_DESC}}</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm" ng-if="showtype == 0">
+    <div class="row padder-sm">
+        <div class="col-xs-3 no-padder" ng-repeat="p in prds">
+            <div class="b-a m-r-xs m-t-sm">
+                <div>
+                    <div class="pull-right" ng-click="addToMyFavorite(p.PRO_ID, p.LVL2_TYPE)" title="收藏">
+                        <a><i class="fa fa-star-o text-lg m-t-xs m-r-xs"></i></a>
+                    </div>
+                </div>
+                <div class="h-xs wrapper padder b-b b-light {{bgOfRiskLvl[p.RISK_LVL]}}">
+                    <h4 class="text-md m-b-sm">代码：<a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}">{{p.PRO_CODE}}</a>
+                    </h4>
+                    <h2 class="m-t-none">
+                        <span class="text-xxl text-lt text-ellipsis" title="{{p.SHT_NAME}}"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}">{{p.SHT_NAME}}</a></span>
+                    </h2>
+                </div>
+                <div class="padder-md">
+                    <div class="text-center text-ellipsis-2row text-muted" style="height: 40px;" title="{{p.PRO_CHA}}">{{p.PRO_CHA}}</div>
+                    <div class="line line-dashed b-b b-light"></div>
+                </div>
+                <div class="w-full padder-xs" style="height: 137px;">
+                    <div class="btn-group-justified">
+                        <div class="btn-group">
+                            <div class="m-t-xxs">预计年化收益率</div>
+                            <h2 class="m-t font-bold text-danger" title="{{p.EXPE_YIELDS ? p.EXPE_YIELDS : 0}}%">
+                                <span style="font-size: 34px;" class="text-lt text-ellipsis"><span style="font-size: 20px;">+</span>{{p.EXPE_YIELDS ? p.EXPE_YIELDS : 0}}<span style="font-size: 20px;">%</span></span>
+                            </h2>
+                            <a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}" class="btn btn-info w-xs font-bold m-sm">猛戳抢购</a>
+                        </div>
+                        <div class="btn-group v-top text-left">
+                            <div class="m-t-xs m-b-xl text-right">&nbsp;<span class="label {{bgOfRiskLvl[p.RISK_LVL]}}">{{p.RISK_LVL_DESC}}</span></div>
+                            <div class="m-l-n text-base text-ellipsis"><span>起售金额：</span><span title="{{p.INVE_START | moneyFomat}}">{{p.INVE_START | moneyFomat}}</span></div>
+                            <div class="m-l-n m-t-md text-base text-ellipsis"><span>支付方式：{{p.PAY_WAY_DESC}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

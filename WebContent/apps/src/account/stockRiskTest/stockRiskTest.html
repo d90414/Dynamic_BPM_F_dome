@@ -1,0 +1,67 @@
+<div ng-if="showType=='-01'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定注册用户，无法做风险测评。</span>
+    <a class="text-primary btn-link" ui-sref="auth.bindregaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-02'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定交易账户，无法做风险测评。</span>
+    <a class="text-primary btn-link" ui-sref="auth.binddealaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-03'" class="wrapper-xl text-center text-md">
+    <span class="">您需要登录您的资金账户才能做风险测评。</span>
+    <a class="text-primary btn-link" ui-sref="auth.login">登录</a>
+</div>
+<div ng-show="showType=='1'">
+    <div>
+        <span class="text-info text-md font-bold">风险测评</span>
+        <div class="line b-b b-info"></div>
+    </div>
+    <div ng-if="riskResult && !hideHistory" class="padder-v padder-lg bg-light lter text-base">
+        <p>尊敬的&nbsp;<span class="text-info">{{$root.global.account.USER_NAME}}</span></p>
+        <p>根据您之前填写的《个人投资者风险承受能力测试问卷》，您的风险承受能力等级为：<span class="text-danger text-md font-bold">{{riskResult.RATING_LVL_NAME}}&nbsp;&nbsp;{{riskResult.SURVEY_SCORE}}</span>{{riskResult.SURVEY_SCORE ? '分' : ''}}</p>
+    </div>
+    <div class="">
+        <div class="padder-lg padder-v bg-white">
+            <div ng-switch on="step">
+                <div ng-switch-when="1">
+                    <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>测评完成，您的测评结果为<span class="m-xs font-bold text-2x text-danger" ng-bind="riskResult.SURVEY_SCORE"></span>分</div>
+                    <div class="h2 text-primary text-center m-t m-b">{{riskResult.RATING_LVL_NAME}}</div>
+                    <div class="text-center m-t hide" ng-if="$root.beforeRiskTestUrl">
+                        <button class="btn btn-sm btn-info w-xs" ng-click="back()">返回商城</button>
+                    </div>
+                    <div class="line line-xs b-b b-light m-t m-b hide"></div>
+                    <div class="text-md text-danger text-center hide">
+                        <div>为了保证风险测评结果的客观性，30天以后你才能再来测评哦！</div>
+                        <div class="m-t-sm">这段时间赶快到<a class="text-info">投资者社区</a>拜师学艺，增加经验值吧！</div>
+                    </div>
+                </div>
+                <div ng-switch-default>
+                    <div>
+                        <div class="text-danger text-lg text-center"><span ng-bind="testInfo.PAPER_NAME"></span></div>
+                        <div class="text-muted m-t m-b" style="text-indent: 2em"><span ng-bind="testInfo.PROLOGUE"></span></div>
+                        <div ng-repeat="qs in questions">
+                            <div class="clear">
+                                <span class="col-xs-1 text-center text-md bg-info" style="height: 30px;padding-top: 4px">{{qs.QUESTION_NO}}</span>
+                                <span class="col-xs-11 wrapper-xs" style="background: #D4EEFD">{{qs.QUESTION_NAME}}</span>
+                            </div>
+                            <div class="radio l-h-2x m-l-xxl" ng-repeat="as in qs.ANSWER">
+                                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                                    <input type="radio" name="{{'radio' + qs.QUESTION_ID}}" value="{{$index}}" answerres="{{qs.QUESTION_TYPE + '###' + qs.QUESTION_ID + '###' + as.ANSWER_CODE + '###' + ''}}" ng-click="itemSelect()">
+                                    <i></i>
+                                    {{as.ANSWER_CODE + '、' + as.ANSWER_NAME}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-sm btn-info w-xs m-r-sm" ng-click="submit()" ng-disabled="!isChecked">
+                            <span>提交</span>
+                        </button>
+                        <button class="btn btn-sm btn-info w-xs m-l" ng-click="reset()" ng-disabled="!isChanged">
+                            <span>重置</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

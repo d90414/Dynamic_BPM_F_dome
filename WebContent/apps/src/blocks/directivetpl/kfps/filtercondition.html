@@ -1,0 +1,31 @@
+<ul class="list-group no-radius">
+    <li class="list-group-item">
+        <div class="row no-padder">
+            <div class="col-xs-1">
+                <span class="inline font-bold text-right text-nowrap" style="padding-top: 3px; margin-top: 1px;">已选条件：</span>
+            </div>
+            <div class="col-xs-11">
+                <span class="inline m-r-xs b-a" ng-repeat="item in selected" style="padding: 3px; margin-top: 1px;">
+                    <span class="font-bold">{{key2label[item.ty]}}: </span><span class="text-info">{{item.value}}</span>
+                    <a class="m-l-xs" ng-click="clear(item.ty)"><i class="fa fa-times text-danger"></i></a>
+                </span>
+                <button class="btn btn-sm pull-right" style="margin: 0 auto;" ng-click="hide = !hide">{{hide ? '显示' : '收起'}}筛选&nbsp;<i class="fa" ng-class="{'fa-chevron-down': hide, 'fa-chevron-up': !hide}"></i></button>
+                <button class="btn btn-sm btn-danger pull-right m-r-lg" style="margin: 0 10px 0 0;" ng-click="clear()">清除条件</button>
+            </div>
+        </div>
+    </li>
+    <li ng-show="!hide" class="list-group-item" ng-repeat="item in conditions">
+        <div class="row">
+            <div class="col-xs-1">
+                <span class="font-bold text-right text-nowrap">{{item.label}}：</span>
+            </div>
+            <div class="col-xs-11">
+                <a class="m-r m-b-sm r condition-item" style="padding: 3px 6px;" ng-repeat="i in item.list"
+                   ng-class="{'bg-info text-white': condition[item.key] === i.key || !(condition[item.key] || i.key), 'inline': item.list.length >= 10 && item.showmore}"
+                   ng-click="selt(item.key, i);" ng-show="item.showmore || $index < 10">{{i.value}}</a>
+                <a class="pull-right" ng-if="item.list.length >= 10 && !item.showmore" ng-click="item.showmore = !item.showmore">更多<i class="fa fa-caret-down m-l-xs"></i></a>
+                <a class="pull-right" ng-if="item.list.length >= 10 && item.showmore" ng-click="item.showmore = !item.showmore">收起<i class="fa fa-caret-up m-l-xs"></i></a>
+            </div>
+        </div>
+    </li>
+</ul>

@@ -1,0 +1,101 @@
+<div>
+    <div class="wrapper">
+        <div class="row b bg-white-only" style="border-color: #FFA382;">
+            <div class="col-xs-8">
+                <table class="table w-full text-left">
+                    <tr>
+                        <td colspan="4">
+                            <div>
+                                <span>代码：</span><span class="text-info">{{prd.PRO_CODE}}</span>
+                                <span class="m-l-lg text-xxl text-danger" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="17%">参与起点：</td>
+                        <td width="33%" class="text-info">{{prd.INVE_START | moneyFomat:'2'}}</td>
+                        <td width="17%">追加金额：</td>
+                        <td width="33%" class="text-info">{{prd.ADDTO_MIN_BUY ? (prd.ADDTO_MIN_BUY | moneyDivide) + '元' : ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>产品期限：</td>
+                        <td class="text-info">{{prd.DURA_TIME}}</td>
+                        <td>预期收益率：</td>
+                        <td class="text-info">{{prd.EXP_GAINS ? prd.EXP_GAINS : '浮动收益'}}</td>
+                    </tr>
+                    <tr>
+                        <td>单位净值：</td>
+                        <td class="text-info">{{(prd.NAV_VAL && prd.NAV_VAL != 0) ? prd.NAV_VAL + '元' : '--'}}</td>
+                        <td>累计净值：</td>
+                        <td class="text-info">{{(prd.ACC_VAL && prd.ACC_VAL != 0) ? prd.ACC_VAL + '元' : '--'}}</td>
+                    </tr>
+                    <tr>
+                        <td>风险等级：</td>
+                        <td class="text-info">{{prd.RISK_LVL_DESC}}</td>
+                        <td>产品规模：</td>
+                        <td class="text-info">{{(prd.ISSUE_MODE && prd.ISSUE_MODE != 0) ? (prd.ISSUE_MODE | moneyDivide) + '元' : '--'}}</td>
+                    </tr>
+                    <tr>
+                        <td>管理人：</td>
+                        <td class="text-info">{{prd.MANAGER_USER_DESC}}</td>
+                        <td>登记机构：</td>
+                        <td class="text-info">{{prd.REGI_ORG_DESC}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">{{(!prd.DIST_STAT || prd.DIST_STAT == 0) ? '' : (prd.DIST_STAT == 1 ? '募集期起止时间：' : '成立日期：')}}</td>
+                        <td colspan="3" class="text-info">
+                            <div ng-if="!(!prd.DIST_STAT || prd.DIST_STAT == 0)" ng-switch on="prd.DIST_STAT">
+                                <span ng-switch-when="1">{{prd.RAISE_BGN_DATE}}{{(prd.RAISE_BGN_DATE && prd.RAISE_END_DATE) ? ' 至 ' : ''}}{{prd.RAISE_END_DATE}}</span>
+                                <span ng-switch-default>{{prd.GRP_DATE}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4 b-l" style="border-color: #FFA382; background-color: #FFF7F0; height:310px;">
+                <div detail-buy-panel></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div class="b-a bg-white-only">
+            <div class="wrapper b-b b-light">
+                <div tabset class="nav-tabs-alt">
+                    <div tab active="tabs.tab1">
+                        <div tab-heading><span class="font-bold">计划概况</span></div>
+                        <div zgcp-proinfo proid="{{pro_id}}"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.manager.active = true;">
+                        <div tab-heading><span class="font-bold">投资主办人</span></div>
+                        <div ng-if="zgcpTabs.manager.active" zgcp-maninfo proid="{{pro_id}}"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.netvalue.active = true;" active="zgcpTabs.netvalue.active">
+                        <div tab-heading><span class="font-bold">集合净值</span></div>
+                        <div ng-if="zgcpTabs.netvalue.active" zgcp-nav proid="{{pro_id}}" procode="{{prd.PRO_CODE}}" partype="zgcp"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.fee.active = true;">
+                        <div tab-heading><span class="font-bold">产品费率</span></div>
+                        <div ng-if="zgcpTabs.fee.active" zgcp-fee-structure proid="{{pro_id}}"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.bonus.active = true;">
+                        <div tab-heading><span class="font-bold">分红信息</span></div>
+                        <div ng-if="zgcpTabs.bonus.active" gmjj-note proid="{{pro_id}}" partype="3"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.notice.active = true;">
+                        <div tab-heading><span class="font-bold">集合公告</span></div>
+                        <div ng-if="zgcpTabs.notice.active" gmjj-note proid="{{pro_id}}" partype="1"></div>
+                    </div>
+                    <div tab ng-click="zgcpTabs.law.active = true;">
+                        <div tab-heading><span class="font-bold">法律文件</span></div>
+                        <div ng-if="zgcpTabs.law.active" gmjj-note proid="{{pro_id}}" partype="2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-t-lg m-b ">
+    <div recm-prds ctype="{{type}}"></div>
+</div>

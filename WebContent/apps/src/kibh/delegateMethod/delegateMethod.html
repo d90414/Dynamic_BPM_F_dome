@@ -1,0 +1,40 @@
+<div>
+    <div class="m-t-sm m-b-xs">
+        <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+    </div>
+
+    <div class="line line-xs b-b b-light"></div>
+    <div class="m-t-sm wrapper-xs bg-light">
+        <div class="l-h-2x wrapper-lg bg-white">
+            <div class="row">
+                <div class="col-xs-6 b-r b-light" style="min-height: 320px;">
+                    <div class="panel-body">
+                        <div ng-repeat="d in delegates" ng-class="{gray: d.disabled}">
+                            <div class="form-group line-dashed b-b clear">
+                                <label class="col-sm-3 control-label">{{d.name}}</label>
+
+                                <div class="col-sm-5">
+                                    <a><img src="public/images/switch_on.png" ng-click="!d.disabled && close(d)"
+                                            ng-if="d.status == 1"></a>
+                                    <a><img src="public/images/switch_off.png" ng-click="!d.disabled && open(d)"
+                                            ng-if="d.status == 0"></a>
+                                </div>
+                                <label class="col-sm-4 control-label" ng-if="d.status == 1">已开通</label>
+                                <label class="col-sm-4 control-label" ng-if="d.status == 0">未开通</label>
+                               	<div ng-if="d.disabled" class="col-sm-12 text-xs">尚不支持网上变更</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 h-xl">
+                    <div class="panel-body">
+                        <div class="form-group m-t-lg clear">
+                            <div class="col-sm-12 no-padder"><img src="public/images/commonhelp.png"/></div>
+                        </div>
+                        <div class="form-group clear line-dashed b-b">{{remark}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

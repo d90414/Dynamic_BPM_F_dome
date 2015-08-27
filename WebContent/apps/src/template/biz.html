@@ -1,0 +1,37 @@
+<div>
+    <div class="row">
+        <div class="col-xs-3">
+            <nav ui-nav class="navi">
+                <ul class="nav b">
+                    <li class="hidden-folded wrapper-sm text-white text-md bg-info">
+                        <span>全部业务</span>
+                    </li>
+
+                    <li ng-repeat="item in bizmenus" ng-class="{active: isOpened(item.root.MENU_LEVEL)}">
+                        <a ui-sref="{{item.menuitem[0].MENU_URL}}" class="auto">
+							<span class="pull-right text-muted m-xxs">
+								<i class="fa fa-fw fa-angle-right text"></i>
+								<i class="fa fa-fw fa-angle-down text-active"></i>
+							</span>
+                            <img ng-src="{{item.root.MENU_ICON}}" style="height: 30px;">
+                            <span class="font-bold">{{item.root.MENU_NAME}}</span>
+                        </a>
+                        <ul class="nav nav-sub dk" ng-if="item.menuitem.length > 0">
+                            <li ng-repeat="i in item.menuitem" title="{{i.MENU_REMARK}}" ui-sref-active="active"
+                                ng-class="{gray: i.SHOW_USE == 0, active: i.MENU_URL == 'kibh.biz.openAccount' && $state.includes('kibh.biz.openAccount')}">
+                                <a ui-sref='{{i.MENU_URL}}'
+                                   ng-if="!i.ISHREF && i.SHOW_USE == 1"><span>{{i.MENU_NAME}}</span></a>
+                                <a ng-href="{{i.MENU_URL_OLD}}" ng-if="i.ISHREF && i.SHOW_USE == 1"
+                                   ng-click="gotourl(i)" target="_blank"><span>{{i.MENU_NAME}}</span></a>
+                                <a ng-if="i.SHOW_USE == 0"><span>{{i.MENU_NAME}}</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-9">
+            <div class="animated fadeIn" ui-view></div>
+        </div>
+    </div>
+</div>

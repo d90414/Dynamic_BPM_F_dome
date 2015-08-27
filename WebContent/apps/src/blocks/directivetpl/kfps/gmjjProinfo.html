@@ -1,0 +1,65 @@
+<div class="m-t">
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td class="w-sm active">基金名称：</td>
+            <td style="width: 40%" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</td>
+            <td class="w-sm active">单位面值(元)：</td>
+            <td>{{prd.FUND_FACE_VALUE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">基金代码：</td>
+            <td>{{prd.PRO_CODE}}</td>
+            <td class="w-sm active">存续期限：</td>
+            <td>{{prd.DURA_TIME ? prd.DURA_TIME : '不定期'}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">基金类型：</td>
+            <td>{{prd.FUND_PRO_TYPE_DESC}}</td>
+            <!--<td class="w-sm active">申购赎回开放日：</td>-->
+            <!--<td ng-bind-html="prd.OPEN_DAY_INST | escapeSequence"></td>-->
+        </tr>
+        <tr>
+            <td class="w-sm active">运作方式：</td>
+            <td>{{prd.OPER_MODE_DESC}}</td>
+            <td class="w-sm active">基金管理人：</td>
+            <td>{{prd.MANAGER_USER_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">成立时间：</td>
+            <td>{{prd.GRP_DATE}}</td>
+            <td class="w-sm active">基金托管人：</td>
+            <td>{{prd.CUSTODIAN_USER_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">基金风险等级：</td>
+            <td>{{prd.RISK_LVL_DESC}}</td>
+            <td class="w-sm active">基金状态：</td>
+            <td>{{prd.FUND_STATUS_NAME}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">业绩比较基准：</td>
+            <td colspan="3">{{prd.BENCH_RESULTS}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">投资范围：</td>
+            <td colspan="3">{{prd.INVE_SCOPE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm font-bold" colspan="4">基金份额和资产规模</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">基金份额：</td>
+            <td>{{prd.FUND_SHARES ? (prd.FUND_SHARES | moneyDivide) + ' 份' : '--'}}&nbsp;&nbsp;
+                {{prd.FUND_SHARES_DATE ? '(' + prd.FUND_SHARES_DATE + ')' : ''}}</td>
+            <td class="w-sm active">基金资产规模：</td>
+            <td>{{(prd.LATEST_SIZE && prd.LATEST_SIZE != 0) ? (prd.LATEST_SIZE | moneyDivide) + ' 元' : '--'}}&nbsp;&nbsp;
+                {{prd.LATEST_SIZE_DATE ? '(' + prd.LATEST_SIZE_DATE + ')' : ''}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active">备注：</td>
+            <td colspan="3">{{prd.REMARK}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

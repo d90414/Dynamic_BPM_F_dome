@@ -1,0 +1,66 @@
+<div class="row m-t-md m-b-xxl">
+    <div class="col-xs-4">
+        <div class="panel b-a h m-l-n">
+            <div class="panel-heading no-border bg-primary lter">
+                <span class="">我的业务权限</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6" ng-repeat="item in privileges">
+                        <div class="panel b b-a text-left">
+                            <div class="m-l-xs m-t-xs m-b-xs">
+                                <span>{{item.name}}</span>
+                                <img ng-src="{{item.iconUrl}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="panel b-a h">
+            <div class="panel-heading no-border bg-light dker">
+                <span class="">我的钱包</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        会员积分&nbsp;:&nbsp;<span class="text-danger">{{wallet.jiFen}}</span>分
+                    </div>
+                    <div class="col-xs-6">
+                        会员红包&nbsp;:&nbsp;<span class="text-danger">{{wallet.hongBao}}</span>元
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">银行卡:</div>
+                    <div class="col-xs-12">
+                        <div ng-repeat="item in wallet.bank">
+                            <img ng-src="{{item.iconUrl}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="panel b-a h m-r-n">
+            <div class="panel-heading no-border bg-danger lter">
+                <span class="">交易安全设置</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6" ng-repeat="item in safety">
+                        <div class="panel b b-a text-center">
+                            <div class="m-l-xs m-t-xs m-b-xs">
+                                <a href target="_blank" title="{{item.name}}">
+                                    <span>{{item.name}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

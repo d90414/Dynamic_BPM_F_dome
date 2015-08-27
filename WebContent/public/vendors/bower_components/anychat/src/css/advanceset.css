@@ -1,0 +1,17 @@
+#advanceset_div{ display:none; width: 505px; z-index:43;}
+#advanceset_div_close{ cursor:pointer; text-align:right; padding:5px 5px 0px 0px; font-size:12px;}
+#Btn_Div_Device{ font-size:14px; cursor:pointer; background-color:White; float:left; height:25px; width:70px; text-align:center; /* margin:5px 0px 0px 0px; */}
+.Btn_Div{ font-size:14px; cursor:pointer; background-color:#9CAAC1; float:left; height:25px; width:70px; text-align:center; /* margin:5px 0px 0px 0px; */}
+#advanceset_div_Div_Btn{ height: 25px;}
+#advanceset_div_mainpark {background-color:#DEDEDE;}
+#advanceset_div_mainpark_parameter{background-color:White;  height:135px; font-size:14px;padding-top: 5px;}
+#Device_Interface{ line-height:35px; margin-left:60px; width:340px; height:115px;}
+#Video_Parameter_Interface{ display:none; margin-left:60px; width:340px; height:115px;}
+#advanceset_div_Tab{ width:310px; height:115px; font-size:12px;margin: 0 auto;}
+#advanceset_div_Tab a{ color:#999999;}
+.td_input{ text-align:right;}
+#regulate{ cursor:pointer; text-align:center; line-height:20px; width:70px; height:20px; border:1px solid black;}
+#apply_changes{ cursor:pointer; text-align:center; line-height:20px; width:70px; height:20px; border:1px solid black;}
+#Sound_Parameter_Interface{ display:none; margin-left:60px; width:340px; height:115px;}
+.audio_tabcontrol{ height:30px; line-height:30px; text-align:center;}
+#Other_Parameter_Interface{ display:none; margin-left:60px; width:340px; text-align:center; height:115px; line-height:115px;}

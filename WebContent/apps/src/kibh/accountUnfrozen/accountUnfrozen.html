@@ -1,0 +1,47 @@
+<div>
+    <div class="m-t-sm m-b-xs">
+        <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+    </div>
+
+    <div class="line line-xs b-b b-light"></div>
+    <div class="m-t-sm wrapper-xs bg-light">
+        <div class="wrapper-lg bg-white">
+            <div ng-switch on="step">
+                <div ng-switch-when="1">
+                    <div class="wrapper-xl">
+                        <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>您的账户解冻请求已受理
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-default>
+                    <form name="form" role="form" class="form-horizontal form-validation" ng-submit="subForm()"
+                          novalidate>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">账户：</label>
+
+                            <div class="col-xs-9">
+                                <div class="form-control b-white" style="padding-left: 0;" onfocus="this.blur()">
+                                    {{user.USER_FNAME}}
+									<span class="text-info" ng-switch on="assetStatus">
+										<span ng-switch-when="0">（正常）</span>
+										<span ng-switch-when="1">（已冻结）</span>
+										<span ng-switch-default></span>
+									</span>
+                                </div>
+                                <span class="help-block m-b-none text-danger">账户解冻后，将恢复对资金账户的对应业务操作。</span>
+                            </div>
+                        </div>
+                        <div safe-level bizid="bizid" busilogno="busilogno" code="code" fundpwd="fundpwd"
+                             ng-show="assetStatus == '1'"></div>
+                        <div class="form-group" ng-show="assetStatus == '1'">
+                            <div class="col-xs-offset-3 col-xs-6">
+                                <button type="submit" class="btn btn-info btn-block" ng-bind-html="subtip"
+                                        ng-disabled="!code || !fundpwd || form.fundpwd.$invalid || form.code.$invalid || submitting"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

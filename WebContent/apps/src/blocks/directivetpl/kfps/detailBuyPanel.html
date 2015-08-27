@@ -1,0 +1,44 @@
+<div>
+    <div class="clearfix" style="height: 30px;">
+        <div class="pull-right" ng-click="prd.isFavorite ? deleteMyFavorites(prd) : addToMyFavorite(prd)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+            <div class="m-t-xs m-r-n-xs"><a class="label text-white" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+        </div>
+    </div>
+    <form class="form-horizontal ng-pristine ng-valid" name="myForm" role="form">
+        <table class="buy-panel-table" style="border: none;">
+            <tbody>
+            <tr>
+                <td>支付方式：</td>
+                <td>{{prd.PAY_WAY_DESC}}</td>
+            </tr>
+            <tr ng-if="prd.DISC_RATIO_DESC == '认购'">
+                <td>认购费率折扣：</td>
+                <td>{{prd.SUBS_DISC_RATIO}}</td>
+            </tr>
+            <tr ng-if="prd.DISC_RATIO_DESC == '申购'">
+                <td>申购费率折扣：</td>
+                <td>{{prd.PURC_DISC_RATIO}}</td>
+            </tr>
+            <tr>
+                <td class="text-nowrap">购买金额(元)：</td>
+                <td><input type="text" class="form-control" placeholder="请输入购买金额" ng-model="prd.BUY_MONEY"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button ng-show="prd.canBuy" class="btn btn-danger btn-block font-bold" ng-click="addToOrder()">
+                        <i class="fa fa-cubes"></i>立即购买
+                    </button>
+                    <button ng-show="!prd.canBuy" class="btn btn-block font-bold" disabled>
+                        <i class="fa fa-cubes"></i>暂停交易
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>可交易时间：</td>
+                <td>交易日9:30-11:30 13:00-15:00</td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

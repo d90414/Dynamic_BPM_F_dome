@@ -1,0 +1,17 @@
+<div class="bg-white-only">
+    <div>
+        <div class="pull-right m-t-sm"><a ng-click="refresh();"><i class="fa fa-refresh m-r-xs"></i>换一批</a></div>
+    </div>
+    <div tabset class="nav-tabs-alt">
+        <div tab>
+            <div tab-heading><i class="fa fa-thumbs-o-up m-r-xs text-info"></i><span class="font-bold">为您推荐</span></div>
+            <div class="m-t-sm">
+                <div class="row padder-sm">
+                    <div class="{{cols==3 ? 'col-xs-4' : 'col-xs-3'}} no-padder" ng-repeat="prd in prds">
+                        <div prd-graph-panel cols="{{cols}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

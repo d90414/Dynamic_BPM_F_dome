@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div>
+            <div class="pull-right m-t m-r"><a ng-href="#/kfps/prdlist/{{morePrds}}" class="text-info btn-link">查看更多&nbsp;></a></div>
+        </div>
+        <div tabset class="nav-tabs-alt bg-white-only" style="min-height: 325px;">
+            <div tab ng-click="toggleUrlOfMore('xpzq')">
+                <div tab-heading><span class="font-bold text-md">新品专区</span></div>
+                <div class="row padder-sm">
+                    <div class="col-xs-3 no-padder" ng-repeat="prd in prds" style="height: 281px!important;">
+                        <div prd-graph-panel cols="4" img="width: 53px;height: 53px;background: url('public/images/mall-prd-icon-hot.png') 53px"></div>
+                    </div>
+                </div>
+            </div>
+            <div tab ng-click="toggleUrlOfMore('jxcp')">
+                <div tab-heading><span class="font-bold text-md">精选产品</span></div>
+                <div class="row padder-sm">
+                    <div class="col-xs-3 no-padder" ng-repeat="prd in prds" style="height: 281px!important;">
+                        <div prd-graph-panel cols="4" img="width: 53px;height: 53px;background: url('public/images/mall-prd-icon-hot.png')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

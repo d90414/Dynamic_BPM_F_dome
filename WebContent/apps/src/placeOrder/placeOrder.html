@@ -1,0 +1,446 @@
+<div ng-switch on="step" class="bg-white-only">
+    <div ng-switch-when="1" class="m-t">
+        <div class="b b-a">
+            <div class="pull-right">
+                <span class="m-t-xs m-r-xs"><a href="#/page/help/2#14" target="_blank" class="text-right m-t help-link">常见问题</a></span>
+            </div>
+            <div class="row m-t m-b">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <div class="row text-left">
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                            <div class="m-t-xs">订单检查</div>
+                        </div>
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">2</span></div>
+                            <div class="m-t-xs">订单申请</div>
+                        </div>
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">3</span></div>
+                            <div class="m-t-xs">订单支付</div>
+                        </div>
+                        <div class="col-xs-3 no-padder">
+                            <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">4</span></div>
+                            <div class="m-t-xs">完成</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-switch="showType" class="wrapper b-l b-r b-b">
+            <div class="m-t m-b" ng-if="showType == '-1'"></div>
+            <div class="m-t m-b" ng-if="showType == '-01'">
+
+                <div class="wrapper text-center">
+                    <div class="m-b">
+                        <span class="h3">资金账号登录</span>
+                    </div>
+                    <form name="form" role="form" novalidate class="form-horizontal form-validation" ng-submit="subForm()">
+                        <div class="form-group">
+                            <div class="col-xs-5 text-right text-md m-t-xs">资金账号:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <input type="text" class="form-control input-lg" ng-pattern="/^[\s\S]{6,16}$/" ng-model="loginuser.username" placeholder="请输入资金账号" required ng-init="initPlaceholder()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-5 control-label text-right text-md m-t-xs">交易密码:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrlA" class="form-control input-lg" placeholder="登录密码">
+                                <input ng-if="browserType!=2" type="text" class="form-control input-lg" placeholder="交易密码" id="textPassword" ng-focus="checkActive()" ng-hide="pwdfocus" ng-init="initPlaceholder()">
+                                <div ng-if="browserType!=2" ng-class="{'form-control': pwdfocus, 'input-lg': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}" id="kdeditCtrls" ng-if="browserType!=2">
+                                    <object id="kdeditCtrlA" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="250" height="16" style="cursor: pointer;">
+                                        <param name="MaxLength" value="16">
+                                    </object>
+                                    <embed id="kdeditCtrlA" ng-if="browserType==1" type="application/x-kd-edit" width="250" height="16" MaxLength=16 style="cursor: pointer;"></embed>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-5 control-label text-right text-md m-t-xs">验证码:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <div class="input-group">
+                                    <input type="text" placeholder="验证码" ng-pattern="/^[\s\S]{4}$/" class="form-control  input-lg pull-left" ng-model="loginuser.regcode" required>
+                                        <span class="input-group-btn">
+                                            <img ng-src="{{captcha}}" ng-click="refresh()" title="看不清，换一张" style="width: 75px;height: 45px"/>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-5 text-right text-md m-t-xs">&nbsp;</div>
+                            <div class="col-xs-4 text-left w-xl">
+                                <button type="submit" class="btn btn-lg btn-info btn-block" ng-disabled='form.$invalid || submitting == 0'>
+                                    <span ng-show="submitting==1">马上登录</span>
+                                    <span ng-show="submitting==0"><i class="fa fa-spin fa-spinner m-r-xs"></i>登录中...</span>
+                                </button>
+                            </div>
+                            <div class="col-xs-3 text-right text-md m-t-xs">&nbsp;</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-02'">
+                <div class="text-center">
+                    <span class="h3">您尚未绑定注册号，无法购买产品，<a ng-click="gotoDoSomething('auth.bindregaccount')" class="text-primary">立即绑定</a></span>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-03'">
+                <div class="row">
+                    <div class="text-center">
+                        <span class="h3">您尚未绑定交易账户，无法购买产品，<a ng-click="gotoDoSomething('auth.binddealaccount')" class="text-primary">立即绑定</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-t m-b" ng-if="showType == '-04'">
+                <div class="row">
+                    <div class="list-group m-t text-center">
+                        <span class="h3">请选择您的支付账号</span>
+                    </div>
+                    <div class="row list-group form-group">
+                        <div class="col-xs-5 text-right text-md m-t-xs">资金账号：</div>
+                        <div class="col-xs-7 text-left w-xl">
+                            <select class="form-control" ng-model="fundsacct_code" ng-options="option for option in zijinList"></select>
+                        </div>
+                    </div>
+                    <div class="row list-group">
+                        <div class="col-xs-5 text-right text-md m-t-xs">支付密码：</div>
+                        <div class="col-xs-7 text-left w-xl">
+                            <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class="form-control">
+                            <div ng-if="browserType!=2" class="form-control">
+                                <embed id="kdeditCtrl" ng-if="browserType==1" width="250" height="16" MaxLength=16 type="application/x-kd-edit"></embed>
+                                <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="250" height="16">
+                                    <param name="MaxLength" value="16">
+                                </object>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row list-group">
+                        <div class="col-xs-5 text-right text-md m-t-xs">&nbsp;</div>
+                        <div class="col-xs-4 text-left w-xl">
+                            <input type="button" class="btn btn-lg btn-success btn-block" ng-disabled="check=='1'" ng-click="login()"
+                                   value="确定"/>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-05'">
+                <div class="text-center">
+                    <span class="h3">您还没有下单，<a ui-sref="kfps.index" class="text-primary">去逛逛</a></span>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-06'">
+                <div class="text-center">
+                    <span class="h3">您尚未做风险测评或风险评测已过期，<a ng-click="gotoRiskTest()" class="text-primary">立即评测</a></span>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-07'">
+                <div class="text-center text-md"><i class="fa fa-warning"></i>&nbsp;抱歉，未能查询到您的账号信息，您可以重新登录试试</div>
+                <form name="form" role="form" novalidate class="form-validation text-center" ng-submit="subForm()">
+                    <div class="wrapper m-t text-center">
+                        <span class="h3">资金账号登录</span>
+                    </div>
+                    <div class="wrapper">
+                        <div class="row m-t">
+                            <div class="col-xs-5 text-right text-md m-t-xs">资金账号:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <input type="text" class="form-control input-lg" ng-pattern="/^[\s\S]{6,16}$/" ng-model="loginuser.username" placeholder="请输入资金账号" required ng-init="initPlaceholder()">
+                            </div>
+                        </div>
+                        <div class="row m-t">
+                            <div class="col-xs-5 text-right text-md m-t-xs">交易密码:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrlA" class="form-control input-lg" placeholder="登录密码">
+                                <input ng-if="browserType!=2" type="text" id="textPassword" class="form-control input-lg" ng-focus="checkActive()" placeholder="交易密码" ng-hide="pwdfocus" ng-init="initPlaceholder()">
+                                <div ng-if="browserType!=2" ng-class="{'form-control': pwdfocus, 'input-lg': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}" id="kdeditCtrls">
+                                    <object id="kdeditCtrlA" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="250" height="16" style="cursor: pointer;">
+                                        <param name="MaxLength" value="16">
+                                    </object>
+                                    <embed id="kdeditCtrlA" ng-if="browserType==1" type="application/x-kd-edit" width="250" height="16" MaxLength=16 style="cursor: pointer;"></embed>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t">
+                            <div class="col-xs-5 text-right text-md m-t-xs">验证码:</div>
+                            <div class="col-xs-7 text-left w-xl">
+                                <div class="input-group">
+                                    <input type="text" placeholder="验证码" ng-pattern="/^[\s\S]{4}$/" class="form-control  input-lg pull-left" ng-model="loginuser.regcode" required>
+                                        <span class="input-group-btn">
+                                            <img ng-src="{{captcha}}" ng-click="refresh()" title="看不清，换一张" style="width: 75px;height: 45px"/>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t">
+                            <div class="col-xs-5 text-right text-md m-t-xs">&nbsp;</div>
+                            <div class="col-xs-4 text-left w-xl">
+                                <button type="submit" class="btn btn-lg btn-info btn-block" ng-disabled='form.$invalid || submitting == 0'>
+                                    <span ng-show="submitting==1">马上登录</span>
+                                    <span ng-show="submitting==0"><i class="fa fa-spin fa-spinner m-r-xs"></i>登录中...</span>
+                                </button>
+                            </div>
+                            <div class="col-xs-3 text-right text-md m-t-xs">&nbsp;</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="m-t m-b" ng-if="showType == '-j01'">
+                <div class="m-t m-b">
+                    <div class="text-md">您需要开通<span class="text-info">{{order.REGI_ORG_DESC}}</span>公司基金账户才能购买集合理财产品</div>
+                </div>
+                <div class="m-t-xs m-b-md">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="agree"><i></i>&nbsp;本人/机构同意开通{{order.REGI_ORG_DESC}}公司基金账户
+                    </label>
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="openFundId()" ng-disabled="!agree || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>立即开通</button>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-j02'">
+                <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                    <span class="font-bold m-l-md">适当性匹配</span>
+                </div>
+                <div class="m-t m-b">您的适当性不匹配。</div>
+                <div class="m-t">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="qualification.ignoreMismatch"><i></i>&nbsp;清楚风险匹配结果，确认继续购买。
+                    </label>
+                </div>
+                <div class="m-t m-b-md">
+                    <!--您可以<a ng-click="gotoRiskTest()" class="text-info" ng-disabled="qualification.ignoreMismatch">点击此处</a>重新进行风险承受能力测评。-->
+                    您可以<a ng-click="gotoRiskTest()" class="text-info">点击此处</a>重新进行风险承受能力测评。
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="check()" ng-disabled="!qualification.ignoreMismatch || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>下一步</button>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-jh01'">
+                <div class="m-b">
+                    <div class="text-md">您需要完成以下步骤才能继续购买集合理财产品：</div>
+                    <div class="wrapper-xs m-t-xs">
+                        <ol class="clear">
+                            <li ng-repeat="item in agreements" class="l-h-2x">
+                                {{item.action}}<a ng-click="readArgument(item)" class="text-info" title="点击查看">《{{item.name}}》</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="m-t m-b-md">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="agreeAll"><i></i>&nbsp;本人/机构已认真阅读并完全理解
+                    </label>
+                    <span ng-repeat="item in agreements">《{{item.name}}》{{$index == agreements.length - 1 ? '' : '、'}}</span>的全部内容，愿意承担各种风险和损失，同意签署
+                    <span ng-repeat="item in agreements"><span ng-if="item.action == '签署'">《{{item.name}}》{{$index == agreements.length - 1 ? '' : '、'}}</span></span>。
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="signAllAgreements()" ng-disabled="!agreeAll || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>下一步</button>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-jh02'">
+                <div class="m-t m-b">
+                    <div class="text-md">您需要完成以下步骤才能继续购买集合理财产品：</div>
+                    <div class="wrapper-xs m-t-sm">
+                        <ol class="clear">
+                            <li ng-repeat="item in agreements" class="l-h-2x">
+                                {{item.action}}<a ng-click="readArgument(item)" class="text-info" title="点击查看">《{{item.name}}》</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="m-t m-b-md">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="agreeAll"><i></i>&nbsp;本人/机构已认真阅读并完全理解
+                    </label>
+                    <span ng-repeat="item in agreements">《{{item.name}}》{{$index == agreements.length - 1 ? '' : '、'}}</span>的全部内容，愿意承担各种风险和损失，同意签署电子合同。
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="signContract()" ng-disabled="!agreeAll || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>下一步</button>
+                </div>
+            </div>
+
+            <div class="m-t m-b" ng-if="showType=='-t01'">
+                <div class="m-t m-b">
+                    <div class="text-md">您需要完成以下步骤才能继续购买柜台市场产品：</div>
+                    <div class="wrapper-xs m-t-sm">
+                        <ol class="clear">
+                            <li ng-repeat="item in agreements" class="l-h-2x">
+                                {{item.action}}<a ng-click="readArgument(item)" class="text-info" title="点击查看">《{{item.name}}》</a>
+                            </li>
+                            <li ng-repeat="item in otcActions" class="l-h-2x">
+                                {{item.name}}
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="m-t m-b-md">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="agreeAll"><i></i>&nbsp;本人/机构已认真阅读并完全理解
+                    </label>
+                    <span ng-repeat="item in agreements">《{{item.name}}》{{$index == agreements.length - 1 ? '' : '、'}}</span>的全部内容，愿意承担各种风险和损失，同意<span ng-repeat="item in otcActions">{{item.name}}{{$index == agreements.length - 1 ? '' : '、'}}</span>。
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="openOtcAccount();" ng-disabled="!agreeAll || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>下一步</button>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType=='-t02'">
+                <div class="m-t m-b">
+                    <div class="text-md">您需要开通<span class="text-info">{{order.REGI_ORG_DESC}}</span>的登记账户才能购买柜台市场产品</div>
+                </div>
+                <div class="m-t-xs m-b-md">
+                    <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                        <input type="checkbox" ng-model="agree"><i></i>&nbsp;本人/机构同意开通登记账户
+                    </label>
+                </div>
+                <div class="text-center">
+                    <button class="h3 btn btn-info" ng-click="openOtcReg()" ng-disabled="!agree || isLoading"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>立即开通</button>
+                </div>
+            </div>
+            <div class="m-t m-b" ng-if="showType == '-t03'">
+                <div class="wrapper-sm">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="bg-light">
+                            <th class="text-center">产品编号</th>
+                            <th class="text-center">产品名称</th>
+                            <th class="text-center">产品期限</th>
+                            <th class="text-center">收益类型</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td>{{order.PRO_CODE}}</td>
+                            <td>{{order.SHT_NAME}}</td>
+                            <td>{{order.DURA_TIME}}</td>
+                            <td>{{order.REVE_TYPE_DESC}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <span class="h3">您的适当性不匹配，无法购买该产品，<a ng-click="gotoRiskTest()" class="text-primary">重新做风险测评</a></span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div ng-switch-when="2" class="m-t">
+        <div class="b b-a">
+            <div class="pull-right">
+                <span class="m-t-xs m-r-xs"><a href="#/page/help/2#14" target="_blank" class="text-right m-t help-link">常见问题</a></span>
+            </div>
+            <div class="row m-t m-b">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <div class="row text-left">
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                            <div class="m-t-xs">订单检查</div>
+                        </div>
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                            <div class="m-t-xs">订单申请</div>
+                        </div>
+                        <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                            <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">3</span></div>
+                            <div class="m-t-xs">订单支付</div>
+                        </div>
+                        <div class="col-xs-3 no-padder">
+                            <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">4</span></div>
+                            <div class="m-t-xs">完成</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="b-l b-r b-b">
+                <div class="wrapper-sm text-left font-bold">您订购的产品信息</div>
+                <div ng-switch="order.LVL1_TYPE" class="padder-sm">
+                    <table ng-switch-default class="table m-b">
+                        <thead>
+                        <tr class="bg-light">
+                            <th>产品代码</th>
+                            <th>产品名称</th>
+                            <th ng-if="order.LVL2_TYPE=='486'">产品期限</th>
+                            <th ng-if="order.LVL2_TYPE=='486'">收益类型</th>
+                            <th ng-class="{'w-md': order.LVL2_TYPE!='486'}">投资起点(元)</th>
+                            <th class="w-md">购买金额(元)</th>
+                            <th class="w-md">小计(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="v-middle">
+                                <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank" ng-bind="order.PRO_CODE"></a>
+                            </td>
+                            <td class="v-middle">
+                                <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank" ng-bind="order.SHT_NAME"></a>
+                            </td>
+                            <td ng-if="order.LVL2_TYPE=='486'" class="v-middle">{{order.DURA_TIME}}</td>
+                            <td ng-if="order.LVL2_TYPE=='486'" class="v-middle">{{order.REVE_TYPE_DESC}}</td>
+                            <td class="v-middle">
+                                <span ng-bind="order.INVE_START"></span>
+                            </td>
+                            <td class="v-middle">
+                                <input type="text" class="form-control input-sm w-sm" name="buy_money" ng-model="order.BUY_MONEY" ng-change="updateTotal(order)">
+                            </td>
+                            <td class="v-middle text-danger">
+                                <i class="fa fa-cny"></i><span ng-bind="subtotal"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="b-l b-r b-b">
+                <div class="wrapper-sm text-left font-bold">选择支付方式</div>
+                <div class="radio text-danger m-l-lg m-b-md">
+                    <label ng-repeat="way in payWays" class="m-r-md" ng-class="{'i-checks i-checks-sm': !isIE8, 'i-checks-sm': isIE8}">
+                        <input type="radio" ng-click="chooseBuyWay(way)" name="payway"><i></i>&nbsp;{{payWayDesc[way]}}
+                    </label>
+                    <div ng-if="!payWays || !payWays.length"> 很抱歉，系统暂不支持该产品的购买方式：
+                      <span ng-repeat="w in order.PAY_WAY.split(',')">
+                          {{payWayDesc[w]}}
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="b-l b-r b-b">
+                <div class="wrapper-sm text-left font-bold">应付总额</div>
+                <div class="m-l-lg m-b-md">
+                    <span class="text-danger"><i class="fa fa-cny"></i>&nbsp;{{total}}</span>&nbsp;元
+                </div>
+            </div>
+            <div class="b-l b-r">
+                <div class="row padder m-t text-right">
+                    <form class="col-xs-offset-7 col-xs-5 form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label text-right">推荐人：</label>
+                            <div class="col-xs-8 no-padder">
+                                <input type="text" class="form-control" placeholder="如有推荐人，请在此填写" ng-model="recommended">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="b-l b-r b-b">
+                <div class="row wrapper-xs m-r-xxs text-right">
+                    <button class="btn btn-info" ng-click="submitOrder(order)" ng-disabled="!checked">
+                        <i class="fa fa-check m-r-xs"></i>提交订单
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="m-t-lg m-b">
+    <div recm-prds></div>
+</div>

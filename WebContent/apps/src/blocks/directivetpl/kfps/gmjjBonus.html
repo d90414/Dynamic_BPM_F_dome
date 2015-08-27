@@ -1,0 +1,61 @@
+<div class="m-t table-responsive">
+    <table class="table prdlist table-bordered">
+        <thead>
+        <tr class="text-center">
+            <th width="25%" class="text-center">分红年度/可分配收益基准日</th>
+            <th width="25%" class="text-center">每单位基金派息(元)</th>
+            <th width="25%" class="text-center">权益登记日</th>
+            <th width="25%" class="text-center">除息日</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in gmjjDiv" class="text-center">
+            <td>{{item.BONUS_GRANT_DATE}}</td>
+            <td>{{item.EACH_BONUS}}</td>
+            <td>{{item.EQUITY_REGI_DATE}}</td>
+            <td>{{item.EX_DATE}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <div class="wrapper-sm clear">
+                    <div class="pull-left"><span>共<span class="text-danger">{{pagination1.totalcount >0 ? pagination1.totalcount : 0 }}</span>条记录</span>
+                    </div>
+                    <div class="pull-right" ng-if="pagination1.totalcount > pagination1.pagesize">
+                        <pagination total-items="pagination1.totalcount" items-per-page="pagination1.pagesize" max-size="5" ng-model="pagination1.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <table class="table prdlist table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">拆分日期</th>
+            <th class="text-center">拆分比例</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in gmjjBonus" class="text-center">
+            <td>{{item.DIV_DATE}}</td>
+            <td>{{item.DIV_PAT}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2">
+                <div class="wrapper-sm clear">
+                    <div class="pull-left"><span>共<span class="text-danger">{{pagination2.totalcount >0 ? pagination2.totalcount : 0 }}</span>条记录</span>
+                    </div>
+                    <div class="pull-right" ng-if="pagination2.totalcount > pagination2.pagesize">
+                        <pagination total-items="pagination2.totalcount" items-per-page="pagination2.pagesize" max-size="5" ng-model="pagination2.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

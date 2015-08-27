@@ -1,0 +1,104 @@
+<div class="bg-white-only">
+    <div class="b b-a m-t">
+        <div class="pull-right">
+            <span class="m-t-xs m-r-xs"><a href="#/page/help/2#18" target="_blank" class="text-right m-t help-link">常见问题</a></span>
+        </div>
+        <div class="row m-t m-b">
+            <div class="col-xs-offset-2 col-xs-10">
+                <div class="row text-left">
+                    <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                        <div class="m-t-xs">订单检查</div>
+                    </div>
+                    <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                        <div class="m-t-xs">订单申请</div>
+                    </div>
+                    <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">3</span></div>
+                        <div class="m-t-xs">订单支付</div>
+                    </div>
+                    <div class="col-xs-3 no-padder">
+                        <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">4</span></div>
+                        <div class="m-t-xs">完成</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper b-l b-r b-b">
+        <div class="m-t">
+            <div class="table-responsive m-t-md b-light b b-2x">
+                <table class="table m-b-none">
+                    <thead>
+                    <tr class="bg-light">
+                        <th>订单号</th>
+                        <th>产品名称</th>
+                        <th>订单金额</th>
+                        <th>支付方式</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="order in orderList">
+                        <td class="v-middle">
+                            {{order.APP_SNO}}
+                        </td>
+                        <td class="v-middle">
+                            <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{order.LVL2_TYPE | transtype}}">{{order.SHT_NAME}}</a>
+                        </td>
+                        <td class="v-middle text-danger">
+                            <div><i class="fa fa-cny"></i>{{order.BUY_MONEY}}</div>
+                        </td>
+                        <td class="v-middle">
+                            <a class="label bg-info text-sm"><i class="fa fa-money text-md text-white m-r-xs"></i><span
+                                    ng-if="order.PAY_WAY == '0'">保证金支付</span><span
+                                    ng-if="order.PAY_WAY == '1'">现金支付</span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="5">
+                            应支付：<span class="text-danger">{{paymoney}}元</span>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row m-t">
+            <div class="{{(2 == browserType && fund_avl >= paymoney)? 'col-xs-5': 'col-xs-10'}}">
+                <div class="m-t-sm">
+                    使用保证金支付{{paymoney}}元（<span class="text-danger">保证金可用余额{{fund_avl}}元</span>）
+                    <span ng-show="fund_avl < paymoney" class="text-danger">余额不足<a ng-click="gotoRecharge()" class="text-info btn-link">立即充值</a></span>
+                </div>
+            </div>
+            <div ng-if="browserType == 2 && fund_avl >= paymoney" class="col-xs-7 no-padder">
+                <form calss="form-inline" name="form">
+                    <div class="form-group col-xs-9">
+                        <label class="col-xs-6 control-label m-t-sm text-right">您绑定的手机号为：{{user.PHONE_NO | mobileCover:3:3}}</label>
+                        <div class="col-xs-6 input-group">
+                            <input type="text" placeholder="短信验证码" ng-pattern="/^[0-9]{6}$/" class="form-control" name="code_no" ng-model="user.code_no" ng-required>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-info" ng-bind-html="codetip" ng-click="getcode()" ng-disabled="codetip!='获取验证码'"></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 text-right">
+                        <button class="btn btn-md btn-danger" ng-disabled="fund_avl<paymoney || (browserType==2 && (!user.code_no || user.code_no.length != 6 || (codetip && codetip.indexOf('重新发送') == -1)))" ng-click="confirm()"><i class="fa fa-check m-r-xs"></i>确认支付</button>
+                    </div>
+                </form>
+            </div>
+            <div ng-if="browserType != 2" class="col-xs-2 pull-right text-right">
+                <button class="btn btn-md btn-danger" ng-disabled="fund_avl<paymoney" ng-click="confirm()"><i
+                        class="fa fa-check m-r-xs"></i>确认支付
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-t-lg m-b">
+    <div recm-prds></div>
+</div>

@@ -1,0 +1,58 @@
+<div>
+    <div class="m-t-sm m-b-xs">
+        <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+    </div>
+    <div class="line line-xs b-b b-light"></div>
+    <div class="m-t-sm wrapper-xs bg-light">
+        <div class="wrapper-lg bg-white">
+            <div ng-switch on="step">
+                <div ng-switch-when="1">
+                    <div class="font-bold text-lg text-center">
+                        <span>协议签署</span>
+                    </div>
+                    <div class="text-info m-t m-b">
+                        为了您能更好地开展风险警示板股票业务，我们为您准备了《{{agreement_name}}》，请您认真阅读并签署。
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            姓名：{{user.USER_FNAME}}
+                        </div>
+                        <div class="col-xs-8">
+                            股东账号：<select ng-model="actno" disabled
+                                         ng-options="x.TRDACCT as x.STKBDNAME for x in accountlist"></select>
+                        </div>
+                    </div>
+                    <div class="b m-t-lg">
+                        <div class="wrapper-xs font-bold text-center b-b bg-light hide">{{agreement_name}}</div>
+                        <div class="l-h-2x text-muted padder-xxs" style="text-indent: 2em;overflow-y: scroll"
+                             ng-style="myHeight" ng-include="agreement_url"></div>
+                    </div>
+                    <div class="m-t m-b-md">
+                        <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                            <input type="checkbox" ng-model="agree"><i></i>本人/机构已认真阅读并完全理解《{{agreement_name}}》全部内容，愿意承担风险警示板股票交易的各种风险和损失。
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md btn-info" ng-click="next()" ng-disabled="!agree">
+                            <span>下一步</span>
+                        </button>
+                    </div>
+                </div>
+                <div ng-switch-when="2">
+                    <div class="font-bold text-lg text-center">
+                        <span><i class="fa fa-check-circle text-success m-r-xs"></i>您已成功开通风险警示板股票业务</span>
+                    </div>
+                    <div class="text-center m-t">
+                        <button class="btn btn-sm btn-info w-xs" ng-click="cancel()">撤销</button>
+                    </div>
+                    <div class="line b-b m-t m-b"></div>
+                    <div class="wrapper-lg text-center">
+                        <div>您已成功开通风险警示板股票业务，如您在交易中遇到任何问题，可以拨打我们的客服热线：</div>
+                        <div class="wrapper-md text-2x text-info">400-651-5988</div>
+                        <div>我们的客服人员将竭诚为您服务！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

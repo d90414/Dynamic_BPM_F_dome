@@ -1,0 +1,20 @@
+<div>
+    <div class="wrapper-sm b-b clear">
+        <span class="pull-left font-bold" ng-bind-html="title"></span>
+        <span class="pull-right"><i class="fa fa-times i-checks" ng-click="cancel()"></i></span>
+    </div>
+    <div class="modal-body clear">
+        <form name="form" role="form" class="form-horizontal form-validation" ng-submit="subForm()" novalidate>
+            <div class="list-group text-center">
+                <span class="text-info">出于安全考虑，我们需要验证您原来的手机号码。</span>
+            </div>
+            <div safe-level bizid="bizid" busilogno="busilogno" code="code" fundpwd="fundpwd"></div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-6">
+                    <button type="submit" class="btn btn-info btn-block" ng-bind-html="subtip"
+                            ng-disabled="!code || !fundpwd || form.fundpwd.$invalid || form.code.$invalid || submitting"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

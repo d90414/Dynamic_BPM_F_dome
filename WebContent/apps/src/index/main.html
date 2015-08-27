@@ -1,0 +1,309 @@
+<div class="m-t">
+    <div class="clear no-padder b">
+        <div class="col-xs-3 h-md b-r b-light">
+            <div class="m-t-sm">
+                <div class="inline text-md font-bold">最新动态</div>
+                <div class="inline pull-right"><a href="#/page/notice" class="text-info btn-link">查看更多&nbsp;></a></div>
+            </div>
+            <div class="line b-b"></div>
+            <div>
+                <ul class="list-group no-borders">
+                    <li ng-repeat="item in news" class="list-group-item no-padder m-t-xs">
+                        <div class="inline text-left text-ellipsis" style="width: 165px;">
+                            <a ng-href="#/page/noticeDetail/{{item.ID}}"><i class="fa fa-caret-right text-muted m-r-xs"></i>{{item.NAME}}</a>
+                        </div>
+                        <div class="inline text-muted pull-right text-ellipsis" style="width: 40px;">{{item.OP_DATE | date:'MM-dd'}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-6 h-md">
+            <div class="row text-center m-t-lg padder" style="background: url(public/images/index_top_bg.png) no-repeat center center">
+                <div class="col-xs-4 no-padder">
+                    <img src="public/images/index_0.png" class="w-xs m">
+
+                    <div class="text-lg font-bold">资金安全</div>
+                    <div class="text-base text-muted">同卡进出，专款专用</div>
+                </div>
+                <div class="col-xs-4 no-padder">
+                    <img src="public/images/index_1.png" class="w-xs m">
+
+                    <div class="text-lg font-bold">本息保障</div>
+                    <div class="text-base text-muted">银行承诺，机构担保</div>
+                </div>
+                <div class="col-xs-4 no-padder">
+                    <img src="public/images/index_2.png" class="w-xs m">
+
+                    <div class="text-lg font-bold">门槛低 收益好</div>
+                    <div class="text-base text-muted">100元起购，零手续费</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3 h-md no-padder">
+            <div class="wrapper-xs">
+                <div class="text-center clear" style="background: #f2e9dd;">
+                    <img src="public/images/index_5.png" class="m-t m-b">
+
+                    <div class="text-md">投资理财 资讯获取</div>
+                    <div class="text-lg font-bold">轻松搞定</div>
+                    <div class="m-md">
+                        <div class="inline btn btn-sm btn-info text-md" ui-sref="auth.register">马上开户</div>
+                        <div class="inline btn btn-sm btn-dark text-md" ui-sref="kfps.index">我要理财</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 百元专区 -->
+    <div>
+        <div class="row no-padder">
+            <div class="col-xs-2 m-t">
+                <a ng-href="#/kfps/prdlist/all">
+                    <img src="public/images/index_3.png" class="w-full">
+                </a>
+            </div>
+            <div class="col-xs-10">
+                <div class="pull-right wrapper-sm">
+                    <span class=" m-r"><a href="#/page/help/2#15" target="_blank" class="text-right m-t help-link">常见问题</a></span>
+                    <a ui-sref="kfps.index">转到商城</a>
+                </div>
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading>
+                            <span class="font-bold">公募基金产品</span>
+                        </div>
+                        <div class="row padder-sm">
+                            <div class="col-xs-4 no-padder" ng-repeat="prd in gmjjPrds">
+                                <div class="panel b-a h-lg m-t-sm" ng-class="{'m-r-xs': ($index + 1) % 3 != 0}">
+                                    <div class="h-xs">
+                                        <div class="pull-right" ng-click="prd.isFavorite ? deleteMyFavorites(gmjjPrds, $index) : addToMyFavorite(gmjjPrds, $index)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+                                            <div class="m-t-xs m-r-xs"><a class="label" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+                                        </div>
+                                        <div class="h-xs wrapper padder b-b b-light {{bgOfRiskLvl[prd.RISK_LVL]}}">
+                                            <h4 class="text-md m-b-sm">代码：<a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.PRO_CODE}}</a></h4>
+                                            <h2 class="m-t-none">
+                                                <span class="text-xxl text-lt text-ellipsis" title="{{prd.SHT_NAME}}"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.SHT_NAME}}</a></span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="padder-xs">
+                                        <div class="text-center text-ellipsis-2row text-muted" style="height: 40px!important;" title="{{prd.PRO_CHA}}">{{prd.PRO_CHA}}</div>
+                                        <div class="line line-dashed b-b b-light"></div>
+                                    </div>
+                                    <div class="w-full">
+                                        <div class="pull-right">
+                                            <div class="m-t-xxs m-r-xs text-right"><span class="label {{bgOfRiskLvl[prd.RISK_LVL]}}">{{prd.RISK_LVL_DESC}}</span></div>
+                                        </div>
+                                        <div class="padder-xs" style="height: 67px;">
+                                            <div style="height: 60px;">
+                                                <div class="padder-v-xs">最新净值(元)：<span class="text-danger">{{prd.NAV_VAL}}</span></div>
+                                                <div class="">累计净值(元)：<span class="text-danger">{{prd.ACC_VAL}}</span></div>
+                                            </div>
+                                            <div class="line line-dashed b-b b-light"></div>
+                                        </div>
+                                        <div class="padder-xs row">
+                                            <div class="col-xs-4">
+                                                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">
+                                                    <span ng-show="prd.canBuy" class="m-t-md btn btn-info">猛戳抢购</span>
+                                                    <span ng-show="!prd.canBuy" class="m-t-md btn btn-default">立即查看</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <div class="m-t-xxs text-base text-ellipsis">
+                                                    <span>起售金额：</span><span title="{{prd.INVE_START | moneyFomat}}">{{prd.INVE_START | moneyFomat}}</span>
+                                                </div>
+                                                <div class="m-t-xs text-base text-ellipsis">支付方式：<span title="{{prd.PAY_WAY_DESC}}">{{prd.PAY_WAY_DESC}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 万元专区 -->
+    <div>
+        <div class="row no-padder">
+            <div class="col-xs-2 m-t">
+                <a ng-href="#/kfps/prdlist/all">
+                    <img src="public/images/index_4.png" class="w-full">
+                </a>
+            </div>
+            <div class="col-xs-10" style="padding-left:19px;">
+                <div class="pull-right wrapper-sm">
+                    <a ui-sref="kfps.index">转到商城</a>
+                </div>
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading>
+                            <span class="font-bold">柜台市场产品</span>
+                        </div>
+                        <div class="row padder-sm">
+                            <div class="col-xs-4 no-padder" ng-repeat="prd in gtscPrds">
+                                <div class="panel b-a h-lg m-t-sm" ng-class="{'m-r-xs': ($index + 1) % 3 != 0}">
+                                    <div class="h-xs">
+                                        <div class="pull-right" ng-click="prd.isFavorite ? deleteMyFavorites(gtscPrds, $index) : addToMyFavorite(gtscPrds, $index)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+                                            <div class="m-t-xs m-r-xs"><a class="label" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+                                        </div>
+                                        <div class="h-xs wrapper padder b-b b-light {{bgOfRiskLvl[prd.RISK_LVL]}}">
+                                            <h4 class="text-md m-b-sm">代码：<a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.PRO_CODE}}</a></h4>
+                                            <h2 class="m-t-none">
+                                                <span class="text-xxl text-lt text-ellipsis" title="{{prd.SHT_NAME}}"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.SHT_NAME}}</a></span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="padder-xs">
+                                        <div class="text-center text-ellipsis-2row text-muted" style="height: 40px!important;" title="{{prd.PRO_CHA}}">{{prd.PRO_CHA}}</div>
+                                        <div class="line line-dashed b-b b-light"></div>
+                                    </div>
+                                    <div class="">
+                                        <div class="pull-right">
+                                            <div class="m-t-xxs m-r-xs text-right"><span class="label {{bgOfRiskLvl[prd.RISK_LVL]}}">{{prd.RISK_LVL_DESC}}</span></div>
+                                        </div>
+                                        <div class="padder-xs">
+                                            <div ng-if="0 != prd.EXPE_YIELDS" style="height: 60px;">
+                                                <div class="m-t-xxs" style="height: 20px;"><span>预计年化收益率</span></div>
+                                                <div class="h2 font-bold text-danger">
+                                                    <span class="text-lt text-ellipsis" ng-class="{'text-danger': prd.EXPE_YIELDS > 0, 'text-success': prd.EXPE_YIELDS <= 0}">
+                                                        <span ng-show="prd.EXPE_YIELDS > 0" style="font-size: 20px;">{{prd.EXPE_YIELDS > 0 ? '+' : (prd.EXPE_YIELDS == 0 ? '' : '-')}}</span>{{prd.EXPE_YIELDS ? prd.EXPE_YIELDS : 0}}%</span></span>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!prd.EXPE_YIELDS || 0 == prd.EXPE_YIELDS" style="height: 60px;"></div>
+
+                                            <div class="line line-dashed b-b b-light"></div>
+                                        </div>
+                                        <div class="padder-xs row">
+                                            <div class="col-xs-4">
+                                                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">
+                                                    <span ng-show="prd.canBuy" class="m-t-md btn btn-info">猛戳抢购</span>
+                                                    <span ng-show="!prd.canBuy" class="m-t-md btn btn-default">立即查看</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <div class="m-t-xxs text-base text-ellipsis">
+                                                    <span>起售金额：</span><span title="{{prd.INVE_START | moneyFomat}}">{{prd.INVE_START | moneyFomat}}</span>
+                                                </div>
+                                                <div class="m-t-xs text-base text-ellipsis">支付方式：<span title="{{prd.PAY_WAY_DESC}}">{{prd.PAY_WAY_DESC}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div tab>
+                        <div tab-heading>
+                            <span class="font-bold">资管产品</span>
+                        </div>
+                        <div class="row padder-sm">
+                            <div class="col-xs-4 no-padder" ng-repeat="prd in zgPrds">
+                                <div class="panel b-a h-lg m-t-sm" ng-class="{'m-r-xs': ($index + 1) % 3 != 0}">
+                                    <div class="h-xs">
+                                        <div class="pull-right" ng-click="prd.isFavorite ? deleteMyFavorites(zgPrds, $index) : addToMyFavorite(zgPrds, $index)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+                                            <div class="m-t-xs m-r-xs"><a class="label" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+                                        </div>
+                                        <div class="h-xs wrapper padder b-b b-light {{bgOfRiskLvl[prd.RISK_LVL]}}">
+                                            <h4 class="text-md m-b-sm">代码：<a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.PRO_CODE}}</a></h4>
+                                            <h2 class="m-t-none">
+                                                <span class="text-xxl text-lt text-ellipsis" title="{{prd.SHT_NAME}}"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.SHT_NAME}}</a></span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="padder-xs">
+                                        <div class="text-center text-ellipsis-2row text-muted" style="height: 40px!important;" title="{{prd.PRO_CHA}}">{{prd.PRO_CHA}}</div>
+                                        <div class="line line-dashed b-b b-light"></div>
+                                    </div>
+                                    <div class="w-full">
+                                        <div class="pull-right">
+                                            <div class="m-t-xxs m-r-xs text-right"><span class="label {{bgOfRiskLvl[prd.RISK_LVL]}}">{{prd.RISK_LVL_DESC}}</span></div>
+                                        </div>
+                                        <div class="padder-xs">
+                                            <div ng-if="0 != prd.EXPE_YIELDS" style="height: 60px;">
+                                                <div class="m-t-xxs" style="height: 20px;"><span>预计年化收益率</span></div>
+                                                <div class="h2 font-bold text-danger">
+                                                <span class="text-lt text-ellipsis" ng-class="{'text-danger': prd.EXPE_YIELDS > 0, 'text-success': prd.EXPE_YIELDS <= 0}">
+                                                    <span ng-show="prd.EXPE_YIELDS > 0" style="font-size: 20px;">{{prd.EXPE_YIELDS > 0 ? '+' : (prd.EXPE_YIELDS == 0 ? '' : '-')}}</span>{{prd.EXPE_YIELDS ? prd.EXPE_YIELDS : 0}}%</span></span>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!prd.EXPE_YIELDS || 0 == prd.EXPE_YIELDS" style="height: 60px;"></div>
+
+                                            <div class="line line-dashed b-b b-light"></div>
+                                        </div>
+                                        <div class="padder-xs row">
+                                            <div class="col-xs-4">
+                                                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">
+                                                    <span ng-show="prd.canBuy" class="m-t-md btn btn-info">猛戳抢购</span>
+                                                    <span ng-show="!prd.canBuy" class="m-t-md btn btn-default">立即查看</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <div class="m-t-xxs text-base text-ellipsis">
+                                                    <span>起售金额：</span><span title="{{prd.INVE_START | moneyFomat}}">{{prd.INVE_START | moneyFomat}}</span>
+                                                </div>
+                                                <div class="m-t-xs text-base text-ellipsis">支付方式：<span title="{{prd.PAY_WAY_DESC}}">{{prd.PAY_WAY_DESC}}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 网厅业务办理链接 -->
+    <div>
+        <div class="row no-padder">
+            <div class="col-xs-12">
+                <div>
+                    <div class="pull-right m-t-sm">
+                        <a ui-sref="kibh.index" class="text-info btn-link">查看更多&nbsp;></a>
+                    </div>
+                </div>
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading>
+                            <div class="pull-left m-t-n-xs" style="width: 31px;height: 31px;background: url('public/images/mall-icon-floor.png') -64px"></div>
+                            <span class="font-bold">业务办理区</span>
+                        </div>
+                        <div class="m-t-md">
+                            <div class="row m-l-none m-r-none">
+                                <div class="col-xs-3 wrapper-xs" ng-repeat="item in commonBizs" ng-if="item.IS_COMMON_USE == 1" ng-class="{gray: item.SHOW_USE == 0}">
+                                    <div class="row m-l-none m-r-none b wrapper-xs">
+                                        <div class="col-xs-4 m-t-sm">
+                                            <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><img ng-src="{{item.MENU_ICON}}"></a>
+                                            <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1"><img ng-src="{{item.MENU_ICON}}"></a>
+                                            <a ng-if="item.SHOW_USE == 0" class="text-muted"><img ng-src="{{item.MENU_ICON}}"></a>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <div class="text-black text-lg text-ellipsis">
+                                                <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>{{item.MENU_NAME}}</span></a>
+                                                <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1" target="_blank"><span>{{item.MENU_NAME}}</span></a>
+                                                <a ng-if="item.SHOW_USE == 0" class="text-muted"><span>{{item.MENU_NAME}}</span></a>
+                                            </div>
+                                            <div class="m-t-sm text-xs text-muted text-ellipsis">{{item.MENU_REMARK}}</div>
+                                            <div class="m-t-sm">
+                                                <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                                <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1" target="_blank"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                                <a ng-if="item.SHOW_USE == 0" class="text-muted"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

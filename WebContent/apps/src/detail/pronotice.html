@@ -1,0 +1,22 @@
+<div class="m-t m-b-lg wrapper bg-white-only">
+    <div class="text-center">
+        <div class="text-xl font-bold" ng-bind-html="notice.NOT_TIT"></div>
+        <div class="m-t-sm">发布时间：{{notice.PUB_DATE}}</div>
+    </div>
+    <div class="wrapper b-primary ">
+        <div class="text-center m" ng-bind-html="notice.NOT_CON"></div>
+        <div ng-repeat="fj in notice.fj">
+            <div class="text-left wrapper-xs m-b" ng-if="fj != null">
+                <span class="text-info font-bold">附件:</span>
+                <a href="{{fj.fjurl}}" download="{{fj.fjname}}" target="_blank">
+                    <span ng-bind-html="fj.fjname"></span>
+                    (<span class="text-info">点击下载</span>)
+                </a>
+            </div>
+        </div>
+        <div class="alert alert-warning" ng-if="notice.fj">
+            <span class="font-bold">注意：</span>
+            如果点击附件可以直接打开但没有下载，是因为您的浏览器支持直接打开该类型的文件。您可以通过右键选择"链接另存为"下载。
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="kfps-bg">
+	<style>
+		.bglogin {
+			background: url(public/images/icon-login.png) no-repeat;
+			background-size: 100% 100%;
+			filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='public/images/icon-login.png',sizingMethod='scale') \0\9;
+		}
+	</style>
+
+	<div ng-include="'apps/src/blocks/top.html'"></div>
+	
+	<div class="b-b b-3x b-info bg-white-only">
+	    <div class="kdlayout">
+	        <div class="padder-v-xs">
+	            <div class="row m-l-none m-r-none">
+	                <div class="col-xs-5">
+	                    <a href="#/page/index"><img src="public/images/logo-login.png"/></a>
+	                </div>
+	                <div class="col-xs-2"></div>
+	                <div class="col-xs-5 text-right">
+	                    <div class="input-group m-t-md m-b-md">
+	                        <input name="topsearch" type="text" placeholder="输入产品代码/名称/管理人"
+	                               class="form-control input-md b-1x b-info" ng-keyup="$event.keyCode == 13 && topsearch()"
+	                               ng-model="$topkey">
+			              	<span class="input-group-btn">
+			                	<a class="btn btn-default btn-md b-1x b-info bg-info" ng-click="topsearch()"><i
+	                                    class="fa fa-search text-white"></i></a>
+			              	</span>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<div ui-butterbar></div>
+	
+	<div ng-class="{'bglogin': $state.includes('auth.login')}">
+		<div class="kdlayout">
+		    <div class="row m-l-none m-r-none">
+		        <div class="col-xs-12 m-t-sm m-b">
+		            <div class="app-content">
+		                <div class="app-content-body animated fadeIn" ui-view></div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+	
+	<div ng-include="'apps/src/blocks/footer.html'"></div>
+</div>

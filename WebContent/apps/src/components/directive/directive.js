@@ -1,0 +1,114 @@
+'use strict';
+
+require('./default/setNgAnimate');
+require('./default/uiBreadcrumb');
+require('./default/uiButterbar');
+require('./default/uiFocus');
+require('./default/uiModule');
+require('./default/uiNav');
+require('./default/uiScroll');
+require('./default/uiShift');
+require('./default/uiToggleClass');
+
+require('./custom/gtscPrds');
+require('./custom/hotPrds');
+require('./custom/infoPrds');
+require('./custom/infoPrdsList');
+require('./custom/gmjjPrds');
+require('./custom/recmPrds');
+require('./custom/bankPrdsList');
+require('./custom/trustPrdsList');
+require('./custom/filterCondition');
+require('./custom/slideAdvs');
+require('./custom/donut');
+require('./custom/zgPrds');
+require('./custom/rangeSlider');
+require('./custom/gmjjNav');
+require('./custom/gmjjNote');
+require('./custom/accountTopbar');
+require('./custom/accountSidebar');
+require('./custom/gmjjBonus');
+require('./custom/gmjjComgroup');
+require('./custom/gmjjFeeStructure');
+require('./custom/checkRePassWord');
+require('./custom/gmjjProinfo');
+require('./custom/gmjjManinfo');
+require('./custom/gtscProinfo');
+require('./custom/loginPanel');
+require('./custom/messagePanel');
+require('./custom/shoppingPanel');
+require('./custom/ngBlur');
+require('./custom/zgcpProinfo');
+require('./custom/zgcpManinfo');
+require('./custom/zgcpNav');
+require('./custom/zhcpAssetChart');
+require('./custom/zhcpAssetAllocation');
+require('./custom/paywayImg');
+require('./custom/zgcpFeeStructure');
+require('./custom/detailBuyPanel');
+require('./custom/prdGraphPanel');
+require('./custom/favoriteLabel');
+
+require('./kibh/safeLevel');
+require('./kibh/anyChat');
+
+var directive = angular.module('ASS.directive', [
+/********************default*********************/
+    'ASS.directive.setNgAnimate',
+    'ASS.directive.uiBreadcrumb',
+    'ASS.directive.uiButterbar',
+    'ASS.directive.uiFocus',
+    'ASS.directive.uiModule',
+    'ASS.directive.uiNav',
+    'ASS.directive.uiScroll',
+    'ASS.directive.uiShift',
+    'ASS.directive.uiToggleClass',
+
+/********************kfps*********************/
+    'ASS.directive.gtscPrds',
+    'ASS.directive.hotPrds',
+    'ASS.directive.infoPrds',
+    'ASS.directive.infoPrdsList',
+    'ASS.directive.gmjjPrds',
+    'ASS.directive.recmPrds',
+    'ASS.directive.bankPrdsList',
+    'ASS.directive.trustPrdsList',
+    'ASS.directive.filterCondition',
+    'ASS.directive.slideAdvs',
+    'ASS.directive.donut',
+    'ASS.directive.zgPrds',
+    'ASS.directive.rangeSlider',
+    'ASS.directive.gmjjNav',
+    'ASS.directive.gmjjNote',
+    'ASS.directive.rangeSlider',
+    'ASS.directive.accountTopbar',
+    'ASS.directive.accountSidebar',
+    'ASS.directive.gmjjBonus',
+    'ASS.directive.gmjjComgroup',
+    'ASS.directive.gmjjFeeStructure',
+    'ASS.directive.gmjjBonus',
+    'ASS.directive.checkRePassWord',
+    'ASS.directive.gmjjProinfo',
+    'ASS.directive.gmjjManinfo',
+    'ASS.directive.gtscProinfo',
+    'ASS.directive.loginPanel',
+    'ASS.directive.messagePanel',
+    'ASS.directive.shoppingPanel',
+    'ASS.directive.ngBlur',
+    "ASS.directive.zgcpProinfo",
+    "ASS.directive.zgcpManinfo",
+    "ASS.directive.zgcpNav",
+    "ASS.directive.zhcpAssetChart",
+    "ASS.directive.zhcpAssetAllocation",
+    "ASS.directive.paywayImg",
+    "ASS.directive.zgcpFeeStructure",
+    "ASS.directive.detailBuyPanel",
+    "ASS.directive.prdGraphPanel",
+    "ASS.directive.favoriteLabel",
+
+/********************kibh*********************/
+    "ASS.directive.safeLevel",
+    "ASS.directive.anyChat"
+]);
+
+module.exports = directive;

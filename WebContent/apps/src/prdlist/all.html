@@ -1,0 +1,39 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table prdlist">
+        <thead>
+        <tr>
+            <th width="5%" class="text-center">序号</th>
+            <th width="15%" class="text-center">产品代码</th>
+            <th width="20%">产品简称</th>
+            <th width="15%" class="text-center">销售状态</th>
+            <th width="15%" class="text-center">风险级别</th>
+            <th width="15%" class="text-center">发行状态</th>
+            <th width="15%" class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in prds" class="text-center">
+            <td>{{(((pagination.currentpage == 0 ? 1 : pagination.currentpage) - 1) * pagination.pagesize) + $index + 1}}</td>
+            <td><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">{{p.PRO_CODE}}</a></td>
+            <td class="text-left"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">{{p.SHT_NAME}}</a></td>
+            <td>{{p.SALE_STA_DESC}}</td>
+            <td>{{p.RISK_LVL_DESC}}</td>
+            <td>{{p.DIST_STAT_DESC}}</td>
+            <td class="text-center">
+                <a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">
+                    <button ng-show="prd.canBuy" class="btn btn-xs btn-danger" style="width: 50px; height: 25px;">购买</button>
+                    <button ng-show="!prd.canBuy" class="btn btn-xs btn-info" style="width: 50px; height: 25px;">查看</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm" ng-if="showtype == 0">
+    <div class="row padder-sm">
+        <div class="col-xs-3 no-padder" ng-repeat="prd in prds">
+            <div prd-graph-panel cols="4"></div>
+        </div>
+    </div>
+</div>

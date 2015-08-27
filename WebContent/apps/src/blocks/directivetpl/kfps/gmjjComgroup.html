@@ -1,0 +1,109 @@
+<div class="m-t">
+
+    <div class="table-responsive" ng-if="assetAllocation['1'].list">
+        <div class="wrapper-xs text-left font-bold">{{assetAllocation['1'].list[0].COMB_CLASS_DESC}}</div>
+        <table class="table prdlist table-bordered text-center">
+            <thead>
+            <tr>
+                <th width="6.8%" class="text-center">序号</th>
+                <th class="text-center">项目</th>
+                <th width="15%" class="text-center">金额(元)</th>
+                <th width="26%" class="text-center">占基金总资产的比例(%)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in assetAllocation['1'].list">
+                <td>{{$index + 1}}</td>
+                <td class="text-left">{{item.COMB_TYPE_DESC}}</td>
+                <td>
+                    <div class="padder-xxl text-right">{{item.COMB_PRICE | moneyDivide}}</div>
+                </td>
+                <td>
+                    <div class="text-right" style="padding: 0 110px 0 100px">{{item.COMB_RATIO}}</div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="active">
+                <td></td>
+                <td class="font-bold">{{assetAllocation['1'].total.val.COMB_TYPE_DESC}}</td>
+                <td>
+                    <div class="padder-xxl text-right">{{assetAllocation['1'].total.val.COMB_PRICE | moneyDivide}}</div>
+                </td>
+                <td>
+                    <div class="text-right" style="padding: 0 110px 0 100px">{{assetAllocation['1'].total.val.COMB_RATIO}}</div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="table-responsive" ng-if="assetAllocation['2'].list">
+        <div class="wrapper-xs text-left font-bold">{{assetAllocation['2'].list[0].COMB_CLASS_DESC}}</div>
+        <table class="table prdlist table-bordered text-center">
+            <thead>
+            <tr>
+                <th width="6.8%" class="text-center">序号</th>
+                <th class="text-center">行业类别</th>
+                <th width="15%" class="text-center">公允价值(元)</th>
+                <th width="26%" class="text-center">占基金总资产的比例(%)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in assetAllocation['2'].list">
+                <td>{{$index + 1}}</td>
+                <td class="text-left">{{item.COMB_TYPE_DESC}}</td>
+                <td>
+                    <div class="padder-xxl text-right">{{item.COMB_PRICE | moneyDivide}}</div>
+                </td>
+                <td>
+                    <div class="text-right" style="padding: 0 110px 0 100px">{{item.COMB_RATIO}}</div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="active">
+                <td></td>
+                <td class="font-bold">{{assetAllocation['2'].total.val.COMB_TYPE_DESC}}</td>
+                <td>
+                    <div class="padder-xxl text-right">{{assetAllocation['2'].total.val.COMB_PRICE | moneyDivide}}</div>
+                </td>
+                <td>
+                    <div class="text-right" style="padding: 0 110px 0 100px">{{assetAllocation['2'].total.val.COMB_RATIO}}</div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="table-responsive" ng-if="assetAllocation['3'].list">
+        <div class="wrapper-xs text-left font-bold">{{assetAllocation['3'].list[0].COMB_CLASS_DESC}}</div>
+        <table class="table prdlist table-bordered text-center">
+            <thead>
+            <tr>
+                <th width="6.8%" class="text-center">序号</th>
+                <th class="text-center">股票代码</th>
+                <th class="text-center">股票名称</th>
+                <th class="text-center">数量(股)</th>
+                <th width="15%" class="text-center">公允价值(元)</th>
+                <th width="26%" class="text-center">占基金总资产的比例(%)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in assetAllocation['3'].list">
+                <td>{{$index + 1}}</td>
+                <td>{{item.STOCK_CODE}}</td>
+                <td class="text-left">{{item.STOCK_NAME}}</td>
+                <td>{{item.STOCK_QTY}}</td>
+                <td>
+                    <div class="padder-xxl text-right">{{item.COMB_PRICE | moneyDivide}}</div>
+                </td>
+                <td>
+                    <div class="text-right" style="padding: 0 110px 0 100px">{{item.COMB_RATIO}}</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

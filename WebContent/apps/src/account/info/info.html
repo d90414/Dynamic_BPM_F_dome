@@ -1,0 +1,102 @@
+<div tabset class="nav-tabs-alt">
+    <!-- 账户资料 -->
+    <div tab>
+        <div tab-heading>
+            <span class="font-bold">个人资料</span>
+        </div>
+        <div class="m-t-md">
+            <div class="row row-sm">
+                <div class="col-xs-3">
+                    <div class="text-center">
+                        <img ng-src="public/images/mall-user-head-big.png" class="b-a">
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="row wrapper-xs">
+                        <div class="col-xs-2 text-right">用户名：</div>
+                        <div class="col-xs-4 m-l-n-md text-left">
+                            <span ng-bind="account.USER_NAME"></span>
+                        </div>
+                    </div>
+                    <div class="row wrapper-xs">
+                        <div class="col-xs-2 text-right">手机：</div>
+                        <div class="col-xs-4 m-l-n-md text-left">
+                            <span ng-bind="account.PHONE_NO | mobileCover:3:3"></span>
+                        </div>
+                        <div class="col-xs-6 text-left">
+                            <a ng-href="#/page/account/security/phoneupdate" class="text-info">
+                                <span ng-if="account.PHONE_NO">更换手机</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row wrapper-xs">
+                        <div class="col-xs-2 text-right">邮箱：</div>
+                        <div class="col-xs-4 m-l-n-md text-left text-ellipsis">
+                            <span ng-bind="account.USER_EMAIL" title="{{account.USER_EMAIL}}"></span>
+                        </div>
+                        <div class="col-xs-6 text-left">
+                            <a ng-href="#/page/account/security/emailcertify" class="text-info">
+                                <span ng-if="account.USER_EMAIL">更换</span><span ng-if="!account.USER_EMAIL">绑定</span>邮箱
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /账户资料 -->
+    <!-- 基本信息-->
+    <div tab>
+        <div tab-heading>
+            <span class="font-bold">账户资料</span>
+        </div>
+        <div class="m-t-md">
+            <div class="row row-sm">
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">真实姓名：</div>
+                    <div class="col-xs-10 m-l-n-md text-left"><span ng-bind="account.USER_FNAME"></span></div>
+                </div>
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">性别：</div>
+                    <div class="col-xs-10 m-l-n-md text-left"><span ng-bind="sex[account.SEX]"></span></div>
+                </div>
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">证件类型：</div>
+                    <div class="col-xs-10 m-l-n-md text-left"><span ng-bind="account.ID_TYPE_DESC"></span></div>
+                </div>
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">证件号码：</div>
+                    <div class="col-xs-10 m-l-n-md text-left"><span ng-bind="account.ID_CODE | fieldCover:'4'"></span></div>
+                </div>
+                <!--div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">账户状态：</div>
+                    <div class="col-xs-10 m-l-n-md text-left text-muted">
+                        <span ng-bind="account.ACCT_STATUS">
+                        </span>
+                    </div>
+                </div-->
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">资金账户：</div>
+                    <div class="col-xs-10 m-l-n-md text-left">
+                        <span ng-bind="account.FUNDSACCT_CODE_VIEW"></span>
+                        <span ng-if="!account.FUNDSACCT_CODE_VIEW">
+                            <span class="text-danger">您尚未绑定资金账户</span>
+                            <a class="m-l-md text-info" ui-sref="auth.binddealaccount">绑定资金账户</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row wrapper-xs">
+                    <div class="col-xs-2 text-right">业务范畴：</div>
+                    <div class="col-xs-10 m-l-n-md text-left"><span ng-bind="account.ACCT_EXT_ATTR_NAME"></span></div>
+                </div>
+            </div>
+             <div class="row wrapper-xs">
+                <div class="col-xs-2"><button class="btn btn-warning" ui-sref="page.account.passwd">修改</button></div>
+                <div class="col-xs-10 m-l-n-md text-left">
+            </div>
+        </div>
+    </div>
+    <span class="pull-right m-t-sm m-r-xs"><a href="#/page/help/2#8" target="_blank" class="text-right m-t help-link">常见问题</a></span>
+    <!-- /基本信息-->
+</div>
+

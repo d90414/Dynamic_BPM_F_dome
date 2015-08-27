@@ -1,0 +1,36 @@
+<div>
+    <div ng-include="'apps/src/blocks/top.html'"></div>
+
+    <div ui-butterbar></div>
+    <div set-ng-animate="false" ng-if="$state.includes('kibh.index')">
+        <div carousel interval="5000">
+            <div slide>
+                <a ng-href="http://kh.bhzq.com/kess/pages/user_index.jsp" target="_blank">
+                    <div style="background:url(public/images/slide1.jpg) no-repeat center center;width: 100%;height: 200px;"></div>
+                </a>
+            </div>
+            <div slide>
+                <a ng-href="http://www.ewww.com.cn/" target="_blank">
+                    <div style="background:url(public/images/slide2.jpg) no-repeat center center;width: 100%;height: 200px;"></div>
+                </a>
+            </div>
+            <div slide>
+                <a ng-href="http://www.ewww.com.cn/" target="_blank">
+                    <div style="background:url(public/images/slide3.jpg) no-repeat center center;width: 100%;height: 200px;"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="kdlayout">
+        <div class="row m-l-none m-r-none m-t m-b">
+            <div class="col-xs-12">
+                <div class="app-content">
+                    <div class="app-content-body animated fadeIn" ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-include="'apps/src/blocks/footer.html'"></div>
+</div>

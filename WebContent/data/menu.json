@@ -1,0 +1,32 @@
+[
+	{
+		"name": "商城首页",
+		"url": "kfps.index",
+		"target": "",
+		"children": null
+	},
+    {
+        "name": "渤海证券理财",
+        "url": "",
+        "children": [
+            {
+                "name": "柜台市场产品",
+                "url": "kfps.prdlist({type: 'gtsc'})",
+                "target": "",
+                "children": null
+            },
+            {
+                "name": "资管产品",
+                "url": "kfps.prdlist({type: 'zgcp'})",
+                "target": "",
+                "children": null
+            }
+        ]
+    },
+	{
+		"name": "公募基金",
+		"url": "kfps.prdlist({type: 'gmjj'})",
+		"target": "",
+		"children": null
+	}
+]

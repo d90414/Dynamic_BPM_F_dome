@@ -1,0 +1,253 @@
+<div ng-if="showType=='-01'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定注册用户，无法查看产品。</span>
+    <a class="text-primary btn-link" ui-sref="auth.bindregaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-02'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定交易账户，无法查看产品。</span>
+    <a class="text-primary btn-link" ui-sref="auth.binddealaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-03'" class="wrapper-xl text-center text-md">
+    <span>您需要登录您的资金账户才能查看产品。</span>
+    <a class="text-primary btn-link" ui-sref="auth.login">登录</a>
+</div>
+<div ng-show="showType=='1'" tabset class="nav-tabs-alt">
+    <div tab ng-click="changeTab('486')" active="activeTab['486']">
+        <div tab-heading>
+            <div class="font-bold">柜台市场产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr>
+                            <!--<th>客户代码</th>-->
+                            <!--<th>客户名称</th>-->
+                            <!--<th>资产账户</th>-->
+                            <!--<th>登记机构</th>-->
+                            <!--<th>登记账号</th>-->
+                            <!--<th>交易账号</th>-->
+                            <!--<th>发行人代码</th>-->
+                            <th>产品代码</th>
+                            <!--<th>产品编码</th>-->
+                            <th>产品简称</th>
+                            <th>份额余额</th>
+                            <th>可用份额</th>
+                            <!--<th>在途份额</th>-->
+                            <!--<th>在途可用份额</th>-->
+                            <th>冻结份额</th>
+                            <!--<th>交易冻结份额</th>-->
+                            <!--<th>长期冻结份额</th>-->
+                            <!--<th>买入成本</th>-->
+                            <!--<th>买入均价</th>-->
+                            <th>净值</th>
+                            <th>市值</th>
+                            <!--<th>合约标志</th>-->
+                            <!--<th>查询记录号</th>-->
+                            <!--<th>银行代码</th>-->
+                            <!--<th>银行账号</th>-->
+                            <!--<th>支付账户</th>-->
+                            <!--<th>累计收益</th>-->
+                            <!--<th>分红方式</th>-->
+                            <!--<th colpsn="2">操作</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="isLoading">
+                            <td colspan="8">
+                                <div class="text-center" style="width: 200px; height: 50px; line-height: 50px; background: #ccc; margin:0 auto;">
+                                    <img ng-src="public/images/loading.gif"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="p in currentPageProducts">
+                            <!--<td>{{p.CUST_CODE}}</td>-->
+                            <!--<td>{{p.CUST_NAME}}</td>-->
+                            <!--<td>{{p.CUACCT_CODE}}</td>-->
+                            <!--<td>{{p.TA_CODE}}</td>-->
+                            <!--<td>{{p.TA_ACCT}}</td>-->
+                            <!--<td>{{p.TRANS_ACCT}}</td>-->
+                            <!--<td>{{p.ISS_CODE}}</td>-->
+                            <td>{{p.INST_CODE}}</td>
+                            <!--<td>{{p.INST_ID}}</td>-->
+                            <td>{{p.INST_SNAME}}</td>
+                            <td>{{p.INST_BLN}}</td>
+                            <td>{{p.INST_AVL}}</td>
+                            <!--<td>{{p.INST_OTD}}</td>-->
+                            <!--<td>{{p.INST_OTD_AVL}}</td>-->
+                            <!--<td>{{p.INST_TRD_FRZ}}</td>-->
+                            <!--<td>{{p.INST_LONG_FRZ}}</td>-->
+                            <td>{{countQty(p.INST_TRD_FRZ, p.INST_LONG_FRZ)}}</td>
+                            <!--<td>{{p.CURRENT_COST}}</td>-->
+                            <!--<td>{{p.AVG_PUR_PRICE}}</td>-->
+                            <td>{{p.NET_VAL}}</td>
+                            <td>{{p.MKT_VAL}}</td>
+                            <!--<td>{{p.CNTR_FLAG}}</td>-->
+                            <!--<td>{{p.REC_NUM}}</td>-->
+                            <!--<td>{{p.BANK_CODE}}</td>-->
+                            <!--<td>{{p.BANK_ACCT}}</td>-->
+                            <!--<td>{{p.PAY_ACCT}}</td>-->
+                            <!--<td>{{p.ACCU_INCOME}}</td>-->
+                            <!--<td>{{p.DIV_METHOD}}</td>-->
+                            <!--<td>-->
+                            <!--<a ng-show="p.is_redeem==1"  class="btn btn-xs btn-info" ui-sref="page.account.productRedeem({type: prds[showTab].lvl2_type, id: p.INST_ID})">赎回</a>-->
+                            <!--</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div tab ng-click="changeTab('4')" active="activeTab['4']">
+        <div tab-heading>
+            <div class="font-bold">资管产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <!--<th>定位串</th>-->
+                            <!--<th>机构编码</th>-->
+                            <!--<th>资金帐号</th>-->
+                            <!--<th>基金公司</th>-->
+                            <!--<th>基金帐号</th>-->
+                            <!--<th>交易帐号</th>-->
+                            <th>基金代码</th>
+                            <th>基金名称</th>
+                            <th>收费方式</th>
+                            <!--<th>基金昨日余额</th>-->
+                            <th>基金余额(元)</th>
+                            <th>基金可用数</th>
+                            <!--<th>基金交易冻结数</th>-->
+                            <!--<th>基金长期冻结数</th>-->
+                            <th>基金冻结数</th>
+                            <th>基金买入成本(元)</th>
+                            <th>基金证券市值</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="isLoading">
+                            <td colspan="8">
+                                <div class="text-center" style="width: 200px; height: 50px; line-height: 50px; background: #ccc; margin:0 auto;">
+                                    <img ng-src="public/images/loading.gif"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="p in currentPageProducts">
+                            <!--<td>{{p.POSTSTR}}</td>-->
+                            <!--<td>{{p.ORGID}}</td>-->
+                            <!--<td>{{p.FUNDID}}</td>-->
+                            <!--<td>{{p.TACODE}}</td>-->
+                            <!--<td>{{p.TAACC}}</td>-->
+                            <!--<td>{{p.TRANSACC}}</td>-->
+                            <td>{{p.OFCODE}}</td>
+                            <td>{{p.OFNAME}}</td>
+                            <td>{{p.SHARECLASS_DESC}}</td>
+                            <!--<td>{{p.OFLASTBAL}}</td>-->
+                            <td>{{p.OFBAL | moneyDivide}}</td>
+                            <td>{{p.OFAVL}}</td>
+                            <!--<td>{{p.OFTRDFRZ}}</td>-->
+                            <!--<td>{{p.OFLONGFRZ}}</td>-->
+                            <td>{{countQty(p.OFTRDFRZ, p.OFLONGFRZ)}}</td>
+                            <td>{{p.CURRENTCOST | moneyDivide}}</td>
+                            <td>{{p.MARKETVALUE}}</td>
+                            <td><a class="btn btn-xs btn-info" ng-href="#/page/account/productRedeem/{{prds[showTab].lvl2_type}}/{{p.OFCODE}}">赎回</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div tab ng-click="changeTab('6')" active="activeTab['6']">
+        <div tab-heading>
+            <div class="font-bold">公募基金产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <!--<th>定位串</th>-->
+                            <!--<th>机构编码</th>-->
+                            <!--<th>资金帐号</th>-->
+                            <!--<th>基金公司</th>-->
+                            <!--<th>基金帐号</th>-->
+                            <!--<th>交易帐号</th>-->
+                            <th>基金代码</th>
+                            <th>基金名称</th>
+                            <th>收费方式</th>
+                            <!--<th>基金昨日余额</th>-->
+                            <th>基金余额(元)</th>
+                            <th>基金可用数</th>
+                            <!--<th>基金交易冻结数</th>-->
+                            <!--<th>基金长期冻结数</th>-->
+                            <th>基金冻结数</th>
+                            <th>基金买入成本(元)</th>
+                            <th>基金证券市值</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="isLoading">
+                            <td colspan="8">
+                                <div class="text-center" style="width: 200px; height: 50px; line-height: 50px; background: #ccc; margin:0 auto;">
+                                    <img ng-src="public/images/loading.gif"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="p in currentPageProducts">
+                            <!--<td>{{p.POSTSTR}}</td>-->
+                            <!--<td>{{p.ORGID}}</td>-->
+                            <!--<td>{{p.FUNDID}}</td>-->
+                            <!--<td>{{p.TACODE}}</td>-->
+                            <!--<td>{{p.TAACC}}</td>-->
+                            <!--<td>{{p.TRANSACC}}</td>-->
+                            <td>{{p.OFCODE}}</td>
+                            <td>{{p.OFNAME}}</td>
+                            <td>{{p.SHARECLASS_DESC}}</td>
+                            <!--<td>{{p.OFLASTBAL}}</td>-->
+                            <td>{{p.OFBAL | moneyDivide}}</td>
+                            <td>{{p.OFAVL}}</td>
+                            <!--<td>{{p.OFTRDFRZ}}</td>-->
+                            <!--<td>{{p.OFLONGFRZ}}</td>-->
+                            <td>{{countQty(p.OFTRDFRZ, p.OFLONGFRZ)}}</td>
+                            <td>{{p.CURRENTCOST | moneyDivide}}</td>
+                            <td>{{p.MARKETVALUE}}</td>
+                            <td><a class="btn btn-xs btn-info" ng-href="#/page/account/productRedeem/{{prds[showTab].lvl2_type}}/{{p.OFCODE}}">赎回</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,311 @@
+<div>
+<style>
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+
+    .file input {
+        position: absolute;
+        font-size: 200px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0) \0\9;
+        cursor: pointer;
+    }
+
+    .file img {
+        width: 365px;
+        height: 230px;
+    }
+
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+
+<div class="m-t-sm m-b-xs">
+    <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                         style="margin-top: -3px;">账户资料</span>
+</div>
+<div class="line line-xs b-b b-light"></div>
+<div class="m-t-sm wrapper-xs bg-light">
+<div class="l-h-2x wrapper-lg bg-white">
+<div ng-if="step == '0' || step == '1'">
+    <div class="font-bold m-t-n">您的基本资料</div>
+    <div class="line b-b m-b"></div>
+    <div class="row m-b-xs">
+        <div class="col-xs-2">
+            <span>姓名：</span>
+        </div>
+        <div class="col-xs-10 m-l-n-xl">
+            <span class="text-muted" ng-bind="customerInfo.USER_NAME"></span>
+        </div>
+    </div>
+    <div class="row m-b-xs">
+        <div class="col-xs-2">
+            <span>手机号码：</span>
+        </div>
+        <div class="col-xs-10 m-l-n-xl">
+            <span class="text-muted" ng-bind="customerInfo.MOBILE_TEL | mobileCover:3:3"></span>
+            <!-- <a class="text-info m-l" ng-click="modifyMobile()" ng-if="step != '0'">修改手机号</a> -->
+        </div>
+    </div>
+    <div class="clear" ng-if="step != '0'">
+        <div class="pull-right">
+            <a class="text-info" ng-click="modifyBasicInfo()" ng-if="!basicInfo">修改基本信息</a>
+            <button class="btn btn-sm btn-info btn-block" ng-click="verifyMobile(1)" ng-disabled="!customerInfo.EMAIL || !customerInfo.ADDRESS || form.$invalid" ng-if="basicInfo">提交</button>
+            <!-- <button class="btn btn-sm btn-info btn-block" ng-click="verifyMobile(1)" ng-disabled="!customerInfo.TEL || !customerInfo.EMAIL || !customerInfo.ADDRESS || form.$invalid" ng-if="basicInfo">提交</button> -->
+        </div>
+    </div>
+    <div class="line b-b b-light m-b" ng-if="step != '0'"></div>
+    <form name="form" role="form" class="form-validation" novalidate>
+	    <!-- <div class="row m-b-xs">
+	        <div class="col-xs-2">
+	            <span>固定电话：</span>
+	        </div>
+	        <div class="col-xs-4 m-l-n-xl">
+	            <span ng-bind="customerInfo.TEL" ng-if="step == '0'"></span>
+	            <input type="text" name="tel" class="form-control w-md" ng-model="customerInfo.TEL" ng-pattern="/^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/" ng-maxlength="32" required ng-disabled="!basicInfo"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-6 text-md text-danger m-t-xxs" ng-show="(form.tel.$dirty && form.tel.$invalid) || form.tel.$error.required">请输入正确的固话(区号-电话号码)</div>
+	    </div> -->
+	    <div class="row m-b-xs">
+	        <div class="col-xs-2">
+	            <span>电子邮箱：</span>
+	        </div>
+	        <div class="col-xs-4 m-l-n-xl">
+	            <span ng-bind="customerInfo.EMAIL" ng-if="step == '0'"></span>
+	            <input type="email" name="email" class="form-control w-md" ng-model="customerInfo.EMAIL" ng-pattern="/^[a-z0-9]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{1,3}([\.][a-z]{2})?$/" ng-maxlength="48" required ng-disabled="!basicInfo"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-6 text-md text-danger m-t-xxs" ng-show="(form.email.$dirty && form.email.$invalid) || form.email.$error.required">请输入正确的邮箱</div>
+	    </div>
+	    <div class="row m-b-xs">
+	        <div class="col-xs-2">
+	            <span>联系地址：</span>
+	        </div>
+	        <div class="col-xs-6 m-l-n-xl">
+	            <span ng-bind="customerInfo.ADDRESS" ng-if="step == '0'"></span>
+	            <input type="text" name="address" class="form-control w-xxl" ng-model="customerInfo.ADDRESS" ng-pattern="/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/" ng-maxlength="128" required ng-disabled="!basicInfo"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-4 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form.address.$dirty && form.address.$invalid) || form.address.$error.required">请输入正确的地址</div>
+	    </div>
+    </form>
+    <!-- <div class="clear" ng-if="step != '0'">
+        <div class="pull-right">
+            <a class="text-info" ng-click="modifyContactInfo()" ng-if="!contactInfo">修改联系人信息</a>
+            <button class="btn btn-sm btn-info btn-block" ng-click="verifyMobile(4)" ng-disabled="!customerInfo.LINKMAN_DELX || !customerInfo.LINKMAN_TEL_DELX || !customerInfo.LINKMAN_TEL_XXFS || form1.$invalid" ng-if="contactInfo">提交</button>
+        </div>
+    </div>
+    <div class="line b-b b-light m-b" ng-if="step != '0'"></div>
+    <form name="form1" role="form" class="form-validation" novalidate>
+	    <div class="row m-b-xs">
+	        <div class="col-xs-3">
+	            <span>第二联系人姓名：</span>
+	        </div>
+	        <div class="col-xs-3 m-l-n-xxl">
+	            <span ng-bind="customerInfo.LINKMAN_DELX" ng-if="step == '0'"></span>
+	            <input type="text" name="name" class="form-control w-sm" ng-model="customerInfo.LINKMAN_DELX" ng-pattern="/[\u4e00-\u9fa5]{2,}/" ng-maxlength="16" required ng-disabled="!contactInfo"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-6 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form1.name.$dirty && form1.name.$invalid) || form1.name.$error.required">请输入正确的姓名</div>
+	    </div>
+	    <div class="row m-b-xs">
+	        <div class="col-xs-3">
+	            <span>第二联系人手机号：</span>
+	        </div>
+	        <div class="col-xs-3 m-l-n-xxl">
+	            <span ng-bind="customerInfo.LINKMAN_TEL_DELX" ng-if="step == '0'"></span>
+	            <input type="text" name="mobile" class="form-control w-sm" ng-model="customerInfo.LINKMAN_TEL_DELX" ng-pattern="/^1[0-9]{10}$/" ng-maxlength="11" required
+	                   ng-disabled="!contactInfo" ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-6 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form1.mobile.$dirty && form1.mobile.$invalid) || form1.mobile.$error.required">请输入11位数字手机号码(仅支持大陆手机号段)</div>
+	    </div>
+	    <div class="row" ng-class="{'m-b-xl': step == '0'}">
+	        <div class="col-xs-3">
+	            <span>信息发送渠道：</span>
+	        </div>
+	        <div class="col-xs-3 m-l-n-xxl">
+	            <span ng-bind="customerInfo.LINKMAN_TEL_XXFS" ng-if="step == '0'"></span>
+	            <input type="text" name="channel" class="form-control w-sm" ng-model="customerInfo.LINKMAN_TEL_XXFS" ng-pattern="/^1[0-9]{10}$/" ng-maxlength="11" required
+	                   ng-disabled="!contactInfo" ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-6 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form1.channel.$dirty && form1.channel.$invalid) || form1.channel.$error.required">请输入11位数字手机号码(仅支持大陆手机号段)</div>
+	    </div>
+	</form> -->
+</div>
+<div ng-if="step == '0' || step == '2'">
+    <div class="clear" ng-class="{'m-t-n': step != '0'}">
+        <div class="pull-left">
+            <span class="font-bold">您的身份信息</span>
+        </div>
+        <div class="pull-right" ng-if="step != '0'">
+            <a class="text-info" ng-click="modifyIdentityInfo()" ng-if="!identityInfo">修改身份证信息</a>
+            <button class="btn btn-sm btn-info btn-block" ng-click="verifyMobile(2)" ng-disabled="!adChange || !auChange || !vaChange || !customerInfo.ID_ADDR || !customerInfo.ID_ISS_AGCY || !customerInfo.ID_BEG_DATE || !customerInfo.ID_EXP_DATE || form.$invalid" ng-if="identityInfo">提交</button>
+        </div>
+    </div>
+    <div class="line b-b m-b"></div>
+    <div class="row text-center m-b" ng-if="identityInfo">
+        <div class="col-xs-6">
+            <a href="javascript:void(0)" class="file">
+                <input type="file" name="FRONT" accept="image/png, image/gif, image/jpg, image/jpeg" onchange="$.filechange(this, 1)" ng-init="initUpload('FRONT', 1)">
+                <img class="b" ng-src="{{pic1}}">
+            </a>
+            <div>身份证正面</div>
+        </div>
+        <div class="col-xs-6">
+            <a href="javascript:void(0)" class="file">
+                <input type="file" name="BACK" accept="image/png, image/gif, image/jpg, image/jpeg" onchange="$.filechange(this, 2)" ng-init="initUpload('BACK', 2)">
+                <img class="b" ng-src="{{pic2}}">
+            </a>
+            <div>身份证反面</div>
+        </div>
+    </div>
+    <div class="row" ng-class="{'m-b-xs': step == '0', 'm-b-sm': step != '0'}">
+        <div class="col-xs-2">
+            <span>身份证号：</span>
+        </div>
+        <div class="col-xs-3 m-l-n-xl">
+            <span class="text-muted" ng-bind="customerInfo.ID_CODE"></span>
+        </div>
+        <div class="col-xs-2 m-l-n-xxl"
+             ng-if="identityInfo && customerInfo.ID_CODE && customerInfo.ID_CODE.length == 15">
+            <button class="btn btn-sm btn-info" ng-click="update()" ng-disabled="idCode">自然升位</button>
+        </div>
+        <div class="col-xs-5 m-l-n-xl"
+             ng-if="identityInfo && customerInfo.ID_CODE && customerInfo.ID_CODE.length == 15">
+            <span class="text-danger" ng-bind="idCode"></span>
+        </div>
+    </div>
+    <!-- <div class="row m-b-xs">
+        <div class="col-xs-2">
+            <span>性别：</span>
+        </div>
+        <div class="col-xs-10 m-l-n-xl">
+            <span ng-if="step == '0'">
+                <span ng-bind="se.DICT_ITEM_NAME" ng-if="se.DICT_ITEM == customerInfo.SEX" ng-repeat="se in sex"></span>
+            </span>
+            <select class="form-control w-xs" ng-model="customerInfo.SEX" ng-options="se.DICT_ITEM as se.DICT_ITEM_NAME for se in sex" ng-disabled="!identityInfo" ng-if="step != '0'"></select>
+        </div>
+    </div> -->
+    <form name="form" role="form" class="form-validation" novalidate>
+	    <div class="row m-b-xs">
+	        <div class="col-xs-2">
+	            <span>证件地址：</span>
+	        </div>
+	        <div class="col-xs-6 m-l-n-xl">
+	            <span ng-bind="customerInfo.ID_ADDR" ng-if="step == '0'"></span>
+	            <input type="text" name="addr" class="form-control w-xxl" ng-model="customerInfo.ID_ADDR" ng-pattern="/^(?=.*?[\u4E00-\u9FA5])[\dA-Za-z\u4E00-\u9FA5]+/" ng-maxlength="128" required ng-disabled="!identityInfo || !adChange"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-4 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form.addr.$dirty && form.addr.$invalid) || form.addr.$error.required">请输入正确的地址</div>
+	    </div>
+	    <div class="row m-b-xs">
+	        <div class="col-xs-2">
+	            <span>发证机关：</span>
+	        </div>
+	        <div class="col-xs-6 m-l-n-xl">
+	            <span ng-bind="customerInfo.ID_ISS_AGCY" ng-if="step == '0'"></span>
+	            <input type="text" name="agcy" class="form-control w-xxl" ng-model="customerInfo.ID_ISS_AGCY" ng-pattern="/^[\u4e00-\u9fa5]{0,}$/" ng-maxlength="32" required
+	                   ng-disabled="!identityInfo || !auChange" ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-4 text-md text-danger m-l-n-md m-t-xxs" ng-show="(form.agcy.$dirty && form.agcy.$invalid) || form.agcy.$error.required">请输入正确的机关</div>
+	    </div>
+	    <div class="row" ng-class="{'m-b-xl': step == '0'}">
+	        <div class="col-xs-2">
+	            <span>证件有效期：</span>
+	        </div>
+	        <div class="col-xs-2 m-l-n-xl">
+	            <span ng-bind="customerInfo.ID_BEG_DATE" ng-if="step == '0'"></span>
+	            <input type="text" name="beg" class="form-control" ng-model="customerInfo.ID_BEG_DATE" ng-pattern="/^[0-9]{8}$/" ng-maxlength="8" required ng-disabled="!identityInfo || !vaChange"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-1 m-l-n">
+	            <span>-</span>
+	        </div>
+	        <div class="col-xs-2 m-l-n-xxl">
+	            <span ng-bind="customerInfo.ID_EXP_DATE" ng-if="step == '0'"></span>
+	            <input type="text" name="exp" class="form-control" ng-model="customerInfo.ID_EXP_DATE" ng-pattern="/^[0-9]{8}$/" ng-maxlength="8" required ng-disabled="!identityInfo || !vaChange"
+	                   ng-if="step != '0'">
+	        </div>
+	        <div class="col-xs-5 text-md text-danger m-l-xs m-t-xxs" ng-show="(form.beg.$dirty && form.beg.$invalid) || (form.exp.$dirty && form.exp.$invalid) || form.beg.$error.required || form.exp.$error.required">请输入正确的有效期</div>
+	    </div>
+	</form>
+</div>
+<div ng-if="step == '0' || step == '3'">
+    <div class="clear" ng-class="{'m-t-n': step != '0'}">
+        <div class="pull-left">
+            <span class="font-bold">您的其他信息</span>
+        </div>
+        <div class="pull-right" ng-if="step != '0'">
+            <a class="text-info" ng-click="modifyOtherInfo()" ng-if="!otherInfo">修改其他信息</a>
+            <button class="btn btn-sm btn-info btn-block" ng-click="verifyMobile(3)" ng-if="otherInfo">提交</button>
+        </div>
+    </div>
+    <div class="line b-b m-b"></div>
+    <div class="row m-b-xs">
+        <div class="col-xs-2">
+            <span>职业：</span>
+        </div>
+        <div class="col-xs-4 m-l-n-xl">
+						<span ng-if="step == '0'">
+							<span ng-bind="oe.DICT_ITEM_NAME" ng-if="oe.DICT_ITEM == customerInfo.OCCU_TYPE"
+                                  ng-repeat="oe in occuextype"></span>
+						</span>
+            <select class="form-control" ng-model="customerInfo.OCCU_TYPE"
+                    ng-options="oe.DICT_ITEM as oe.DICT_ITEM_NAME for oe in occuextype" ng-disabled="!otherInfo"
+                    ng-if="step != '0'"></select>
+        </div>
+        <div class="col-xs-6">
+            <input type="text" class="form-control w-xxl" ng-model="customerInfo.OCCUPATION"
+                   ui-focus="{{otheroccuextype}}" ng-disabled="!otherInfo"
+                   ng-if="selectChange(customerInfo.OCCU_TYPE, 'occuextype')">
+        </div>
+    </div>
+    <div class="row m-b-xs">
+        <div class="col-xs-2">
+            <span>行业：</span>
+        </div>
+        <div class="col-xs-4 m-l-n-xl">
+						<span ng-if="step == '0'">
+							<span ng-bind="ct.DICT_ITEM_NAME" ng-if="ct.DICT_ITEM == customerInfo.TRADE"
+                                  ng-repeat="ct in ciftrade"></span>
+						</span>
+            <select class="form-control" ng-model="customerInfo.TRADE"
+                    ng-options="ct.DICT_ITEM as ct.DICT_ITEM_NAME for ct in ciftrade" ng-disabled="!otherInfo"
+                    ng-if="step != '0'"></select>
+        </div>
+        <div class="col-xs-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <span>学历：</span>
+        </div>
+        <div class="col-xs-4 m-l-n-xl">
+						<span ng-if="step == '0'">
+							<span ng-bind="ed.DICT_ITEM_NAME" ng-if="ed.DICT_ITEM == customerInfo.EDUCATION"
+                                  ng-repeat="ed in education"></span>
+						</span>
+            <select class="form-control" ng-model="customerInfo.EDUCATION"
+                    ng-options="ed.DICT_ITEM as ed.DICT_ITEM_NAME for ed in education" ng-disabled="!otherInfo"
+                    ng-if="step != '0'"></select>
+        </div>
+        <div class="col-xs-6"></div>
+    </div>
+</div>
+</div>
+</div>
+</div>

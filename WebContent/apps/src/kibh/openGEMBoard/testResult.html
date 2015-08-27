@@ -1,0 +1,34 @@
+<div>
+    <div class="modal-body wrapper-lg clear">
+        <div ng-switch on="isPassed">
+            <div ng-switch-when="true">
+                <div class="text-3x text-danger text-center">
+                    积极型
+                </div>
+                <div class="text-center m-t m-b-xl">
+                    您的心态很好哟，很有发财的潜质呢！
+                </div>
+                <div class="text-center m-b">
+                    <a ng-click="next()" class="btn btn-info">
+                        <span>下一步</span><span class="m-l">填写资料</span>
+                    </a>
+                </div>
+            </div>
+            <div ng-switch-when="false">
+                <div class="text-3x text-danger text-center">
+                    保守型
+                </div>
+                <div class="text-center m-t m-b-lg">
+                    很遗憾，就差那么一点点，您没有通过这次测试。
+                </div>
+                <div class="line b-b b-2x m-b"></div>
+                <div class="text-center m-b hide">
+                    修炼不够？去<a class="text-info">投资者社区</a>学习吧！
+                </div>
+                <div class="text-lg text-center m-b">
+                    没发挥好？<a ng-click="cancel()" class="text-info">再测一把</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="m-t">
+    <style>
+        .preStyle {
+            vertical-align: top;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: inherit;
+
+            font-family: "MicroSoft Yahei", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.42857143;
+            color: #58666e;
+
+            white-space: pre-wrap;
+        }
+    </style>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td class="w active">管理人：</td>
+            <td>{{prd.MANAGER_USER_DESC | escapeSequence}}</td>
+        </tr>
+        <tr>
+            <td class="w active">计划类型：</td>
+            <td>{{prd.ASSET_PRO_TYPE_DESC | escapeSequence}}</td>
+        </tr>
+        <tr>
+            <td class="w active">托管人：</td>
+            <td>{{prd.CUSTODIAN_USER_DESC | escapeSequence}}</td>
+        </tr>
+        <tr>
+            <td class="w active">推广机构：</td>
+            <td>{{prd.SALE_PROM_ORG | escapeSequence}}</td>
+        </tr>
+        <tr>
+            <td class="w active">最低认购金额：</td>
+            <td>{{prd.INVE_START | moneyFomat:'2'}}</td>
+        </tr>
+        <tr>
+            <td class="w active">开放日：</td>
+            <td>
+                <pre class="preStyle">{{prd.OPEN_DAY_INST | escapeSequence}}</pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="w active">目标规模：</td>
+            <td>
+                <pre class="preStyle">{{prd.MAX_RAISE_SIZE | moneyFomat | escapeSequence}}</pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="w active">产品期限：</td>
+            <td>
+                <pre class="preStyle">{{prd.DURA_TIME | escapeSequence}}</pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="w active">投资目标：</td>
+            <td>
+                <pre class="preStyle">{{prd.INVE_TARGET | escapeSequence}}</pre>
+            </td>
+        </tr>
+        <tr>
+            <td class="w active">投资范围及资产组合比：</td>
+            <td>
+                <pre class="preStyle">{{prd.INVE_SCOPE | escapeSequence}}</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,15 @@
+<div ng-repeat="item in links" class="hbox h-auto m-b-lg">
+    <div class="col text-center w-xxs">
+        <div class="thumb-lg avatar inline">
+            <a ui-sref="{{item.url}}">
+                <div ng-style="item.iconUrl"></div>
+            </a>
+        </div>
+    </div>
+    <div class="col v-middle font-thin" style="width: 110px;">
+        <div><a ui-sref="{{item.url}}">{{item.name}}</a></div>
+    </div>
+    <div class="col v-middle font-thin">
+        <div class="text-muted">{{item.remark}}</div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="panel panel-default m-t">
+    <div class="panel-body wrapper-lg">
+        <div class="text-lg text-center">
+            <span ng-if="result=='1'"><i class="fa fa-spinner fa-spin"></i> 正在验证，请稍候。</span>
+            <span ng-if="result=='2'" class="text-success">恭喜，邮箱绑定完成。</span>
+            <span ng-if="result=='-1'">抱歉，邮箱绑定失败。
+                <a ui-sref="page.account.security.emailcertify" class="text-info btn-link">重新绑定</a>
+            </span>
+        </div>
+    </div>
+</div>
+

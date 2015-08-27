@@ -1,0 +1,115 @@
+<div>
+    <div class="wrapper-sm padder-xxl">
+        <div class=" m-l-xl m-r-xl m-t-lg m-b-lg">
+            <div class="b-b text-left text-xxl">找回密码</div>
+            <div class="row m-xl" style="background: url(public/images/step_bg_0.png) no-repeat center center">
+                <div class="col-xs-4">
+                    <div class="text-center">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                        <div class="m-t-xs">身份验证</div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="text-center">
+                        <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">2</span></div>
+                        <div class="m-t-xs">密码重置</div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="text-center">
+                        <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">3</span></div>
+                        <div class="m-t-xs">完成</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row list-group">
+                <span class="col-xs-5 text-right text-md w-sm">验证方式:</span>
+
+                <div class="col-xs-7 text-left w-xl">
+                    <label class="i-checks i-checks-sm">
+                        <input type="radio" name="checktype" ng-click="checktype=1" checked>
+                        <i></i>
+                        手机验证
+                    </label>
+                    <label class="i-checks i-checks-sm">
+                        <input type="radio" name="checktype" ng-click="checktype=2">
+                        <i></i>
+                        邮箱验证
+                    </label>
+                </div>
+            </div>
+            <div style="min-height: 160px">
+	            <form name="form" role="form" novalidate class="form-validation text-center" ng-if="checktype==1">
+	                <div class="row list-group text-center">
+	                    <span class="col-xs-5 text-right text-md m-t-xs w-sm">手机号码:</span>
+	
+	                    <div class="col-xs-7 text-left w-xl">
+	                        <div class="input-group">
+	                            <input type="text" placeholder="请输入手机号码" ng-pattern="/^1[0-9]{10}$/" class="form-control"
+	                                   name="mobile" ng-model="user.mobile" required>
+	                                <span class="input-group-btn">
+	                                    <button class="btn btn-info" type="button" ng-click="getcode()"
+	                                            ng-disabled='form.mobile.$invalid || codeflag!=1'>
+	                                        <span ng-show="codeflag==1">获取验证码</span>
+	                                        <span ng-show="codeflag==2"><i
+	                                                class="fa fa-spin fa-spinner m-r-xs"></i>获取中...</span>
+	                                        <span ng-show="codeflag==3">重新获取(<span ng-bind="clock"></span>)</span>
+	                                    </button>
+	                                </span>
+	                        </div>
+	                        <span class="text-left text-md text-danger m-t-xs"
+	                              ng-show="!form.mobile.$pristine && form.mobile.$invalid">请输入11位数字手机号码</span>
+	                    </div>
+	                </div>
+	                <div class="row list-group text-center">
+	                    <span class="col-xs-5 text-right text-md m-t-xs w-sm">验证码:</span>
+	
+	                    <div class="col-xs-7 text-left w-xl">
+	                        <input type="text" placeholder="请输入短信验证码" ng-pattern="/^[0-9]{6}$/"
+	                               ng-disabled='form.mobile.$invalid' class="form-control" name="code" ng-model="user.code"
+	                               required>
+	                        <span class="text-left text-md text-danger m-t-xs"
+	                              ng-show="!form.code.$pristine && form.code.$invalid">请输入6位验证码</span>
+	                    </div>
+	                </div>
+	                <div class="row list-group text-center">
+	                    <span class="col-xs-5 text-right text-md m-t-xs w-sm">&nbsp;</span>
+	
+	                    <div class="col-xs-7 text-left w-xl">
+	                        <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="signup()"
+	                                ng-disabled='form.$invalid || submitting '>
+	                            <span>下一步</span>
+	                        </button>
+	                    </div>
+	                    <span class="text-left text-md text-danger m-t-xs">&nbsp;</span>
+	                </div>
+	            </form>
+	            <form name="form" role="form" novalidate class="form-validation text-center" ng-if="checktype==2">
+	                <div class="row list-group text-center">
+	                    <span class="col-xs-5 text-right text-md m-t-xs w-sm">邮箱:</span>
+	
+	                    <div class="col-xs-7 text-left w-xl">
+	                        <input type="email" placeholder="请输入您的注册邮箱"
+	                               ng-pattern="/^[a-z0-9]([a-z0-9]*[-_]?[a-z0-9]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+[\.][a-z]{1,3}([\.][a-z]{2})?$/"
+	                               class="form-control" name="email" ng-model="user.email" ng-required="true">
+	                        <span class="text-left text-md text-danger m-t-xs"
+	                              ng-show="!form.mobile.$pristine && form.mobile.$invalid">请输入正确的邮箱</span>
+	                    </div>
+	                </div>
+	                <div class="row list-group text-center">
+	                    <span class="col-xs-5 text-right text-md m-t-xs w-sm">&nbsp;</span>
+	
+	                    <div class="col-xs-7 text-left w-xl">
+	                        <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="sendEmail()"
+	                                ng-disabled='form.$invalid || submitting'>
+	                            <span ng-show="!submitting">发送邮件</span>
+	                            <span ng-show="submitting">发送中</span>
+	                        </button>
+	                        <span class="text-left text-md text-danger m-t-xs">&nbsp;</span>
+	                    </div>
+	                </div>
+	            </form>
+	        </div>
+        </div>
+    </div>
+</div>

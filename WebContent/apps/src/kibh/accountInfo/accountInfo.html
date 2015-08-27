@@ -1,0 +1,225 @@
+<div>
+<div class="m-t-sm m-b-xs">
+    <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                         style="margin-top: -3px;">账户信息</span>
+</div>
+
+<div class="line line-xs b-b b-light"></div>
+
+<div tabset class="nav-tabs-alt">
+    <div tab>
+        <div tab-heading><span class="font-bold">账户资产</span></div>
+        <div class="m-t-sm m-b-md">
+            <div class="row wrapper-xs">
+                <div class="col-xs-4">
+                    资金账号：<span ng-bind="assetInfo.FUNDID"></span>
+                </div>
+                <div class="col-xs-4">
+                    主账户标志：
+                    <span ng-if="assetInfo.FUNDSEQ == 0">是</span>
+                    <span ng-if="assetInfo.FUNDSEQ != 0">否</span>
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+            <div class="row wrapper-xs">
+                <div class="col-xs-4">
+                    总资产：<span class="" ng-bind="assetInfo.MARKETVALUE | moneyDivide"></span>
+                </div>
+                <div class="col-xs-4">
+                    最新市值：<span class="" ng-bind="assetInfo.STKVALUE | moneyDivide"></span>
+                </div>
+                <div class="col-xs-4">
+                    资金余额：<span class="" ng-bind="assetInfo.FUNDBAL | moneyDivide"></span>
+                </div>
+            </div>
+            <div class="row wrapper-xs">
+                <div class="col-xs-4">
+                    可用资金：<span class="" ng-bind="assetInfo.FUNDAVL | moneyDivide"></span>
+                </div>
+                <div class="col-xs-4">
+                    币种：<span ng-bind="mt.DICT_ITEM_NAME" ng-if="mt.DICT_ITEM == assetInfo.MONEYTYPE"
+                             ng-repeat="mt in currency"></span>
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div tabset class="nav-tabs-alt">
+    <div tab>
+        <div tab-heading><span class="font-bold">账户持仓</span></div>
+        <div class="m-t-sm">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>证券名称/代码</th>
+                    <th>余额数</th>
+                    <th>拥股数</th>
+                    <th>可用数</th>
+                    <th>最新价</th>
+                    <th>成本价</th>
+                    <th>市值</th>
+                    <th>保本价</th>
+                    <th>浮动盈亏</th>
+                    <th>盈亏比例</th>
+                    <th>币种</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="si in stockInfo">
+                    <td ng-bind="si.STKNAME + '(' + si.STKCODE + ')'"></td>
+                    <td ng-bind="si.STKBAL"></td>
+                    <td ng-bind="si.STKQTY"></td>
+                    <td ng-bind="si.STKAVL"></td>
+                    <td ng-bind="si.LASTPRICE"></td>
+                    <td ng-bind="si.COSTPRICE"></td>
+                    <td ng-bind="si.MKTVAL"></td>
+                    <td ng-bind="si.COSTPRICE | moneyDivide"></td>
+                    <td ng-bind="si.INCOME"></td>
+                    <td ng-bind="si.PROINCOME"></td>
+                    <td ng-bind="mt.DICT_ITEM_NAME" ng-show="mt.DICT_ITEM == si.MONEYTYPE"
+                        ng-repeat="mt in currency"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row padder-v-xs">
+    <div class="col-xs-2 font-bold w-sm m-t-xs m-r-n">开始日期：</div>
+    <div class="col-xs-3 m-l-n-xxl">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="begindate" placeholder="请选择开始日期" name="begindate"
+                   datepicker-popup="yyyy-MM-dd" datepicker-mode="beginDate.datepickerMode"
+                   datepicker-options="{minMode:'day'}" is-open="beginDate.opened" ng-click="beginDate.opened=true" readonly>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary" ng-click="beginDate.open($event)"><i
+                            class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+        </div>
+    </div>
+    <div class="col-xs-2 font-bold w-sm m-t-xs m-r-n">结束日期：</div>
+    <div class="col-xs-3 m-l-n-xxl">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="enddate" placeholder="请选择结束日期" name="enddate"
+                   datepicker-popup="yyyy-MM-dd" datepicker-mode="endDate.datepickerMode"
+                   datepicker-options="{minMode:'day'}" is-open="endDate.opened" ng-click="endDate.opened=true" readonly>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary" ng-click="endDate.open($event)"><i
+                            class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+        </div>
+    </div>
+    <div class="col-xs-1">
+        <button class="btn btn-info" ng-bind-html="subtip" ng-disabled="!begindate || !enddate || (begindate > enddate) || (enddate - begindate >= 7 * 24 * 60 * 60 * 1000) || submitting" ng-click="search()"></button>
+    </div>
+    <div class="col-xs-2 m-t-xs m-l no-padder text-danger">
+    	<span ng-if="begindate && enddate">
+    		<span ng-if="begindate > enddate">开始日期大于结束日期</span>
+    		<span ng-if="enddate - begindate >= 7 * 24 * 60 * 60 * 1000">日期间隔大于7天</span>
+    	</span>
+    	<span ng-if="!begindate || !enddate">日期为空或格式有误</span>
+    </div>
+</div>
+
+<div tabset class="nav-tabs-alt" style="min-height: 250px">
+    <div tab>
+        <div tab-heading><span class="font-bold">对账单</span></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>交收日期</th>
+                    <th>合同号</th>
+                    <th>资金号</th>
+                    <th>股东代码</th>
+                    <th>证券名称/代码</th>
+                    <th>交易类别</th>
+                    <th>成交数量</th>
+                    <th>成交价格</th>
+                    <th>成交金额</th>
+                    <th>资金余额</th>
+                    <th>币种</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="cs in checkSheet">
+                    <td ng-bind="cs.BIZDATE"></td>
+                    <td ng-bind="cs.ORDERID"></td>
+                    <td ng-bind="cs.FUNDID"></td>
+                    <td ng-bind="cs.SECUID"></td>
+                    <td ng-bind="cs.STKNAME + '(' + cs.STKCODE + ')'"></td>
+                    <td ng-bind="cs.DIGESTNAME"></td>
+                    <td ng-bind="cs.MATCHQTY"></td>
+                    <td ng-bind="cs.MATCHPRICE | moneyDivide"></td>
+                    <td ng-bind="cs.MATCHAMT | moneyDivide"></td>
+                    <td ng-bind="cs.FUNDBAL | moneyDivide"></td>
+                    <td ng-bind="mt.DICT_ITEM_NAME" ng-show="mt.DICT_ITEM == cs.MONEYTYPE"
+                        ng-repeat="mt in currency"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div tab>
+        <div tab-heading><span class="font-bold">交割单</span></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>交收日期</th>
+                    <th>合同号</th>
+                    <th>资金号</th>
+                    <th>股东代码</th>
+                    <th>证券名称/代码</th>
+                    <th>交易类别</th>
+                    <th>成交数量</th>
+                    <th>成交价格</th>
+                    <th>成交金额</th>
+                    <th>证券余额</th>
+                    <th>资金余额</th>
+                    <th>净佣金</th>
+                    <th>佣金</th>
+                    <th>过户费</th>
+                    <th>印花税</th>
+                    <th>经手费</th>
+                    <th>清算费</th>
+                    <th>前台费用</th>
+                    <th>交易规费</th>
+                    <th>证管费</th>
+                    <th>币种</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="do in deliveryOrder">
+                    <td ng-bind="do.BIZDATE"></td>
+                    <td ng-bind="do.ORDERID"></td>
+                    <td ng-bind="do.FUNDID"></td>
+                    <td ng-bind="do.SECUID"></td>
+                    <td ng-bind="do.STKNAME + '(' + do.STKCODE + ')'"></td>
+                    <td ng-bind="do.DIGESTNAME"></td>
+                    <td ng-bind="do.MATCHQTY"></td>
+                    <td ng-bind="do.MATCHPRICE | moneyDivide"></td>
+                    <td ng-bind="do.MATCHAMT | moneyDivide"></td>
+                    <td ng-bind="do.STKBAL"></td>
+                    <td ng-bind="do.FUNDBAL | moneyDivide"></td>
+                    <td ng-bind="do.FEE_JSXF | moneyDivide"></td>
+                    <td ng-bind="do.FEE_SXF | moneyDivide"></td>
+                    <td ng-bind="do.FEE_GHF | moneyDivide"></td>
+                    <td ng-bind="do.FEE_YHS | moneyDivide"></td>
+                    <td ng-bind="do.FEE_JSF | moneyDivide"></td>
+                    <td ng-bind="do.FEE_QSF | moneyDivide"></td>
+                    <td ng-bind="do.FEEFRONT | moneyDivide"></td>
+                    <td ng-bind="do.FEE_JYGF | moneyDivide"></td>
+                    <td ng-bind="do.FEE_ZGF | moneyDivide"></td>
+                    <td ng-bind="mt.DICT_ITEM_NAME" ng-show="mt.DICT_ITEM == do.MONEYTYPE"
+                        ng-repeat="mt in currency"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

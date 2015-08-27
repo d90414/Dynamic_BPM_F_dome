@@ -1,0 +1,111 @@
+<div ng-if="showType=='-01'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定注册用户，无法银证转账。</span>
+    <a class="text-primary btn-link" ui-sref="auth.bindregaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-02'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定交易账户，无法银证转账。</span>
+    <a class="text-primary btn-link" ui-sref="auth.binddealaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-03'" class="wrapper-xl text-center text-md">
+    <span class="">您需要登录您的资金账户才能银证转账。</span>
+    <a class="text-primary btn-link" ui-sref="auth.login">登录</a>
+</div>
+<div ng-show="showType=='1'">
+    <div tabset class="nav-tabs-alt">
+        <!-- 银行转证券 -->
+        <div tab active="tabs.toSecurities" ng-click="changeTab('toSecurities')">
+            <div tab-heading><span class="font-bold">银行转证券</span></div>
+        </div>
+        <!-- /银行转证券 -->
+        <!-- 证券转银行-->
+        <div tab active="tabs.toBank" ng-click="changeTab('toBank')">
+            <div tab-heading><span class="font-bold">证券转银行</span></div>
+        </div>
+        <div tab active="tabs.list" ng-click="changeTab('list')">
+            <div tab-heading>
+                <span class="font-bold" ng-click="getTransferList()">转账记录查询</span>
+            </div>
+            <div class="m-t-md">
+                <div class=" table-responsive">
+                    <table class="table m-b-none prdlist">
+                        <thead>
+                        <tr>
+                            <th class="text-center">业务类型</th>
+                            <th class="text-center">转账金额(元)</th>
+                            <th class="text-center">转账时间</th>
+                            <th class="text-center">处理结果</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="tra in transferList" class="text-center">
+                            <td>{{tra.BANKTRANID == 1 ? '银行转证券' : '证券转银行'}}</td>
+                            <td>{{tra.FUNDEFFECT | moneyDivide}}</td>
+                            <td>{{tra.OPER_DATE}}&nbsp;&nbsp;&nbsp;&nbsp;{{tra.OPER_TIME}}</td>
+                            <td>{{tra.STATUS_DESC}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="{{pagination.totalcount > pagination.pagesize ? 'm-t m-r m-b-none m-l' : 'wrapper-sm'}} clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>条记录</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /证券转银行-->
+
+    <div ng-if="tabs.toSecurities || tabs.toBank" class="m-t-md">
+        <div class="row text-nowrap">
+            <div class="col-xs-3">
+                <div class="text-center">
+                    <img ng-if="tabs.toSecurities" class="h-sm v-sm" ng-src="public/images/bank-to-stock.png">
+                    <img ng-if="tabs.toBank" class="h-sm v-sm" ng-src="public/images/stock-to-bank.png">
+                </div>
+            </div>
+            <div class="col-xs-9 ">
+                <form name="form" class="form-horizontal form-validation text-md" ng-submit="banktransfer()">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label text-right">转账金额：</label>
+                        <div class="col-xs-5 text-left">
+                            <input type="text" class="form-control w-md" name="transfer_money1" ng-model="transfer.transfer_money" ng-pattern="/^[0-9]*$/" required>
+                            <span class="help-block text-danger" ng-show="form.transfer_money1.$dirty && form.transfer_money1.$invalid">请输入正确的金额</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label ng-if="tabs.toSecurities" class="col-xs-2 control-label text-right">银行密码：</label>
+                        <label ng-if="tabs.toBank" class="col-xs-2 control-label text-right">资金密码：</label>
+                        <div class="col-xs-5 text-left">
+                            <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class="form-control w-md">
+                            <input ng-if="browserType!=2" type="text" class="form-control w-md" ng-focus="checkActive()" ng-hide="pwdfocus">
+                            <div ng-class="{'form-control w-md': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="215" height="16" style="cursor: pointer;">
+                                    <param name="MaxLength" value="16">
+                                </object>
+                                <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="215" height="16" MaxLength=16 style="cursor: pointer;"></embed>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="tabs.toBank" class="form-group">
+                        <label class="col-xs-2 text-right">可取金额：</label>
+                        <div class="col-xs-5 text-left text-md text-danger">
+                            <i class="fa" ng-class="{'fa-rmb': moneytype == '0'}"></i>&nbsp;{{maxdraw ? (maxdraw | moneyDivide) + '元' : ''}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-2 col-xs-5 text-left">
+                            <button type="submit" class="btn btn-success w-md text-md" ng-disabled="form.$invalid">转账</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,78 @@
+<div>
+	<div id="prompt_div" style="display: none">
+        <div id="prompt_div_line" class="font-bold"></div>
+        <div class="m-t pull-right">
+            <button class="btn btn-info btn-sm" onclick="window.open('public/vendors/bower_components/anychat/plugin/AnyChatWebSetup.exe')">下载安装</button>
+        </div>
+	</div>
+    <div id="VideoLoadingDiv" class="clearfix text-center wrapper-xl b">
+        <div class="col-xs-12">
+            <i class="fa fa-spin fa-spinner text-3x"></i>
+
+            <div id="procinfo"></div>
+        </div>
+    </div>
+    <div id="VideoDiv" style="display: none">
+        <div class="row text-center">
+            <div class="col-xs-6"><span class="text-danger font-bold">操作指南</span></div>
+            <div class="col-xs-6"><span class="text-danger font-bold">投资者</span>视频画面</div>
+            <!-- <div class="col-xs-6"><span class="text-danger font-bold">见证人</span>视频画面</div> -->
+        </div>
+        <div id="VideoShowDiv" class="row">
+            <div class="col-xs-6">
+            	<div class="wrapper h-lg b bg-light">
+	               	<p>1、请确认您的摄像头和话筒已经开启。</p>
+		            <p>2、请在明亮的环境中进行视频见证录像。</p>
+		            <p>3、请您整理您的仪容，面部不要被头发遮挡。</p>
+		            <p>4、请调整您的位置或摄像头角度，使您的面部完全置于<span class="text-danger font-bold">人脸框</span>中，并<span class="text-danger font-bold">保持</span>至录制结束。</p>
+		            <p>5、请点击“开始录制”后，请在一分钟内，用<span class="text-danger font-bold">普通话</span>朗读一遍头像轮廓上方出现的文字，朗读后请点击“停止录制”，录制超时后系统将自动停止。</p>
+		            <p>6、录制停止后，请将屏幕弹出算术题答案填入答案框后，点击提交，完成全部录制过程。</p>
+            	</div>
+            </div>
+            <div class="col-xs-6 text-center">
+                <div id="AnyChatLocalVideoDiv" class="h-lg b"></div>
+            </div>
+            <!-- <div class="col-xs-6">
+                <div id="AnyChatRemoteVideoDiv" class="h-lg b"></div>
+            </div> -->
+        </div>
+
+        <div class="row m-t-xs">
+            <div class="col-xs-6">
+                <div class="input-group">
+                    <span class="input-group-addon">视频设备</span>
+                    <select id="brac_device_videocapture" ng-change="changeVideoCp()" ng-model="vc"
+                            class="form-control"></select>
+                </div>
+                <!-- <div class="input-group m-t-xxs">
+                    <textarea id="MessageInput" class="form-control h-xs" style="height: 55px;"></textarea>
+	              	<span class="input-group-btn">
+	                	<span onclick="SendMessage();" class="btn btn-default b-1x b-info bg-info v-middle text-white"
+                              ng-click="topsearch()" style="height: 55px;"><span class="m-t">发送</span></span>
+	              	</span>
+                </div> -->
+            </div>
+
+            <div class="col-xs-6 text-center">
+                <!-- <div class="pull-left text-center bg-light h-xs v-middle" style="width: 30px;">会<br>话<br>记<br>录</div>
+                <div id="ReceiveMsgDiv" class="w-auto h-xs b" style="overflow-y: auto;"></div> -->
+            	<div id="waitContent" class="m-t-xs">
+	                <i class="fa fa-spin fa-spinner text-md"></i>
+	                <span>视频组件初始化中，请您耐心等待...</span>
+            	</div>
+            	<span id="start_video" style="display: none">
+	           		<button class="btn btn-md btn-info m-r-xxl" ng-click="record()">开始录制</button>
+	            	<span>录制时长：00:00</span>
+            	</span>
+            	<span id="finish_video" style="display: none">
+	       			<button id="record_video" class="btn btn-md btn-info m-r-xxl" ng-click="again()">重录</button>
+	           		<button id="play_video" class="btn btn-md btn-info m-r-xxl" ng-click="play()">播放</button>
+	       			<button id="upload_video" class="btn btn-md btn-info" ng-click="submit()">提交</button>
+            	</span>
+            </div>
+        </div>
+
+        <!-- <button id="success" class="hide" ng-click="success()">
+        <button id="failed" class="hide" ng-click="failed()"> -->
+    </div>
+</div>

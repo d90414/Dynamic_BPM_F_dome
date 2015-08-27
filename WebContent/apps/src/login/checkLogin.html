@@ -1,0 +1,110 @@
+<div class="m-t m-b row" ng-if="showType == '1'">
+    <div class="col-xs-6">
+        <form name="form1" class="form-horizontal form-validation" ng-submit="loginByFundAccount()" novalidate>
+            <div class="panel h-xl" style="background: #bdd6fc;">
+                <div class="panel-heading b-b text-center wrapper-md text-lg">我是渤海证券用户</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label text-right text-md">资金账号:</label>
+                        <div class="col-xs-6">
+                            <input type="text" class=" form-control w-md" name="name" ng-model="loginuser.username"
+                                   ng-pattern="/^[0-9]{11,12}$/" minlength="11" ng-maxlength="12" required ui-focus="true">
+                            <span class="text-danger" ng-show="!form1.name.$pristine && form1.name.$invalid">请输入正确的资金账号</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label text-right text-md">交易密码:</label>
+                        <div class="col-xs-6">
+                            <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class=" form-control w-md" maxlength="16">
+                            <input ng-if="browserType!=2" type="text" class="form-control w-md" ng-focus="checkPwdPlugin()" ng-hide="pwdfocus" ng-init="initPlaceholder()">
+                            <div ng-if="browserType!=2" ng-class="{'form-control w-md': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="215" height="16">
+                                    <param name="MaxLength" value="16">
+                                </object>
+                                <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="215" height="16" MaxLength=16></embed>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label text-right text-md">验证码:</label>
+                        <div class="col-xs-6">
+                            <div class="input-group w-md">
+                                <input type="text" class=" form-control" name="regcode" ng-model="loginuser.regcode" ng-pattern="/^[0-9]{4}$/" maxlength="4" required>
+                                <span class="input-group-btn">
+                                    <img ng-src="{{captcha}}" ng-click="changeVerifyCode()" title="看不清，换一张" style="width: 75px;height: 32px"/>
+                                </span>
+                            </div>
+                            <span class="text-danger" ng-show="form1.regcode.$dirty && form1.regcode.$invalid">请输入正确的验证码</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-6 w-md">
+                            <button type="submit" class="btn btn-primary w-md text-md font-bold" ng-disabled="form1.$invalid">立即登录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-6">
+        <div class="panel h-xl" style="background: #fcbdbd;">
+            <div class="panel-heading b-b text-center wrapper-md text-lg">我还没有证券账户</div>
+            <div class="panel-body">
+                <div class="text-center m-t-xxl" style="height: 48px;">
+                    <span class="text-lg">三分钟便捷开户，开启财富大门</span>
+                </div>
+                <div class="text-center m-t-xxl">
+                    <a href="http://kh.bhzq.com" target="_blank" class="btn btn-danger w-md text-md font-bold">我要开户</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-t m-b row" ng-if="showType == '2'">
+    <div class="col-xs-6">
+        <form name="form2" novalidate class="form-validation form-horizontal" ng-submit="toggleToFundAccount()">
+            <div class="panel h-xl" style="background: #bdd6fc;">
+                <div class="panel-heading b-b text-center wrapper-md text-lg">已登录注册账户，切换资金账号登录</div>
+                <div class="panel-body m-t">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label text-right text-md">资金账号：</label>
+                        <div class="col-xs-6">
+                            <select class="form-control w-md" name="fundsacct_code" ng-model="loginuser.fundsacct_code" ng-options="option for option in zijinList" required></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label text-right text-md">交易密码：</label>
+                        <div class="col-xs-6">
+                            <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class="form-control w-md" maxlength="16">
+                            <input ng-if="browserType!=2" type="text" class="form-control w-md" ng-focus="checkPwdPlugin()" ng-hide="pwdfocus" ng-init="initPlaceholder()">
+                            <div ng-if="browserType!=2" ng-class="{'form-control w-md': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="215" height="16">
+                                    <param name="MaxLength" value="16">
+                                </object>
+                                <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="215" height="16" MaxLength=16></embed>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-6 text-left">
+                            <button type="submit" class="btn btn-success w-md text-md font-bold" ng-disabled="check=='1' || form2.$invalid">切换</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-6">
+        <div class="panel h-xl" style="background: #fcbdbd;">
+            <div class="panel-heading b-b text-center wrapper-md text-lg">我要绑定新的资金账号</div>
+            <div class="panel-body">
+                <div class="text-center m-t" style="height: 48px;">
+                    <span class="text-lg">三分钟便捷开户，开启财富大门</span>
+                </div>
+                <div class="text-center m-t-xxl">
+                    <a href="#/auth/binddealaccount" class="btn btn-danger w-md text-md font-bold">我要绑定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

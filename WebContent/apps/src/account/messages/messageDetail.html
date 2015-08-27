@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="pull-right m-t m-r">
+            <a class="m-t-md" ng-href="#/page/account/messages/{{singleMessage.MESSAGE_TYPE}}">返回</a>
+        </div>
+        <div tabset class="nav-tabs-alt">
+            <div tab>
+                <div tab-heading>
+                    <span class="font-bold">{{messageType}}</span>
+                </div>
+                <div class="m-t-md">
+                    <div class="row m-t-md">
+                        <div class="col-xs-8">{{singleMessage.TITLE}}</div>
+                        <div class="col-xs-3 text-right">{{singleMessage.CREATE_TIME}}</div>
+                        <div class="col-xs-1"><span class="btn btn-xs btn-danger" ng-if="singleMessage.MESSAGE_ID" ng-click="deleteSingleMsg(singleMessage)">删除</span></div>
+                    </div>
+                    <div class="m-t m-b-xl">{{singleMessage.CONTENT}}</div>
+                    <div class="line b-a"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

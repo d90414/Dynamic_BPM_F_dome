@@ -1,0 +1,60 @@
+<div class="row b b-a">
+    <div class="col-xs-6 m-t-sm">
+        <span class="text-md font-bold">资产全景视图</span>
+
+        <div class="col v-middle">
+            <div donut id="donut" class="h-md"></div>
+        </div>
+    </div>
+
+    <div class="col-xs-6 m-t-md">
+        <div class="">
+            <img class="m-t-n-sm" src="public/images/myaccount-icons-pig.png">
+            <span class="text-md font-bold text-#000000-dker">您的总资产 : </span>
+            <span class="text-md font-bold text-info-dker">{{totalAssets | currency}}</span>
+        </div>
+        <div class="w-full center-block">
+            <div class="btn-group btn-group-justified text-center">
+                <div class="btn-group text-center">
+                    <a class="wrapper block" href="">
+                        <div class="m-l-md"
+                             style="width: 75px; height: 75px; background: url('public/images/myaccount-icons.png')"></div>
+                        <div class="">投入资金</div>
+                        <div class="text-info-dk">{{investedCount | currency}}</div>
+                    </a>
+                </div>
+                <div class="btn-group text-center">
+                    <a class="wrapper block" href="#/page/prdlist/zgcp">
+                        <div class="m-l-md"
+                             style="width: 75px; height: 75px; background: url('public/images/myaccount-icons.png') 75px"></div>
+                        <div class="">总收益</div>
+                        <div class="text-danger-dk">{{totalRevenue | currency}}</div>
+                    </a>
+                </div>
+                <div class="btn-group text-center">
+                    <a class="wrapper block" href="#/page/prdlist/qslc">
+                        <div class="m-l-md"
+                             style="width: 75px; height: 75px; background: url('public/images/myaccount-icons.png') 150px"></div>
+                        <div class="">总收益率</div>
+                        <div class="text-danger-dk">{{yieldRate}}%</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row m-t-xl m-b-md">
+            <div class="col-xs-6 m-t-xs">
+                <span class="font-bold">可用余额 ：</span>
+                <span class="font-bold text-danger-dker">{{availableBalance | currency}}</span>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-info" ng-href="" target="_blank">
+                    <span class="text-md">去投资</span>
+                </a>
+                <a class="btn btn-danger m-l-sm" ng-href="" target="_blank">
+                    <span class="text-md">去充值</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

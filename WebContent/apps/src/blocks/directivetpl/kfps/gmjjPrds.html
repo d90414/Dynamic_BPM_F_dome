@@ -1,0 +1,114 @@
+<div class="panel bg-white-only" style="min-height: 610px;">
+    <div class="panel-heading">
+        <div class="pull-right"><a ng-href="#/kfps/prdlist/gmjj" class="text-info btn-link">查看更多></a></div>
+        <div class="pull-left m-t-n-xs" style="width: 31px;height: 31px;background: url('public/images/mall-icon-floor.png') -64px"></div>
+        <span class="text-md font-bold">公募基金产品</span>
+        <div class="m-t-xs b-a"></div>
+    </div>
+    <div class="panel-body">
+        <div tabset class="nav-tabs-alt">
+            <div tab ng-repeat="prds in prdsGroup track by $index">
+                <div tab-heading><span class="font-bold">{{prds.label}}</span></div>
+                <div class="m-t">
+                    <!--<div class="row m-b m-r-xxs">-->
+                    <!--<div class="col-xs-9">-->
+                    <div class="row m-b">
+                        <div class="col-xs-12">
+                            <div class="m-b-lg floor3-item" ng-repeat="p in prds.prd track by $index">
+                                <div>
+                                    <div class="pull-left" style="width: 202px; height: 50px;background: url('public/images/mall-prd-title-bg2.png') 0 50px">
+                                        <div>
+                                            <div class="text-md font-bold m-l-sm m-t-xxs text-ellipsis"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}" title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a>
+                                            </div>
+                                            <div class="m-l-sm text-xs">代码：<a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">{{p.PRO_CODE}}</a></div>
+                                            <div class="m-l-md m-t-sm">
+                                                <span ng-if="p.PRO_TYPE == '403'">最近七日年化收益率</span>
+                                                <span ng-if="p.PRO_TYPE != '403'">最新净值</span>
+                                            </div>
+                                            <div ng-if="p.PRO_TYPE == '403'" class="m-l-md m-t-xs font-bold text-ellipsis" ng-class="{'text-success': p.EXP_RATE_SEVENDAY < 0, 'text-muted': p.EXP_RATE_SEVENDAY == 0, 'text-danger': p.EXP_RATE_SEVENDAY > 0}" title="{{(p.EXP_RATE_SEVENDAY && p.EXP_RATE_SEVENDAY != 0) ? p.EXP_RATE_SEVENDAY + '%' : ''}}">
+                                                <span ng-show="p.EXP_RATE_SEVENDAY > 0" class="text-lg">+</span><span style="font-size: 34px;">{{(p.EXP_RATE_SEVENDAY && p.EXP_RATE_SEVENDAY != 0) ? p.EXP_RATE_SEVENDAY : '--'}}</span><span class="text-lg">{{(p.EXP_RATE_SEVENDAY && p.EXP_RATE_SEVENDAY != 0) ? '%' : ''}}</span>
+                                            </div>
+                                            <div ng-if="p.PRO_TYPE != '403'" class="m-l-md m-t-xs font-bold text-ellipsis" ng-class="{'text-success': p.NAV_VAL < 0, 'text-muted': P.NAV_VAL == 0,'text-danger': p.NAV_VAL > 0}" title="{{(p.NAV_VAL && p.NAV_VAL != 0) ? p.NAV_VAL + '元' : ''}}">
+                                                <span ng-show="p.NAV_VAL > 0">+</span><span style="font-size: 34px;">{{(p.NAV_VAL && p.NAV_VAL != 0) ? p.NAV_VAL : '--'}}</span><span class="text-lg">{{(p.NAV_VAL && p.NAV_VAL != 0) ? '元' : ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right m-xxs" style="width: 34px;height: 34px;background: url('public/images/mall-prd-icon-recommend.png') no-repeat"></div>
+                                </div>
+                                <div class="m-l-sm" style="background: #FFF4E0;">
+                                    <div class="bg-white b b-3x" style="margin-left: 173px; padding-left: 25px; height:122px; border-color: #FFF4E0;">
+                                        <div style="margin-right: 40px; padding-top: 5px;">
+                                            <div class="btn-group-justified">
+                                                <div class="btn-group v-top text-center">
+                                                    <div><span class="text-md ">累计净值</span></div>
+                                                    <div class="m-t-sm text-ellipsis"><h4>{{(p.ACC_VAL && p.ACC_VAL != 0) ? p.ACC_VAL + '元' : '--'}}</h4></div>
+                                                </div>
+                                                <div class="btn-group v-top text-center b-l b-r">
+                                                    <div><span class="text-md">风险等级</span></div>
+                                                    <div class="row">
+                                                        <div class="col-xs-offset-4 col-xs-4 padder-xxs">
+                                                            <h4 class="btn btn-xs text-md text-white {{bgOfRiskLvl[p.RISK_LVL]}}" style="cursor: auto;">{{p.RISK_LVL_DESC}}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group text-center v-top">
+                                                    <div><span class="text-md text-ellipsis">投资起点</span></div>
+                                                    <div class="m-t-sm text-ellipsis"><h4>{{p.INVE_START| moneyFomat}}</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group text-center">
+                                                    <a href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">
+                                                        <span ng-if="p.canBuy" class="w-xs btn btn-danger btn-sm text-base">购买</span>
+                                                        <span ng-if="!p.canBuy" class="w-xs btn btn-info btn-sm text-base">查看</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-full m-t">
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="m-r-xxl"><span>支付方式：</span>{{p.PAY_WAY_DESC}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="col-xs-3 no-padder">-->
+                        <!--<div class="bg-white b-a">-->
+                        <!--<div tabset class="nav-tabs-alt">-->
+                        <!--<div tab>-->
+                        <!--<div tab-heading><span class="font-bold">销售最快</span></div>-->
+                        <!--<div class="table-responsive">-->
+                        <!--<table class="table table-hover m-b-none">-->
+                        <!--<thead>-->
+                        <!--<tr class="text-left">-->
+                        <!--<th style="padding-right: 0;"></th>-->
+                        <!--<th style="padding-left: 0;padding-right: 0;">产品名称</th>-->
+                        <!--<th>收益率</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr ng-repeat="p in prds.fastSold track by $index" class="text-left">-->
+                        <!--<td style="padding-right: 0;"><b class="label label-sm {{($index <= 2) ? 'bg-danger' : 'bg-light'}}" ng-class="">{{$index+1}}</b></td>-->
+                        <!--<td style="padding-left: 0;padding-right: 0;"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}" style="width: 105px;" class="text-info text-ellipsis" title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a></td>-->
+                        <!--<td><span class="text-danger">{{p.EXPE_TYPE}}&nbsp;{{p.EXPE_VAL}}</span></td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                        <!--</table>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

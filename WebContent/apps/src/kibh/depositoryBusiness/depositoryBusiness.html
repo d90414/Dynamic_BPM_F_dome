@@ -1,0 +1,224 @@
+<div>
+    <div ng-switch on="enter">
+        <div ng-switch-when="1">
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                                     style="margin-top: -3px;">{{menutitle}}</span>
+            </div>
+
+            <div class="line line-xs b-b b-light"></div>
+            <div class="m-t-sm wrapper-xs bg-light">
+                <div class="wrapper-lg bg-white">
+                    <div ng-switch on="step">
+                        <div ng-switch-when="1">
+                            <form name="form" role="form" class="form-horizontal form-validation"
+                                  ng-submit="subForm(form.fundpwd.$modelValue)" novalidate>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">账户：</label>
+
+                                    <div class="col-xs-9">
+                                        <div class="form-control b-white" style="padding-left: 0;"
+                                             onfocus="this.blur()">{{user.USER_FNAME}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3 control-label">资金密码：</label>
+
+                                    <div class="col-xs-6">
+                                        <input type="password" placeholder="请输入资金密码" ng-pattern="/^[\s\S]{6,16}$/"
+                                               class="form-control" name="fundpwd" ng-model="fundpwd" ng-required>
+                                        <span class="help-block m-b-none text-danger"
+                                              ng-show="form.fundpwd.$dirty && form.fundpwd.$invalid">请输入6-16位密码</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-offset-3 col-xs-6">
+                                        <button type="submit" class="btn btn-info btn-block"
+                                                ng-disabled="!fundpwd || form.fundpwd.$invalid">
+                                            <span>下一步</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div ng-switch-when="2">
+                            <div class="b">
+                                <div class="wrapper-xs font-bold text-center b-b bg-light">选择需要绑定的银行</div>
+                                <div class="wrapper l-h-2x">
+                                    <div class="row m-t-xs">
+                                        <div class="col-xs-3" ng-repeat="bl in banklist">
+                                            <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                                                <input type="radio" name="bank" value="{{$index}}"
+                                                       ng-checked="$index == 0" ng-click="itemClick(bl)">
+                                                <i></i>
+                                                <img ng-src="{{'public/images/bank_' + bl.REMARK + '.png'}}"
+                                                     style="width: 85%;" ng-click="itemClick(bl, $index)">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-t">
+                                <form name="form" role="form" class="form-horizontal form-validation"
+                                      ng-submit="subForm(form.bankaccount.$modelValue)" novalidate>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">银行卡号：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="text" placeholder="请输入银行卡号" ng-pattern="/^[0-9]{10,}$/" class="form-control"
+                                                   name="bankaccount" ng-model="bankaccount" ui-focus="{{step == 2}}"
+                                                   ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.bankaccount.$dirty && form.bankaccount.$invalid">请输入正确的银行卡号</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">币种：</label>
+
+                                        <div class="col-xs-9 m-t-sm">
+                                            <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8, 'm-r-sm': $index < currency.length - 1}"
+                                                   ng-repeat="mt in currency">
+                                                <input type="radio" name="currency" value="{{mt.DICT_ITEM}}"
+                                                       ng-checked="$index == 0"><i></i>{{mt.DICT_ITEM_NAME}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">取款密码：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入取款密码" ng-pattern="/^[0-9]{6}$/"
+                                                   class="form-control" name="password" ng-model="password" ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.password.$dirty && form.password.$invalid">请输入6位密码</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-3 col-xs-6">
+                                            <label class="control-label"
+                                                   ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                                                <input type="checkbox" ng-model="agree"><i></i>
+                                                我已阅读并同意<a class="text-danger" ng-bind="bankname"
+                                                          ng-click="readArgument(bankname, bankurl)"></a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-3 col-xs-6">
+                                            <button type="submit" class="btn btn-info btn-block"
+                                                    ng-disabled="!agree || !bankaccount || !password || form.bankaccount.$invalid || form.password.$invalid">
+                                                <span>下一步</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div ng-switch-when="3">
+                            <div class="wrapper-xl">
+                                <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>您的存管银行已经变更成功
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="4">
+                            <div class="wrapper-xl text-center">
+                                <div class="h3"><i class="fa fa-times-circle text-danger m-r-xs"></i>您的存管银行变更失败</div>
+                                <button class="btn btn-md btn-info m-t-xl" ng-click="subForm()">
+                                    <span>返回上一步</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-default>
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                                     style="margin-top: -3px;">存管账户管理</span>
+            </div>
+            <div class="line line-xs b-b b-light"></div>
+            <div class="m-t-sm wrapper-sm bg-light">
+                <div class="text-lg m-t m-l-lg">主存管账户</div>
+                <div class="wrapper-md">
+                    <div class="row">
+                        <div class="col-xs-4" ng-class="{'m-t-lg': $index > 2}" ng-repeat="ma in mainaccount">
+                            <div class="b bg-white r-3x box-shadow-lg">
+                                <div class="wrapper clear">
+                                    <div class="pull-left" ng-if="fd.DICT_ITEM == ma.EXT_ORG" ng-repeat="fd in fyhdm">
+                                        <img ng-src="{{'public/images/bank_' + ma.EXT_ORG + '_m.png'}}"
+                                             class="m-t-n m-b-n">
+                                        <span ng-bind="fd.DICT_ITEM_NAME"></span>
+                                    </div>
+                                    <div class="pull-right">
+                                        尾号：{{ma.BANK_ACCT.substring(ma.BANK_ACCT.length - 4, ma.BANK_ACCT.length)}}
+                                    </div>
+                                </div>
+                                <div class="wrapper bg-dark text-white">三方存管：
+                                    <span ng-bind="cs.DICT_ITEM_NAME" ng-if="cs.DICT_ITEM == ma.CONTRACT_STATUS"
+                                          ng-repeat="cs in contractstatus"></span>
+                                </div>
+                                <div class="wrapper clear">
+                                    <a class="text-info pull-right"
+                                       ng-click="deleteBank(ma.CURRENCY, ma.EXT_ORG, ma.BANK_ACCT, ma.CUACCT_CODE)">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4" ng-if="mainaccount.length == 0">
+                            <div class="text-center b b-dashed bg-white r-3x box-shadow-lg">
+                                <a class="h2 text-info" ng-click="addBank(true)">
+                                    <div class="h-sm">
+                                        <i class="fa fa-plus m-t-xxl"></i>
+
+                                        <div class="text-base">新增</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-lg m-t m-l-lg">辅助存管账户</div>
+                <div class="text-danger m-t m-l-lg">温馨提示：您最多可以添加四个辅助存管账户</div>
+                <div class="wrapper-md">
+                    <div class="row">
+                        <div class="col-xs-4" ng-class="{'m-t-lg': $index > 2}" ng-repeat="sa in secondaccount">
+                            <div class="b bg-white r-3x box-shadow-lg">
+                                <div class="wrapper clear">
+                                    <div class="pull-left" ng-if="fd.DICT_ITEM == sa.EXT_ORG" ng-repeat="fd in fyhdm">
+                                        <img ng-src="{{'public/images/bank_' + sa.EXT_ORG + '_m.png'}}"
+                                             class="m-t-n m-b-n">
+                                        <span ng-bind="fd.DICT_ITEM_NAME"></span>
+                                    </div>
+                                    <div class="pull-right">
+                                        尾号：{{sa.BANK_ACCT.substring(sa.BANK_ACCT.length - 4, sa.BANK_ACCT.length)}}
+                                    </div>
+                                </div>
+                                <div class="wrapper bg-dark text-white">三方存管：
+                                    <span ng-bind="cs.DICT_ITEM_NAME" ng-if="cs.DICT_ITEM == sa.CONTRACT_STATUS"
+                                          ng-repeat="cs in contractstatus"></span>
+                                </div>
+                                <div class="wrapper clear">
+                                    <a class="text-info pull-right"
+                                       ng-click="deleteBank(sa.CURRENCY, sa.EXT_ORG, sa.BANK_ACCT, sa.CUACCT_CODE)">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4" ng-class="{'m-t-lg': secondaccount.length > 2}"
+                             ng-if="secondaccount.length < 4">
+                            <div class="text-center b b-dashed bg-white r-3x box-shadow-lg">
+                                <a class="h2 text-info" ng-click="addBank()">
+                                    <div class="h-sm">
+                                        <i class="fa fa-plus m-t-xxl"></i>
+
+                                        <div class="text-base">新增</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

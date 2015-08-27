@@ -1,0 +1,54 @@
+<div class="row m-l-none m-r-none m-t m-b">
+    <div class="row">
+        <div class="col-xs-3">
+            <nav ui-nav class="navi">
+                <ul class="nav b">
+                    <li class="hidden-folded wrapper-sm text-white text-md bg-info">
+                        <span>全部帮助</span>
+                    </li>
+
+                    <li ng-class="{'active': tl[type], 'hide': $index == 0}" ng-repeat="tl in typelist">
+                        <a ng-click="setType($index)">
+                            <i class="fa fa-check text-info-dker" ng-class="{'text-white': !tl[type]}"></i>
+                            <span class="font-bold" ng-bind="$index == 0 ? '开户业务' : ($index == 1 ? '业务办理' : '产品购买')"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-xs-9">
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info">
+                    <img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">帮助中心</span>
+            </div>
+            <div class="m-t-sm wrapper-xs bg-light">
+                <div class="wrapper bg-white">
+                    <div ng-switch on="type">
+                    	<!-- <div ng-switch-when="0">
+                    		开户业务
+                    	</div> -->
+	                    <div ng-switch-when="1">
+	                        <div ng-include="business_url"></div>
+	                    </div>
+	                    <div ng-switch-when="2">
+	                        <div ng-repeat="help in helplist">
+	                            <div class="m-b row">
+	                                <div class="col-xs-1 text-right no-padder">
+                                        <div name="{{help.id}}" id="{{help.id}}" class="text-white">
+                                            <span class="label label-sm bg-danger">Q</span></div></div>
+	                                <div class="col-xs-11 text-base font-bold" ng-bind-html="help.question"></div>
+	                            </div>
+	                            <div class="m-b row">
+	                                <div class="col-xs-1 text-right no-padder">
+                                        <span class="label label-sm bg-info">A</span>
+	                                </div>
+	                                <div class="col-xs-11 text-base" ng-bind-html="help.anwser"></div>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

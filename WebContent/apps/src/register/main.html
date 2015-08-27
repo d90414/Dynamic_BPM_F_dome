@@ -1,0 +1,84 @@
+<div class="bg-white-only">
+    <div class="panel">
+        <div class="panel-heading b-b">
+            <span class="h4 font-bold">快速注册</span>
+            <span class="pull-right">
+                <a href="#/page/help/2#2" target="_blank" class="help-link m-r-md">常见问题</a>
+                已有帐号？
+                <a href="#/auth/login" class="btn-sm btn-info font-bold">立即登录</a>
+            </span>
+        </div>
+        <div class="panel-body">
+            <form name="form" role="form" novalidate class="form-validation form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">用户名:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <input type="text" placeholder="请输入用户名" ng-pattern="/^(?!^\d+$)[0-9a-zA-Z]{6,16}$/" ng-click="usernameAlreadyExist=0" class="form-control" name="name" ng-blur="checkUsername()" ng-model="user.name" ng-required ui-focus="true">
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="form.name.$dirty && form.name.$invalid">请输入6-16位字符：字母(必含),数字(可选)</span>
+                        <span ng-show="usernameAlreadyExist==1">用户名{{username}}已存在</span>
+                        <span class="text-success" ng-show="usernameAlreadyExist==2">用户名可以注册</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">手机号码:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <div class="input-group">
+                            <input type="text" placeholder="请输入手机号码" ng-pattern="/^1[358][0-9]{9}$|^14[57][0-9]{8}$/" maxlength="11" class="form-control" name="mobile" ng-model="user.mobile" ng-disabled="codetip!='获取验证码'" ng-required>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-info" ng-bind-html="codetip" ng-click="getcode()" ng-disabled="!user.mobile || form.mobile.$invalid || codetip!='获取验证码'"></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="form.mobile.$dirty && form.mobile.$invalid">请输入11位数字手机号码(仅支持大陆手机号段)</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">验证码:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <input type="text" placeholder="请输入短信验证码" ng-pattern="/^[0-9]{6}$/" ng-disabled='form.mobile.$invalid' class="form-control" name="code" ng-model="user.code" ng-required>
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="form.code.$dirty && form.code.$invalid">请输入6位验证码</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">邮箱:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <input type="email" placeholder="请输入邮箱（可选）" maxlength="60" class="form-control" ng-model="user.email" name="email">
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="emailTest">请输入正确的邮箱</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">密码:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <input ng-if="browserType == 0" type="password" placeholder="请输入密码" ng-pattern="/^[\s\S]{6,16}$/" class="form-control" id="password" name="password" ng-model="user.password" ng-required ng-change="user.password1=''">
+                        <input ng-if="browserType != 0" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="请输入密码" ng-pattern="/^[\s\S]{6,16}$/" class="form-control" id="password" name="password" ng-model="user.password" ng-required ng-change="user.password1=''">
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="form.password.$dirty && form.password.$invalid">请输入6-16位密码</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label text-right text-md">密码确认:</label>
+                    <div class="col-xs-4 text-left w-xl">
+                        <input ng-if="browserType == 0" type="password" placeholder="请再次输入密码" ng-pattern="/^[\s\S]{6,16}$/" check-re-pass-word="password" class="form-control" name="password1" ng-model="user.password1" ng-required>
+                        <input ng-if="browserType != 0" type="text" onfocus="this.type='password'" autocomplete="off" placeholder="请再次输入密码" ng-pattern="/^[\s\S]{6,16}$/" check-re-pass-word="password" class="form-control" name="password1" ng-model="user.password1" ng-required>
+                    </div>
+                    <div class="col-xs-5 text-left text-danger" style="padding-top: 7px;">
+                        <span ng-show="form.password1.$dirty && form.password1.$invalid">2次输入密码不一致</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-3 col-xs-4 w-xl">
+                        <button type="submit" class="btn btn-success btn-block" ng-bind-html="subtip" ng-click="signup()" ng-disabled='!user.name || !user.mobile || !user.code || !user.password || !user.password1 || form.$invalid || submitting'></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

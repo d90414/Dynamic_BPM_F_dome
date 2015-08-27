@@ -1,0 +1,16 @@
+<div>
+    <ul class="">
+        <li ng-repeat="item in noticeList" class="m-t m-l-xxl m-r-xxl b-b">
+            <div class="inline text-left text-md font-bold v-middle">
+                <a href="#/page/noticeDetail/{{item.ID}}" ng-bind="item.NAME"></a>
+            </div>
+            <div class="inline pull-right v-middle" ng-bind="item.OP_DATE"></div>
+        </li>
+    </ul>
+    <div class="wrapper-sm clear m-l">
+        <div class="pull-left m-l-xxl"><span>共<span class="text-danger">{{pagination.totalcount==-1?0:pagination.totalcount}}</span>条公告</span></div>
+        <div class="pull-right m-r-xl" ng-if="pagination.totalcount > pagination.pagesize">
+            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+        </div>
+    </div>
+</div>

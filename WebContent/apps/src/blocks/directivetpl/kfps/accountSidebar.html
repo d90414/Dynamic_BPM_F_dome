@@ -1,0 +1,16 @@
+<div class="hbox w-sm bg-white-only">
+    <div class="col bg-auto">
+        <a ui-sref="page.account.info" class="w-full btn btn-danger text-md font-bold text-white">个人中心</a>
+
+        <div id="sidebar" class="wrapper-sm b-a">
+            <ul class="nav nav-stacked nav-sm">
+                <li ng-repeat="sideLink in sideLinks" class="w-full" ng-style="{'background-color': isActive(sideLink.url) ? '#D1EAEA' : ''}">
+                    <a ui-sref="{{sideLink.url}}">
+                        <div class="pull-left" ng-style="sideLink.iconUrl"></div>
+                        &nbsp;{{sideLink.name}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

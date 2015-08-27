@@ -1,0 +1,84 @@
+<div>
+    <div class="m-t-sm m-b-xs">
+        <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+    </div>
+
+    <div class="m-t-sm wrapper-xs bg-light">
+        <div class="wrapper-lg bg-white">
+            <div ng-switch on="step">
+                <div ng-switch-when="1">
+                    <div class="font-bold text-lg text-center">{{title}}</div>
+                    <div class="text-info m-t m-b">为了您能更好地开展业务，我们为您准备了风险揭示书，请您认真阅读并签署。</div>
+                    <div tabset class="nav-tabs-alt">
+                        <div tab ng-repeat="ag in agreement">
+                            <div tab-heading><span class="font-bold" ng-bind="ag.agreement_name"></span></div>
+                            <div class="b">
+                                <div class="l-h-2x text-muted padder-xxs" style="text-indent: 2em;overflow-y: scroll"
+                                     ng-style="myHeight" ng-include="ag.agreement_url"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t m-b-md">
+                        <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                            <input type="checkbox" ng-model="agree"><i></i>本人/机构已认真阅读并完全理解协议的全部内容，愿意承担各种风险和损失。
+                        </label>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md btn-info" ng-click="submit()" ng-disabled="!agree">
+                            <span>下一步</span>
+                        </button>
+                    </div>
+                </div>
+                <div ng-switch-when="2">
+                    <div class="font-bold text-lg text-center">
+                        <span><i class="fa fa-check-circle text-success m-r-xs"></i>您的业务已受理</span>
+                    </div>
+                    <div class="line b-b m-t m-b"></div>
+                    <div class="wrapper-lg text-center">
+                        <div>您的业务已受理，如您在交易中遇到任何问题，可以拨打我们的客服热线：</div>
+                        <div class="wrapper-md text-2x text-info">400-651-5988</div>
+                        <div>我们的客服人员将竭诚为您服务！</div>
+                    </div>
+                </div>
+                <div ng-switch-when="3">
+                    <div class="font-bold text-lg text-center">
+                        <span><i class="fa fa-check-circle text-success m-r-xs"></i>您已成功取消{{bizname}}</span>
+                    </div>
+                    <div class="line b-b m-t m-b"></div>
+                    <div class="wrapper-lg text-center">
+                        <div>您已成功取消{{bizname}}，如您在交易中遇到任何问题，可以拨打我们的客服热线：</div>
+                        <div class="wrapper-md text-2x text-info">400-651-5988</div>
+                        <div>我们的客服人员将竭诚为您服务！</div>
+                    </div>
+                </div>
+                <div ng-switch-default>
+                    <div class="row">
+                        <div class="col-xs-3" ng-repeat="biz in bizsinfo">
+                            <div title="{{biz.BUSI_DESC}}" class="block panel text-center bg-info item box-shadow" ng-class="{'m-b-none': bizsinfo.length - $index < 5}"
+                                 style="padding-top: 5px;padding-bottom: 5px">
+                                <div class="text-center">
+                                    <span class="text-white font-bold block">{{biz.BUSINESS_NAME}}</span>
+                                    <span class="text-white text-xs" ng-if="userbizs[biz.BUSINESS_ID] == '0'">已开通</span>
+                                    <span class="text-xs text-muted" ng-if="userbizs[biz.BUSINESS_ID] == '-1'">未开通</span>
+                                </div>
+								<span class="text-left" ng-if="!$root.ie8">
+									<label class="i-switch bg-warning m-t-sm" title="{{userbizs[biz.BUSINESS_ID] == '0' ? '撤销' : (userbizs[biz.BUSINESS_ID] == '-1' ? '开通' : '')}}">
+                                        <input type="checkbox" onclick="return false;" ng-checked="userbizs[biz.BUSINESS_ID] == '0'"
+                                               ng-click="userbizs[biz.BUSINESS_ID] == '0' ? cancel(biz.BUSINESS_ID, biz.BUSINESS_NAME) : open(biz.BUSINESS_ID, biz.BUSINESS_NAME)">
+                                        <i></i>
+                                    </label>
+								</span>
+								<span class="text-center m-t-sm" ng-if="$root.ie8">
+						            <img src="public/images/chkon.png" ng-if="userbizs[biz.BUSINESS_ID] == '0'"
+			                               title="撤销" ng-click="cancel(biz.BUSINESS_ID, biz.BUSINESS_NAME)">
+						            <img src="public/images/chkoff.png" ng-if="userbizs[biz.BUSINESS_ID] == '-1'"
+			                               title="开通" ng-click="open(biz.BUSINESS_ID, biz.BUSINESS_NAME)">
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

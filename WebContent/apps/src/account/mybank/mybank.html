@@ -1,0 +1,235 @@
+<div>
+    <div ng-switch on="enter">
+        <div ng-switch-when="1">
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                                     style="margin-top: -3px;">绑定银行卡</span>
+            </div>
+            <div class="line line-xs b-b b-light"></div>
+            <div class="m-t-sm wrapper-xs bg-light">
+                <div class="wrapper-lg bg-white">
+                    <div ng-switch on="showtype">
+                        <div ng-switch-when="1">
+                            <div class="m-t">
+                                <form name="form" role="form" class="form-horizontal form-validation"
+                                      ng-submit="addBank(form.bind.$modelValue)" novalidate>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">选择需要绑定的银行：</label>
+
+                                        <div class="col-xs-6">
+                                            <div class="col-xs-3" ng-repeat="bl in banklist">
+                                                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                                                    <input type="radio" name="radio" ng-model="bind.bank_no"
+                                                           value="{{bl.bank_no}}">{{bl.bank_name}}
+                                                    <i></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">银行卡号：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="text" placeholder="请输入银行卡号" ng-pattern="/^[0-9]{10,}$/"
+                                                   class="form-control" name="bankaccount" ng-model="bind.bankaccount"
+                                                   ng-required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">真实姓名：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入真实姓名" class="form-control"
+                                                   name="name" ng-model="bind.user_name" ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.name.$dirty && form.name.$invalid">真实姓名</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">身份证号：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入身份证号"
+                                                   ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/"
+                                                   class="form-control" name="cardno" ng-model="bind.cardno"
+                                                   ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.cardno.$dirty && form.cardno.$invalid">身份证号</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">手机号码：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入银行预留手机号码" ng-pattern="/^1[0-9]{10}$/"
+                                                   class="form-control" name="user_phone" ng-model="bind.user_phone"
+                                                   ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.user_phone.$dirty && form.user_phone.$invalid">银行预留手机号码</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-3 col-xs-6">
+                                            <button type="submit" class="btn btn-info btn-block"
+                                                    ng-disabled="form.bankaccount.$invalid">
+                                                <span>绑定</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div ng-switch-when="3">
+                            <div class="wrapper-xl">
+                                <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>您的银行卡绑定成功，<a
+                                        ng-click="getBankList()">返回</a></div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="4">
+                            <div class="wrapper-xl text-center">
+                                <div class="h3"><i class="fa fa-times-circle text-danger m-r-xs"></i>您的银行卡绑定失败</div>
+                                <div class="text-danger m-t">绑定失败</div>
+                                <button class="btn btn-md btn-info m-t-xl" ng-click="showtype=1">
+                                    <span>重新绑定</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="3">
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                                     style="margin-top: -3px;">解绑银行卡</span>
+            </div>
+            <div class="line line-xs b-b b-light"></div>
+            <div class="m-t-sm wrapper-xs bg-light">
+                <div class="wrapper-lg bg-white">
+                    <div ng-switch on="showtype">
+                        <div ng-switch-when="1">
+                            <div class="m-t">
+                                <form name="form" role="form" class="form-horizontal form-validation"
+                                      ng-submit="delBindBank(form.bankaccount.$modelValue)" novalidate>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">解绑银行：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="hidden" class="form-control" ng-model="rebind.bank_no">
+                                            <input type="text" disabled class="form-control"
+                                                   ng-model="rebind.bank_name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">银行卡号：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="text" placeholder="请输入银行卡号" ng-pattern="/^[0-9]{10,}$/"
+                                                   class="form-control" name="bankaccount" ng-model="rebind.bankaccount"
+                                                   ng-required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">真实姓名：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入真实姓名" class="form-control"
+                                                   name="name" ng-model="rebind.user_name" ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.name.$dirty && form.name.$invalid">真实姓名</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">身份证号：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入身份证号"
+                                                   ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/"
+                                                   class="form-control" name="cardno" ng-model="rebind.cardno"
+                                                   ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.cardno.$dirty && form.cardno.$invalid">身份证号</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-3 control-label">手机号码：</label>
+
+                                        <div class="col-xs-6">
+                                            <input type="password" placeholder="请输入银行预留手机号码" ng-pattern="/^1[0-9]{10}$/"
+                                                   class="form-control" name="user_phone" ng-model="rebind.user_phone"
+                                                   ng-required>
+                                            <span class="help-block m-b-none text-danger"
+                                                  ng-show="form.user_phone.$dirty && form.user_phone.$invalid">银行预留手机号码</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-offset-3 col-xs-6">
+                                            <button type="submit" class="btn btn-info btn-block"
+                                                    ng-disabled="form.rebind.$invalid">
+                                                <span>解除绑定</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div ng-switch-when="3">
+                            <div class="wrapper-xl">
+                                <div class="h3 text-center"><i class="fa fa-check-circle text-success m-r-xs"></i>您的银行卡解除绑定成功，<a
+                                        ng-click="getBankList()">返回</a></div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="4">
+                            <div class="wrapper-xl text-center">
+                                <div class="h3"><i class="fa fa-times-circle text-danger m-r-xs"></i>您的银行卡解除绑定失败</div>
+                                <div class="text-danger m-t">解除绑定失败</div>
+                                <button class="btn btn-md btn-info m-t-xl" ng-click="showtype=1">
+                                    <span>重新解除绑定</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="2">
+            <div class="m-t-sm m-b-xs">
+                <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs"
+                                                     style="margin-top: -3px;">银行卡管理</span>
+            </div>
+            <div class="line line-xs b-b b-light"></div>
+            <div class="m-t-sm wrapper-sm bg-light">
+                <div class="text-lg m-t m-l-lg">绑定的银行卡</div>
+                <div class="wrapper-md">
+                    <div class="row">
+                        <div class="col-xs-4" ng-repeat="bl in bindbanklist">
+                            <div class="b bg-white r-3x box-shadow-lg">
+                                <div class="wrapper clear">
+                                    <div class="pull-left"></div>
+                                    <div class="pull-right">
+                                        尾号：{{bl.BANK_ACCT.substring(bl.BANK_ACCT.length - 4, bl.BANK_ACCT.length)}}
+                                    </div>
+                                </div>
+                                <div class="wrapper bg-dark text-white">{{bl.BANK_ACCT}}</div>
+                                <div class="wrapper clear">
+                                    <a class="text-info pull-right" ng-click="todelBank(bl)">解除绑定</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="text-center b b-dashed bg-white r-3x box-shadow-lg">
+                                <a class="h2 text-info" ng-click="toAddBank()">
+                                    <div class="h-sm">
+                                        <i class="fa fa-plus m-t-xxl"></i>
+
+                                        <div class="text-base">新增</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

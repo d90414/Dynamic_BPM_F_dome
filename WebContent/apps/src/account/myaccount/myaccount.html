@@ -1,0 +1,195 @@
+<div class="panel">
+    <div class="panel-heading b-b">
+        <span class="text-md text-info">登陆账户信息</span>
+    </div>
+    <div class="panel-body">
+        <div class="wrapper-md bg-light lter">
+            <table class="w-full l-h-2x">
+                <tr>
+                    <th width="20%" class="text-right">真实姓名：</th>
+                    <td width="25%" class="text-left"><span ng-bind="account.USER_FNAME"></span></td>
+                    <th width="20%" class="text-right">性别：</th>
+                    <td class="text-left">
+                        <span ng-bind="account.sex"></span></td>
+                </tr>
+                <tr>
+                    <th class="text-right">证件号码：</th>
+                    <td class="text-left"><span ng-bind="account.ID_CODE | fieldCover:'4'"></span></td>
+                    <th class="text-right">证件类型：</th>
+                    <td class="text-left"><span ng-bind="account.ID_TYPE_DESC"></span></td>
+                </tr>
+                <tr>
+                    <th class="text-right">资金账户：</th>
+                    <td class="text-left">
+                        <span ng-bind="account.FUNDSACCT_CODE"></span>
+                    </td>
+                    <th class="text-right">业务范畴：</th>
+                    <td class="text-left"><span ng-bind="account.ACCT_EXT_ATTR_NAME"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-heading b-b">
+        <span class="text-md text-info">已绑定账户列表</span>
+    </div>
+    <div class="panel-body">
+        <div class="wrapper-md">
+
+            <div ng-switch on="changeAccount">
+
+                <div ng-switch-when="0">
+                    <div ng-if="showType.show" class="row">
+                        <div class="col-xs-4" ng-repeat="bl in licaiList" id="{{bl}}">
+                            <div class="panel b bg-light r-3x h-sm">
+                                <div class="panel b bg-light r-3x h-sm">理财账户</div>
+                                <div class="panel-body bg-dark text-white">{{bl}}</div>
+                                <div class="panel-footer bg-light text-right">
+                                    <a class="text-info" ng-show="account.FUNDSACCT_CODE!=bl" ng-click="toChangeAccount(bl)">切换账户</a>
+                                    <span class="text-info" ng-show="account.FUNDSACCT_CODE==bl">当前登录账户</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4" ng-repeat="fundAccount in zijinList">
+                            <div class="panel b bg-light r-3x h-sm">
+                                <div class="panel-heading text-right">资金账户</div>
+                                <div class="panel-body bg-dark text-white">{{fundAccount}}</div>
+                                <div class="panel-footer bg-light text-right">
+                                    <a class="text-info" ng-show="account.FUNDSACCT_CODE != fundAccount" ng-click="toChangeAccount(fundAccount)">切换账户</a>
+                                    <span class="text-info" ng-show="account.FUNDSACCT_CODE == fundAccount">当前登录账户</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="panel b b-dashed bg-light r-3x h-sm text-center">
+                                <a class="h2 text-info" ng-click="bindNewFundAccount()">
+                                    <i class="fa fa-plus m-t-xxl"></i>
+                                    <div class="text-base">新增</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="showType.edit" class="row">
+                        <div class="col-xs-4" ng-repeat="bl in licaiList" id="{{bl}}">
+                            <div class="panel b bg-light r-3x h-sm">
+                                <div class="panel b bg-light r-3x h-sm">理财账户</div>
+                                <div class="panel-body bg-dark text-white">{{bl}}</div>
+                                <div class="panel-footer bg-light text-right">
+                                    <a class="text-info" ng-show="account.FUNDSACCT_CODE!=bl" ng-click="toChangeAccount(bl)">切换账户</a>
+                                    <span class="text-info" ng-show="account.FUNDSACCT_CODE==bl">当前登录账户</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4" ng-repeat="fundAccount in zijinList">
+                            <div ng-if="changeACCT != fundAccount" class="panel b bg-light r-3x h-sm">
+                                <div class="panel-heading text-right">资金账户</div>
+                                <div class="panel-body bg-dark text-white">{{fundAccount}}</div>
+                                <div class="panel-footer bg-light text-right">
+                                    <a class="text-info" ng-show="account.FUNDSACCT_CODE != fundAccount" ng-click="toChangeAccount(fundAccount)">切换账户</a>
+                                    <span class="text-info" ng-show="account.FUNDSACCT_CODE == fundAccount">当前登录账户</span>
+                                </div>
+                            </div>
+                            <div ng-if="changeACCT == fundAccount">
+                                <div class="b bg-light r-3x box-shadow-lg h-sm">
+                                    <div class="text-right">
+                                        <a ng-click="search()" class="m-r-xs">取消</a>
+                                    </div>
+                                    <form name="form2" class="form-horizontal form-validation text-nowrap" novalidate>
+                                        <div class="form-group-sm">
+                                            <label class="col-xs-4 control-label text-right">资金账号：</label>
+                                            <div class="col-xs-7 no-padder">
+                                                <p class="form-control-static">{{changeACCT}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-sm">
+                                            <label class="col-xs-4 control-label text-right">交易密码：</label>
+                                            <div class="col-xs-7 no-padder">
+                                                <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class="form-control" maxlength="16">
+                                                <input ng-if="browserType!=2" type="text" class="form-control" id="pwdHolder" ng-focus="checkPwdPlugin()" ng-hide="pwdfocus">
+                                                <div ng-if="browserType!=2" ng-class="{'form-control': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                                    <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="143" height="16">
+                                                        <param name="MaxLength" value="16">
+                                                    </object>
+                                                    <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="143" height="16" MaxLength=16></embed>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group-sm">
+                                            <div class="col-xs-offset-4 col-xs-7 no-padder m-t">
+                                                <button type="submit" class="btn btn-sm btn-success btn-block" ng-click="changeLogin()">切换账号</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="panel b b-dashed bg-light r-3x h-sm text-center">
+                                <a class="h2 text-info" ng-click="bindNewFundAccount()">
+                                    <i class="fa fa-plus m-t-xxl"></i>
+                                    <div class="text-base">新增</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-switch-when="1">
+                    <form name="form" role="form" novalidate class="form-horizontal form-validation">
+                        <div class="b bg-light r-3x">
+                            <div class="clearfix">
+                                <a ng-click="cancel()" class="pull-right m-t-xxs m-r-xs m-b-xs">取消</a>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label text-right">资金账号：</label>
+                                <div class="col-xs-7">
+                                    <input type="text" class="form-control w-lg" placeholder="请输入账户号码" name="name" ng-disabled="check==1" ng-pattern="/^[0-9]{11,12}$/" maxlength="12" ng-model="user.name" id="acc_no" ng-required>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="check==0">
+                                <label class="col-xs-4 control-label text-right">交易密码：</label>
+                                <div class="col-xs-7">
+                                    <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class="form-control w-lg">
+                                    <input ng-if="browserType!=2" type="text" class="form-control w-lg" ng-focus="checkPwdPlugin()" ng-hide="pwdfocus">
+                                    <div ng-if="browserType!=2" ng-class="{'form-control w-lg': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                        <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="255" height="16" style="cursor: pointer;">
+                                            <param name="MaxLength" value="16">
+                                        </object>
+                                        <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="255" height="16" MaxLength=16 style="cursor: pointer;"></embed>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="check==0">
+                                <div class="col-xs-offset-4 col-xs-7">
+                                    <button ng-click="chkAcctPwd()" ng-disabled='form.name.$invalid || !user.name' class="btn btn-info font-bold w-lg"><i ng-if="isLoading" class="fa fa-spin fa-spinner m-r-xs"></i>验证账户</button>
+                                </div>
+                            </div>
+                            <div class="form-group text-md" ng-show="check==1">
+                                <div class="col-xs-offset-3">验证是否本人操作：（向资金账对应的手机号发送验证码）</div>
+                            </div>
+                            <div class="form-group" ng-show="check==1">
+                                <div class="col-xs-offset-4 col-xs-7">
+                                    <div class="input-group w-lg">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-info" ng-bind-html="codetip" ng-click="verifyMobile()" ng-disabled="codetip!='验证手机号'"></button>
+                                    </span>
+                                        <input type="text" class="form-control" placeholder="请输入短信验证码" ng-pattern="/^[0-9]{6}$/" name="code" ng-model="user.code" ng-disabled="codetip=='验证手机号'" required>
+                                    </div>
+                                    <span class="help-block text-md text-danger" ng-show="!form.code.$pristine && form.code.$invalid">请输入6位验证码</span>
+                                </div>
+                            </div>
+                            <div class="form-group text-center" ng-show="check==1">
+                                <button ng-click="changeFundId()" class="btn btn-info m-r w">换一个资金账号？</button>
+                                <button ng-click="chkMobileCode()" ng-disabled='form.code.$invalid' class="btn btn-info w">立即绑定</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

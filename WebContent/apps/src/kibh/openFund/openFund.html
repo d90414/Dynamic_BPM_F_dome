@@ -1,0 +1,74 @@
+<div>
+	<div class="m-t-sm m-b-xs">
+		<span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+	</div>
+	<div class="line line-xs b-b b-light"></div>
+	<div class="m-t-sm wrapper-xs bg-light">
+		<div class="wrapper-lg bg-white">
+			<div ng-switch on="step">
+				<div ng-switch-when="1">
+					<div class="b">
+						<div class="wrapper-xs font-bold text-center b-b bg-light">请选择要开户的基金公司</div>
+						<div class="wrapper-xs" ng-if="!range">
+							<button type="button" class="btn btn-sm" ng-class="{'btn-default': !item.selected, 'btn-info': item.selected}" ng-click="itemSelect($index)" ng-repeat="item in dateRangeOptions">{{item['value']}}</button>
+						</div>
+						<div class="wrapper l-h-2x">
+							<div class="row m-t-xs">
+								<div class="col-xs-3" ng-repeat="fl in fundlist">
+									<label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+										<input type="radio" name="fund" value="{{$index}}" ng-checked="$index == 0" ng-click="itemClick(fl)"><i></i>{{fl.ORG_NAME}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div tabset class="nav-tabs-alt">
+						<div tab>
+							<div tab-heading><span class="font-bold">阅读协议</span></div>
+							<div class="wrapper-xs m-t-sm">
+								<ul class="clear" ng-repeat="ag in agreement">
+									<li class="pull-left">《{{ag.agreement_name}}》</li>
+									<a class="pull-right text-info m-r-md" ng-click="readArgument(ag.agreement_name, ag.agreement_url)"><i class="fa fa-eye m-r-xs"></i>阅读</a>
+								</ul>
+							</div>
+						</div>
+						<div tab>
+							<div tab-heading><span class="font-bold">已开户基金公司</span></div>
+							<div class="wrapper-xs m-t-sm">
+								<div class="row m-b-sm">
+									<div class="col-xs-3" ng-repeat="fc in fundcompany">
+										<i class="fa fa-check m-r-xs"></i>{{fc.ORG_NAME}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="m-t m-b-md">
+						<label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+							<input type="checkbox" ng-model="agree"><i></i>本人/机构已认真阅读并完全理解<span ng-class="{'padder-md': !isIE8, 'm-r-n-md': !isIE8}" ng-repeat="ag in agreement">《{{ag.agreement_name}}》<span ng-if="$index < agreement.length - 1">、</span></span>全部内容，愿意承担场外基金交易的各种风险和损失。
+						</label>
+					</div>
+					<div class="text-center">
+						<button class="btn btn-md btn-info" ng-click="submit()" ng-disabled="!agree || fundlist.length == 0">
+							<span>下一步</span>
+						</button>
+					</div>
+				</div>
+				<div ng-switch-when="2">
+					<div class="font-bold text-lg text-center">
+						<span><i class="fa fa-check-circle text-success m-r-xs"></i>您已成功完成场外基金开户</span>
+					</div>
+                    <div class="text-center m-t hide" ng-if="range">
+                        <button class="btn btn-sm btn-info w-xs" ng-click="back()">返回商城</button>
+                    </div>
+					<div class="line b-b m-t m-b"></div>
+					<div class="wrapper-lg text-center">
+						<div>您已成功完成场外基金开户，如您在交易中遇到任何问题，可以拨打我们的客服热线：</div>
+						<div class="wrapper-md text-2x text-info">400-651-5988</div>
+						<div>我们的客服人员将竭诚为您服务！</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

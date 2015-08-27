@@ -1,0 +1,210 @@
+<div>
+    <div class="row" style="min-height: 400px">
+        <div class="col-xs-9">
+            <div tabset class="nav-tabs-alt">
+                <div tab>
+                    <div tab-heading>
+                        <span class="font-bold text-lg">常用业务</span>
+                    </div>
+                    <div class="m-t-md">
+                        <div class="row m-l-none m-r-none">
+                            <div class="col-xs-4 wrapper-xs" ng-repeat="item in commonBizs"
+                                 ng-if="item.IS_COMMON_USE == 1" ng-class="{gray: item.SHOW_USE == 0}">
+                                <div class="row m-l-none m-r-none b wrapper-xs">
+                                    <div class="col-xs-4 m-t-sm">
+                                        <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1">
+                                        	<img ng-src="{{item.MENU_ICON ? item.MENU_ICON : 'public/images/104001.png'}}">
+                                        </a>
+                                        <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1">
+                                        	<img ng-src="{{item.MENU_ICON ? item.MENU_ICON : 'public/images/104001.png'}}">
+                                        </a>
+                                        <a ng-if="item.SHOW_USE == 0" class="text-muted">
+                                        	<img ng-src="{{item.MENU_ICON ? item.MENU_ICON : 'public/images/104001.png'}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="text-black text-lg text-ellipsis">
+                                            <a ui-sref='{{item.MENU_URL}}'
+                                               ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>{{item.MENU_NAME}}</span></a>
+                                            <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1"
+                                               target="_blank"><span>{{item.MENU_NAME}}</span></a>
+                                            <a ng-if="item.SHOW_USE == 0"
+                                               class="text-muted"><span>{{item.MENU_NAME}}</span></a>
+                                        </div>
+                                        <div class="m-t-sm text-xs text-muted text-ellipsis" title="{{item.MENU_REMARK}}">{{item.MENU_REMARK}}</div>
+                                        <div class="m-t-sm">
+                                            <a ui-sref='{{item.MENU_URL}}'
+                                               ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                            <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1"
+                                               target="_blank"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                            <a ng-if="item.SHOW_USE == 0" class="text-muted"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div tab ng-if="hasLogin">
+                    <div tab-heading>
+                        <span class="font-bold text-lg">我的权限</span>
+                    </div>
+                    <div class="m-t-md">
+                        <div class="row m-l-none m-r-none">
+                            <div class="col-xs-3" ng-repeat="biz in userbizs">
+                                <div title="{{biz.BUSI_DESC}}" class="block panel text-center bg-info item box-shadow"
+                                         style="padding-top: 5px;padding-bottom: 5px">
+                                    <div class="text-center">
+                                        <span class="text-white font-bold block">{{biz.BUSINESS_NAME}}</span>
+                                        <span class="text-white text-xs" ng-if="biz.STATUS == '0'">已开通</span>
+                                        <span class="text-xs text-muted" ng-if="biz.STATUS == '-1'">未开通</span>
+                                    </div>
+									<span class="text-left" ng-switch on="biz.BUSINESS_ID">
+							            <span ng-switch-when="1017">
+											<label class="i-switch bg-warning m-t-sm" title="{{biz.STATUS == '0' ? '撤销' : (biz.STATUS == '-1' ? '开通' : '')}}" ng-if="!$root.ie8">
+                                                <input type="checkbox" onclick="return false;" ng-checked="biz.STATUS == '0'"
+                                                       ui-sref="kibh.biz.openGEMBoard({businessId: '101009'})">
+                                                <i></i>
+                                            </label>
+								            
+								            <span class="text-center m-t-sm" ng-if="$root.ie8">
+									            <img src="public/images/chkon.png" ng-if="biz.STATUS == '0'"
+                                                     ui-sref="kibh.biz.openGEMBoard({businessId: '101009'})" title="撤销">
+									            <img src="public/images/chkoff.png" ng-if="biz.STATUS == '-1'"
+                                                     ui-sref="kibh.biz.openGEMBoard({businessId: '101009'})" title="开通">
+											</span>
+										</span>
+							            <span ng-switch-when="1018">
+							            	<label class="i-switch bg-warning m-t-sm" title="{{biz.STATUS == '0' ? '撤销' : (biz.STATUS == '-1' ? '开通' : '')}}" ng-if="!$root.ie8">
+                                                <input type="checkbox" onclick="return false;" ng-checked="biz.STATUS == '0'"
+                                                       ui-sref="kibh.biz.openHKStock({businessId: '101003'})">
+                                                <i></i>
+                                            </label>
+								            
+								            <span class="text-center m-t-sm" ng-if="$root.ie8">
+									            <img src="public/images/chkon.png" ng-if="biz.STATUS == '0'"
+                                                     ui-sref="kibh.biz.openHKStock({businessId: '101003'})" title="撤销">
+									            <img src="public/images/chkoff.png" ng-if="biz.STATUS == '-1'"
+                                                     ui-sref="kibh.biz.openHKStock({businessId: '101003'})" title="开通">
+											</span>
+										</span>
+										<span ng-switch-when="1019">
+											<label class="i-switch bg-warning m-t-sm" title="{{biz.STATUS == '0' ? '撤销' : (biz.STATUS == '-1' ? '开通' : '')}}" ng-if="!$root.ie8">
+                                                <input type="checkbox" onclick="return false;" ng-checked="biz.STATUS == '0'"
+                                                       ui-sref="kibh.biz.openRiskStock({businessId: '101001'})">
+                                                <i></i>
+                                            </label>
+								            
+								            <span class="text-center m-t-sm" ng-if="$root.ie8">
+									            <img src="public/images/chkon.png" ng-if="biz.STATUS == '0'"
+                                                     ui-sref="kibh.biz.openRiskStock({businessId: '101001'})"
+                                                     title="撤销">
+									            <img src="public/images/chkoff.png" ng-if="biz.STATUS == '-1'"
+                                                     ui-sref="kibh.biz.openRiskStock({businessId: '101001'})"
+                                                     title="开通">
+											</span>
+										</span>
+										<span ng-switch-when="1020">
+											<label class="i-switch bg-warning m-t-sm" title="{{biz.STATUS == '0' ? '撤销' : (biz.STATUS == '-1' ? '开通' : '')}}" ng-if="!$root.ie8">
+                                                <input type="checkbox" onclick="return false;" ng-checked="biz.STATUS == '0'"
+                                                       ui-sref="kibh.biz.openDelistStock({businessId: '101002'})">
+                                                <i></i>
+                                            </label>
+								            
+								            <span class="text-center m-t-sm" ng-if="$root.ie8">
+									            <img src="public/images/chkon.png" ng-if="biz.STATUS == '0'"
+                                                     ui-sref="kibh.biz.openDelistStock({businessId: '101002'})"
+                                                     title="撤销">
+									            <img src="public/images/chkoff.png" ng-if="biz.STATUS == '-1'"
+                                                     ui-sref="kibh.biz.openDelistStock({businessId: '101002'})"
+                                                     title="开通">
+											</span>
+										</span>
+										<span ng-switch-default>
+											<label class="i-switch bg-warning m-t-sm" title="{{biz.STATUS == '0' ? '撤销' : (biz.STATUS == '-1' ? '开通' : '')}}" ng-if="!$root.ie8">
+                                                <input type="checkbox" onclick="return false;" ng-checked="biz.STATUS == '0'"
+                                                       ui-sref="kibh.biz.openBusinessAuthority({businessId: '101004'})">
+                                                <i></i>
+                                            </label>
+								            
+								            <span class="text-center m-t-sm" ng-if="$root.ie8">
+									            <img src="public/images/chkon.png" ng-if="biz.STATUS == '0'"
+                                                     ui-sref="kibh.biz.openBusinessAuthority({businessId: '101004'})"
+                                                     title="撤销">
+									            <img src="public/images/chkoff.png" ng-if="biz.STATUS == '-1'"
+                                                     ui-sref="kibh.biz.openBusinessAuthority({businessId: '101004'})"
+                                                     title="开通">
+											</span>
+										</span>
+									</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div tab ng-if="hasLogin">
+                    <div tab-heading>
+                        <span class="font-bold text-lg">风险评级</span>
+                    </div>
+                    <div class="m-t-md">
+                        <div class="row m-l-none m-r-none">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>调查表名称</th>
+                                    <th>调查表类别</th>
+                                    <th>评级级别名称</th>
+                                    <th>调查表分值</th>
+                                    <th>评级日期</th>
+                                    <th>有效截止日期</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="ut in usertest">
+                                    <td ng-bind="ut.SURVEY_NAME"></td>
+                                    <td ng-bind="sc.DICT_ITEM_NAME" ng-if="sc.DICT_ITEM == ut.SURVEY_CLS"
+                                        ng-repeat="sc in surveycls"></td>
+                                    <td ng-bind="ut.RATING_LVL_NAME"></td>
+                                    <td ng-bind="ut.SURVEY_SCORE"></td>
+                                    <td ng-bind="ut.RATING_DATE"></td>
+                                    <td ng-bind="ut.EXP_DATE"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div tabset class="nav-tabs-alt">
+                <div tab>
+                    <div tab-heading>
+                        <span class="font-bold text-lg">全部业务</span>
+                    </div>
+                    <div class="m-t-md">
+                        <div class="row m-l-none m-r-none m-t-xs m-b-xs" ng-repeat="item in allBizs">
+                            <div class="col-xs-12 wrapper-sm bg-light">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <a ui-sref="{{item.menuitem[0].MENU_URL}}"><img
+                                                ng-src="{{item.root.MENU_ICON}}"></a>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="text-lg"><a
+                                                ui-sref="{{item.menuitem[0].MENU_URL}}">{{item.root.MENU_NAME}}</a>
+                                        </div>
+                                        <div class="m-t-xs text-xs text-muted">{{item.root.MENU_REMARK}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="m-t table-responsive">
+    <div style="background-color: #f5f5f5;">
+        <form class="form-inline" role="form">
+            <label class="control-label m-l" for="pro_id">查询历史净值(元)：</label>
+            <select class="form-control" type="text" id="pro_id" ng-model="quryObject.pro_id" ng-options="option.PRO_ID as option.SHT_NAME for option in gmjjListoption"></select>
+            <label class="control-label m-l" for="startDate">查询日期：</label>
+            <input type="text" id="startDate" ng-model="quryObject.startDate" class="form-control" placeholder="" readonly datepicker-popup="yyyyMMdd" datepicker-options="dateOptions" is-open="startDateOpened"/>
+            <button id="1a" type="button" class="btn btn-default" ng-click="openStartDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <span>-</span>
+            <input type="text" id="endDate" ng-model="quryObject.endDate" class="form-control" placeholder="" readonly datepicker-popup="yyyyMMdd" datepicker-options="dateOptions" is-open="endDateOpened"/>
+            <button id="2a" type="button" class="btn btn-default" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="submit" class="btn btn-default" ng-click="searchFirst();">提 交</button>
+        </form>
+    </div>
+
+    <div class="wrapper-sm pull-right">
+        <div class="padder-xxs pull-right text-center" style="border-radius: 4px;"
+             ng-class="{'bg-info': showType == 0}" title="图形显示" ng-click="showType = 0;">
+            <div><a><i class="fa fa-th"></i></a></div>
+            <div class="text-xs"><a>图形</a></div>
+        </div>
+        <div class="padder-xxs pull-right m-r-xs text-center" style="border-radius: 4px;"
+             ng-class="{'bg-info': showType == 1}" title="列表显示" ng-click="showType = 1">
+            <div><a><i class="fa fa-list-ul"></i></a></div>
+            <div class="text-xs"><a>列表</a></div>
+        </div>
+    </div>
+
+    <div ng-if="showType == 1">
+        <table class="table prdlist table-bordered m-t">
+            <thead>
+            <tr>
+                <th class="text-center">截止时间</th>
+                <th class="text-center">份额净值(元)</th>
+                <th class="text-center">份额累计净值(元)</th>
+                <th ng-if="type != 'zgcp'" class="text-center">日涨幅(%)</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            <tr ng-repeat="item in gmjjNav">
+                <td class="w-md">{{item.TRD_DATE}}</td>
+                <td>{{item.NAV_VAL}}</td>
+                <td>{{item.ACC_VAL}}</td>
+                <td ng-if="type != 'zgcp'">{{item.DAY_GRO_RATE ? item.DAY_GRO_RATE : ''}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="wrapper-xs clear">
+            <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount >0 ? pagination.totalcount : 0 }}</span>条记录</span>
+            </div>
+            <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="showType != 0" class="padder text-center" style="padding-bottom: 80px;">
+        <div id="container" class="h-xxl" style="width: 1100px"></div>
+    </div>
+</div>

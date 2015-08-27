@@ -1,0 +1,31 @@
+<div class="table-responsive padder-v">
+    <table class="table prdlist table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">产品代码</th>
+            <th class="text-center">产品简称</th>
+            <th class="text-center">产品类型</th>
+            <th class="text-center">组合比例(%)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" ng-repeat="p in zhcpAssetAllocation">
+            <td class="text-md"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}" target="_blank">{{p.PRO_CODE}}</a>
+            </td>
+            <td class="text-md"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}" target="_blank"
+                                   title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a></td>
+            <td class="text-md">{{p.LVL2_TYPE_DESC}}</td>
+            <td class="text-md">{{p.PRO_RATIO ? p.PRO_RATIO + "%" : "-"}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="wrapper-xs clear">
+        <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount >0 ? pagination.totalcount : 0 }}</span>条记录</span>
+        </div>
+        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5"
+                        ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true"
+                        rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="m-t">
+    <table class="table table-bordered">
+        <tr ng-repeat="item in fees">
+            <td  width="15%" class="active">{{item[0].FEE_TYPE_DESC}}</td>
+            <td>{{item[0].FEE | escapeSequence}}</td>
+        </tr>
+    </table>
+</div>

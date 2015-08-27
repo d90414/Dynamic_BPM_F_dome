@@ -1,0 +1,18 @@
+<span>
+	<span ng-if="!$root.global.isLogin">
+		<span class="m-l-sm m-r-sm">
+			<a class="text-white" ui-sref="auth.login">登录</a>
+		</span>
+		<span class="m-l-sm m-r-sm">
+			<a class="text-white" ui-sref="auth.register">注册</a>
+		</span>
+	</span>
+	<span ng-if="$root.global.isLogin">
+		<span class="m-l-sm m-r-sm">
+			<a class="text-white" ui-sref="page.account.info"><span ng-bind="$root.global.account.USER_NAME"></span>&nbsp;[个人中心]</a>
+		</span>
+		<span class="m-l-sm m-r-sm">
+			<a class="text-white" ng-click="$root.logout(true)">退出登录</a>
+		</span>
+	</span>
+</span>

@@ -1,0 +1,66 @@
+<div class="panel b-a">
+    <div class="panel-heading b-b">
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-9">
+                <div class="row text-left">
+                    <div class="col-xs-4 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                        <div class="m-t-xs">验证身份</div>
+                    </div>
+                    <div class="col-xs-4 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                        <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                        <div class="m-t-xs">修改手机号码</div>
+                    </div>
+                    <div class="col-xs-4 no-padder">
+                        <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">3</span></div>
+                        <div class="m-t-xs">修改成功</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body text-md m-b-md">
+        <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="submitStep2Form()">
+            <div class="form-group">
+                <div class="col-xs-offset-1 col-xs-11">
+                    <div class="m-t-md m-b-md">请输入您的新手机号码</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label text-right">新手机号码</label>
+                <div class="col-xs-4 text-left">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="请输入您的新手机号码" ng-pattern="/^1[0-9]{10}$/" name="newPhone" ng-model="user.newPhone" required ui-focus="true">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" ng-click="sendNewPhoneCode()" ng-disabled='myForm.newPhone.$invalid || codeflag == 2 || codeflag==3'>
+                                <span ng-show="codeflag==1">发送验证码</span>
+                                <span ng-show="codeflag==2"><i class="fa fa-spin fa-spinner m-r-xs"></i>发送中...</span>
+                                <span ng-show="codeflag==3">{{clock}}秒后重新发送</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-5 error text-danger text-left text-base" style="padding-top: 7px;" ng-show="myForm.newPhone.$invalid">
+                    <span ng-show="myForm.submitted && myForm.newPhone.$error.required">请输入手机号码</span>
+                    <span ng-show="!myForm.newPhone.$error.required && myForm.newPhone.$dirty">手机号码为11位数字</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-xs-3 text-right text-md m-t-xs">验证码</span>
+                <div class="col-xs-4 text-left">
+                    <input type="text" class="form-control" placeholder="请输入短信验证码" ng-pattern="/^[0-9]{6}$/" ng-disabled='myForm.phone.$invalid' name="code" ng-model="user.code" required>
+                </div>
+                <div class="col-xs-5 text-left text-md text-danger text-base" style="padding-top: 7px;" ng-show="myForm.code.$invalid">
+                    <span ng-show="myForm.submitted && myForm.code.$error.required">请输入验证码</span>
+                    <span ng-show="!myForm.code.$error.required && myForm.code.$dirty">验证码为6位数字</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-4">
+                    <button type="submit" class="btn btn-sm bg-info w-full" ng-disabled="!myForm.$valid || codeflag==1">下一步</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

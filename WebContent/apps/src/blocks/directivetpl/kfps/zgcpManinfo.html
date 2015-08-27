@@ -1,0 +1,32 @@
+<div class="m-t">
+    <style>
+        .preStyle {
+            vertical-align: top;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background-color: inherit;
+            font-family: "MicroSoft Yahei", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.42857143;
+            color: #58666e;
+            white-space: pre-wrap;
+        }
+    </style>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <!--<td class="w-md h-md">-->
+            <!--<div class="m-sm">-->
+            <!--<img ng-src="{{prd.managerPicUrl}}" class="b-a w h">-->
+            <!--</div>-->
+            <!--</td>-->
+            <td>
+                <!--<div class="text-md font-bold">{{prd.INVE_MANAGER ?prd.INVE_MANAGER + '：' : ''}}</div>-->
+                <pre class="preStyle">{{prd.MANAGER_VITA | escapeSequence}}</pre>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

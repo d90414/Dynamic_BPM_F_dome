@@ -1,0 +1,99 @@
+<div>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a ui-sref="kfps.index"><i class="fa fa-fw fa-home"></i>首页</a></li>
+        <li><a>理财中心</a></li>
+        <li class="active">绑定理财账户</li>
+    </ul>
+    <div class="m-t m-b">
+        <div class="row m-xl" style="background: url(public/images/step_bg_1.png) no-repeat center center">
+            <div class="col-xs-4">
+                <div class="text-center">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                    <div class="m-t-xs">确认订单信息</div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="text-center">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                    <div class="m-t-xs">订单支付</div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="text-center">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">3</span></div>
+                    <div class="m-t-xs">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div class="m-t-lg m-b-lg">
+            <div class="m-l m-r">
+                <span class="text-2x m-r"><i
+                        class="fa fa-check-circle m-r-xs text-success"></i><span>您未绑定证券账户，请立即绑定</span></span>
+
+                <div class="line line-xs b-b m-t m-b"></div>
+            </div>
+            <div class="row m-l-none m-r-none">
+                <div class="col-xs-6">
+                    <form name="form" role="form" novalidate class="form-validation text-center">
+                        <div class="panel wrapper-lg" style="background: #bdd6fc;">
+                            <div class="text-center">
+                                <span class="text-lg">我是渤海证券用户</span>
+                            </div>
+                            <div class="line line-xs b-b m-t-md"></div>
+                            <div class="row list-group form-group m-b m-t">
+                                <span class="col-xs-4 text-right text-md m-t-xs w-sm">资金账号:</span>
+
+                                <div class="col-xs-4 text-left w-xl">
+                                    <input type="text" placeholder="请输入资金账号" ng-pattern="/^101[0-9]{8}$/"
+                                           class="form-control" name="name" ng-model="user.name" required
+                                           ui-focus="true">
+                                    <span class="text-left text-md text-danger m-t-xs"
+                                          ng-show="!form.name.$pristine && form.name.$invalid">请输入11位数字资金账号</span>
+                                </div>
+                            </div>
+                            <div class="row list-group m-t">
+                                <span class="col-xs-4 text-right text-md m-t-xs w-sm">交易密码:</span>
+
+                                <div class="col-xs-4 text-left w-xl">
+                                    <input type="text" class="form-control" ng-click="checkActive()" id="textPassword"
+                                           placeholder="请输入交易密码">
+                                    <object id="kdeditCtrl" ng-if="browserType==0" style="display: none" ng-required
+                                            ng-model="user.password" class="form-control"
+                                            classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF">
+                                        <param name="MaxLength" value="16">
+                                    </object>
+                                    <embed id="kdeditCtrl" ng-if="browserType==1" style="display: none" ng-required
+                                           ng-model="user.password" class="form-control" type="application/x-kd-edit"
+                                           width=320 height=35 MaxLength=16></embed>
+
+                                </div>
+                                <span class="col-xs-4 text-left text-md text-danger m-t-xs"
+                                      ng-show="!form.password.$pristine && form.password.$invalid">请输入6-16位密码</span>
+                            </div>
+                            <div class="text-center ">
+                                <a ng-click="bind()" class="btn btn-lg btn-primary font-bold m-t-xl m-b-xl padder-xxl">立即绑定</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-6">
+                    <div class="panel wrapper-lg" style="background: #fcbdbd;">
+                        <div class="text-center">
+                            <span class="text-lg">我还没有证券账户</span>
+                        </div>
+                        <div class="line line-xs b-b m-t-md"></div>
+                        <div class="text-center m-t-md">
+                            <span class="text-md">三分钟便捷开户，开启财富大门</span>
+                        </div>
+                        <div class="text-center m-t-xxl">
+                            <a href="http://kh.bhzq.com" target="_blank" class="btn btn-lg btn-danger font-bold m-t-xl m-b-xl padder-xxl">我要开户</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

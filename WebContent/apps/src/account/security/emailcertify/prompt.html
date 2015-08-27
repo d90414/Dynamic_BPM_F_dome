@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-body wrapper-lg">
+        <div class="col-xs-offset-2 col-xs-8 text-left">
+            <div>
+                <span class="text-success">邮件已发送至</span>
+                <span>{{inputtedEmail}}</span>
+                <a ng-href="{{gotoEmailAddress}}" class="btn btn-sm btn-info" target="_blank">进入邮箱确认</a>
+            </div>
+            <div class="m-t">
+                <span ng-click="showResend = !showResend">迟迟未收到邮件怎么办？</span>
+            </div>
+            <div class="m-t text-sm">请您到垃圾邮件中看看。没有？
+                您可以
+                <a href class="text-info" ng-click="resendBindingEmail()">重新发送邮件</a>
+                或者
+                <a href class="text-info" ng-href="#/page/account/security/emailcertify/input">换一个邮箱</a>
+            </div>
+        </div>
+    </div>
+</div>
+

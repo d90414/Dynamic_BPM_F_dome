@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row b-l b-r b-b">
+            <!-- 证券、基金、理财、OTC产品tab -->
+            <div class="col-md-6">
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading><span class="font-bold">证券市值</span></div>
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>代码</th>
+                                    <th>证券名称</th>
+                                    <th>持有数量</th>
+                                    <th>市值(元)</th>
+                                    <th>持仓盈亏</th>
+                                    <th>盈亏比例</th>
+                                </tr>
+                                <tr ng-repeat="item in securities">
+                                    <td>
+                                        <a class="text-info-dk" href="">{{item.code}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="text-info-dk" href="">{{item.name}}</a>
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.value}}</td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profit}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profitProportion}}%</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div tab>
+                        <div tab-heading><span class="font-bold">基金市值</span></div>
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>代码</th>
+                                    <th>基金名称</th>
+                                    <th>持有数量</th>
+                                    <th>市值(元)</th>
+                                    <th>持仓盈亏</th>
+                                    <th>盈亏比例</th>
+                                </tr>
+                                <tr ng-repeat="item in fund">
+                                    <td>
+                                        <a class="text-info-dk" href="">{{item.code}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="text-info-dk" href="">{{item.name}}</a>
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.value}}</td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profit}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profitProportion}}%</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div tab>
+                        <div tab-heading><span class="font-bold">理财产品</span></div>
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>代码</th>
+                                    <th>基金名称</th>
+                                    <th>持有数量</th>
+                                    <th>市值(元)</th>
+                                    <th>持仓盈亏</th>
+                                    <th>盈亏比例</th>
+                                </tr>
+                                <tr ng-repeat="item in financeProducts">
+                                    <td><a class="text-info-dk" href="">{{item.code}}</a></td>
+                                    <td><a class="text-info-dk" href="">{{item.name}}</a></td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.value}}</td>
+                                    <td><span class="text-danger-dk">{{item.profit}}</span></td>
+                                    <td><span class="text-danger-dk">{{item.profitProportion}}%</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div tab>
+                        <div tab-heading><span class="font-bold">OTC产品</span></div>
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>代码</th>
+                                    <th>基金名称</th>
+                                    <th>持有数量</th>
+                                    <th>市值(元)</th>
+                                    <th>持仓盈亏</th>
+                                    <th>盈亏比例</th>
+                                </tr>
+                                <tr ng-repeat="item in otcProducts">
+                                    <td><a class="text-info-dk" href="">{{item.code}}</a>
+                                    </td>
+                                    <td>
+                                        <a class="text-info-dk" href="">{{item.name}}</a>
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.value}}</td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profit}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-danger-dk">{{item.profitProportion}}%</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /证券、基金、理财、OTC产品tab -->
+            <!-- 我收藏的产品 -->
+            <div class="col-md-6">
+                <div>
+                    <div class="pull-right m-t-sm">
+                        <a ui-sref="page.account.favorite">查看更多</a>
+                    </div>
+                </div>
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading><span>我收藏的产品</span></div>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>代码</th>
+                                <th>产品名称</th>
+                                <th>类型</th>
+                                <th>操作</th>
+                            </tr>
+                            <tr ng-repeat="item in favorites">
+                                <td>
+                                    <a class="text-info-dk" href="">{{item.PRO_CODE}}</a>
+                                </td>
+                                <td>
+                                    <a class="text-info-dk" href="">{{item.SHT_NAME}}</a>
+                                </td>
+                                <td>{{item.LVL2_TYPE_DESC}}</td>
+                                <td>
+                                    <a class="btn-xs btn-info" ng-click="buyProducts(item)">购买</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /我收藏的产品 -->
+        </div>
+    </div>
+</div>

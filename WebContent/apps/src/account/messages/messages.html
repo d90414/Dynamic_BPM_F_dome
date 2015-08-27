@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="pull-right m-t m-r">
+            <a class="m-l-md" ng-click="filterMsg('')"
+               ng-class="{'text-info': msgFilter.has_read == ''}">全部</a>
+            <a class="m-l-md" ng-click="filterMsg('已读')"
+               ng-class="{'text-info': msgFilter.has_read == '已读'}">已读</a>
+            <a class="m-l-md" ng-click="filterMsg('未读')"
+               ng-class="{'text-info': msgFilter.has_read == '未读'}">未读</a>
+        </div>
+        <div tabset class="nav-tabs-alt">
+            <div tab ng-click="changeTab('myMsg')" active="showTab.myMsg">
+                <div tab-heading>
+                    <span class="font-bold">我的消息</span>
+                </div>
+                <div class="m-t-md">
+                    <div ng-repeat="myMessage in myMessages">
+                        <div class="row m-t-md">
+                            <div class="col-xs-8">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="myMessage.checked" ng-click="check(myMessages, $index)"><i></i>
+                                </label>
+                                <a class="text-info" ng-href="#/page/account/messageDetail/{{myMessage.MESSAGE_TYPE}}/{{myMessage.MESSAGE_ID}}">{{myMessage.TITLE}}</a>
+                            </div>
+                            <div class="col-xs-3 text-right">{{myMessage.CREATE_TIME}}</div>
+                            <div class="col-xs-1" ng-class="{'text-danger': myMessage.HASREAD == '未读' }">{{myMessage.HASREAD}}</div>
+                        </div>
+                        <div class="m-l-xl m-r text-muted text-ellipsis">{{myMessage.CONTENT}}</div>
+                        <div class="line b m-t-md"></div>
+                    </div>
+                    <div class="text-muted m-t">
+                        <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="myMessages.length > 0">
+                            <input type="checkbox" ng-model="myMessages.allcheck" ng-click="checkeach(myMessages)"><i></i>&nbsp;&nbsp;{{myMessages.allcheck ? "取消全选" : "选择全部"}}
+                        </label>
+                        <a class="m-l-md btn-sm btn-danger" ng-show="myMessages.checkcount > 0" ng-click="remove(myMessages)">删除</a>
+                    </div>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>条消息</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div tab ng-click="changeTab('systemMsg')" active="showTab.systemMsg">
+                <div tab-heading>
+                    <span class="font-bold">系统消息</span>
+                </div>
+                <div class="m-t-md">
+                    <div ng-repeat="systemMessage in systemMessages">
+                        <div class="row m-t-md">
+                            <div class="col-xs-8">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="systemMessage.checked" ng-click="check(systemMessages, $index)"><i></i>
+                                </label>
+                                <a class="text-info" ng-href="#/page/account/messageDetail/{{systemMessage.MESSAGE_TYPE}}/{{systemMessage.MESSAGE_ID}}">{{systemMessage.TITLE}}</a>
+                            </div>
+                            <div class="col-xs-3 text-right">{{systemMessage.CREATE_TIME}}</div>
+                            <div class="col-xs-1" ng-class="{'text-danger': systemMessage.HASREAD == '未读' }">{{systemMessage.HASREAD}}</div>
+                        </div>
+                        <div class="m-l-xl m-r text-muted text-ellipsis">{{systemMessage.CONTENT}}</div>
+                        <div class="line b m-t-md"></div>
+                    </div>
+                    <div class="text-muted">
+                        <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="systemMessages.length > 0">
+                            <input type="checkbox" ng-model="systemMessages.allcheck" ng-click="checkeach(systemMessages)"><i></i>&nbsp;&nbsp;{{systemMessages.allcheck ? "取消全选" : "选择全部"}}
+                        </label>
+                        <a class="m-l-md btn-sm btn-danger" ng-show="systemMessages.checkcount > 0" ng-click="remove(systemMessages)">删除</a>
+                    </div>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>条消息</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

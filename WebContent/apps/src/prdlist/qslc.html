@@ -1,0 +1,43 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table prdlist">
+        <thead>
+        <tr>
+            <th>产品名称</th>
+            <th class="text-center">产品代码</th>
+            <th class="text-center">参与起点</th>
+            <th class="text-center">追加金额</th>
+            <th class="text-center">产品期限</th>
+            <th class="text-center">预期收益率(%)</th>
+            <th class="text-center">风险等级</th>
+            <th class="text-center">销售状态</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="prd in prds">
+            <td><a class="text-ellipsis" ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</a></td>
+            <td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">{{prd.PRO_CODE}}</a></td>
+            <td>{{prd.INVE_START ? prd.INVE_START + '万': ''}}</td>
+            <td>{{prd.ADDTO_MIN_BUY ? (prd.ADDTO_MIN_BUY | moneyDivide) + '元' : ''}}</td>
+            <td>{{prd.DURA_TIME }}</td>
+            <td>{{prd.EXPE_YIELDS ? prd.EXPE_YIELDS + '%' : ''}}</td>
+            <td>{{prd.RISK_LVL_DESC}}</td>
+            <td>{{prd.SALE_STA_DESC}}</td>
+            <td class="text-center">
+                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}" target="_blank">
+                    <span ng-show="prd.canBuy" class="btn btn-xs btn-danger" style="width: 50px; height: 25px;">购买</span>
+                    <span ng-show="!prd.canBuy" class="btn btn-xs btn-info" style="width: 50px; height: 25px;">查看</span>
+                </a>
+            </td>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm" ng-if="showtype == 0">
+    <div class="row padder-sm">
+
+        <div class="col-xs-3 no-padder" ng-repeat="prd in prds">
+            <div prd-graph-panel cols="4"></div>
+        </div>
+    </div>
+</div>

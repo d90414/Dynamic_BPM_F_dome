@@ -1,0 +1,59 @@
+<div>
+    <div>
+        <div class="pull-right m-t-sm"><a ng-href="#/kfps/prdlist/zxcp" class="text-info btn-link">查看更多&nbsp;></a></div>
+    </div>
+    <div tabset class="nav-tabs-alt">
+        <div tab>
+            <div tab-heading>
+                <div class="pull-left m-t-n-xs"
+                     style="width: 31px;height: 31px;background: url('public/images/mall-icon-floor.png') -96px"></div>
+                <span class="font-bold">投资资讯产品</span>
+            </div>
+            <div class="m-t-md">
+                <div set-ng-animate="false" class="no-control">
+                    <div carousel interval="5000">
+                        <div slide ng-repeat="ft in prds" class="m-b-md">
+                            <div class="row padder-sm">
+                                <div class="col-xs-3 no-padder" ng-repeat="prd in ft">
+                                    <div class="m-r-xs b-a clear">
+                                        <div class="row wrapper-xs text-left">
+                                            <div class="pull-left m-l text-xl text-ellipsis" title="{{prd.PRO_NAME}}"><a
+                                                    ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}"
+                                                    target="_blank">{{prd.SHT_NAME}}</a></div>
+                                            <div class="pull-right m-r"
+                                                 ng-click="prd.isFavorite ? deleteMyFavorites(ft, $index) : addToMyFavorite(ft, $index)"
+                                                 title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+                                                <a><i class="fa fa-star-o text-lg m-t-xs m-r-xs"
+                                                      ng-class="{'text-danger': prd.isFavorite}"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-5">
+                                                <img class="m-t-xs m-b-xs" src="public/images/info-pic-small.png"/>
+                                            </div>
+                                            <div class="col-xs-7 text-left">
+                                                <div class="text-ellipsis-2row text-muted" style="height: 40px;"><span
+                                                        title="{{prd.PRO_DESC}}">{{prd.PRO_DESC}}</span></div>
+                                                <div class="text-muted text-xs text-ellipsis">服务方式：<span
+                                                        title="{{prd.SERVICE_WAY_DESC}}">{{prd.SERVICE_WAY_DESC}}</span>
+                                                </div>
+                                                <div class="text-muted text-xs text-ellipsis">生效日期：<span
+                                                        title="T日购买，T+n日生效">{{prd.EFF_DATE ? "T + " + prd.EFF_DATE : ""}}</span>
+                                                </div>
+                                                <div class="m-t-xs m-b-xs">
+                                                    <a class="btn btn-xs btn-info padder-md"
+                                                       ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}"
+                                                       target="_blank">我要购买</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

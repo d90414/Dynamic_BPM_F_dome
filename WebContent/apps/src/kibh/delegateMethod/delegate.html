@@ -1,0 +1,25 @@
+<div>
+    <div class="wrapper-sm b-b clear bg-info text-white">
+        <span class="pull-left font-bold"><i class="fa fa fa-gears m-r-xs text-md"></i>委托渠道变更</span>
+        <span class="pull-right"><i class="fa fa-times i-checks" ng-click="cancel()"></i></span>
+    </div>
+    <div class="modal-body clear bg-white">
+        <div>
+            <form name="form" role="form" class="form-horizontal form-validation" novalidate="">
+                <div class="font-bold wrapper clear" ng-show="step == 1">{{content}}</div>
+                <div class="font-bold wrapper clear" ng-show="step == 2">
+                    <div safe-level bizid="biz" busilogno="busilogno" code="code" fundpwd="fundpwd"></div>
+                </div>
+                <div class="m-t">
+                    <div class="pull-right">
+                        <button class="btn btn-info btn-sm m-r-xs" ng-click="ok()"
+                                ng-disabled="step == 2 && (!code || !fundpwd || form.fundpwd.$invalid || form.code.$invalid || submitting)">
+                            <span><i class="fa fa-fw fa-check"></i>确定</span></button>
+                        <button class="btn btn-danger btn-sm" ng-click="cancel()"><span><i
+                                class="fa fa-fw fa-remove"></i>取消</span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

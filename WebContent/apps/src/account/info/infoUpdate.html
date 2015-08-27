@@ -1,0 +1,66 @@
+<div tabset class="nav-tabs-alt">
+    <!-- 账户资料 -->
+    <div tab>
+        <div tab-heading>
+            <span class="font-bold">账户资料</span>
+        </div>
+        <div class="m-t-md m-l-md">
+            <div class="row row-sm">
+                <!--<div class="col-xs-3">-->
+                <!--<div class="text-center">-->
+                <!--<div class="m-l-lg b b-a h-sm w-sm">-->
+                <!--<img class="h-sm v-sm" ng-src="public/images/mall-user-head-default.png">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9">-->
+                <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation"
+                      ng-submit="updateAccountInfo()" ng-model="myForm">
+                    <table class="table-condensed no-border">
+                        <tr>
+                            <td class="control-label text-right">用户名：</td>
+                            <td class="text-left">
+                                <input type="text" class="form-control w-lg" name="user_name"
+                                       ng-model="user.user_name" placeholder="请输入您的新用户名"
+                                       required ng-minlength="6" ng-maxlength="50" ui-focus="true">
+                            </td>
+                            <td>
+                                <div class="text-danger" ng-show="myForm.user_name.$invalid">
+                                    <span ng-show="myForm.submitted && myForm.user_name.$error.required">请输入您的用户名</span>
+                                    <span ng-show="!myForm.user_name.$error.required && myForm.user_name.$dirty">用户名格式不符</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td class="text-right">账户状态：</td>-->
+                        <!--<td class="text-left text-muted">-->
+                        <!--<span ng-if="account.USER_STATE == 'N'">正常</span>-->
+                        <!--<span ng-if="account.USER_STATE == 'F'">冻结</span>-->
+                        <!--<span ng-if="account.USER_STATE == 'T'">注销</span>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--<td class="text-right">风险承受能力：</td>-->
+                        <!--<td class="text-left">-->
+                        <!--{{account.riskTolerance}}-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<span ng-if="account.riskTolerance" class="m-l-md text-info" ng-click="">重新评测</span>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="submit" class="btn btn-sm btn-info w-lg">提交</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <!-- /账户资料 -->
+</div>
+

@@ -1,0 +1,45 @@
+<div>
+    <div class="m-t m-b">
+        <div class="m-t-md">
+            <div class="m-t" ng-if="type != 'result' && type != 'jxcp' && type != 'xpzq'">
+                <div filter-condition ctype="{{type}}" condition="condition"></div>
+            </div>
+            <div class="m-b">
+                <div class="">
+                    <div class="clear m-t-n-sm m-b-sm text-right b-a bg-white-only">
+                        <div class="pull-left">
+                            <div class="pull-right m-l-sm m-t-sm font-bold">
+                                搜索到&nbsp;<span class="text-danger">{{pagination.totalcount > 0 ? pagination.totalcount : 0 }}</span>&nbsp;款产品
+                            </div>
+                        </div>
+                        <div class="m-t-xxs m-b-xxs m-r" ng-if="type != 'result'">
+                            <div class="pull-right padder-xxs text-center" style="border-radius: 4px;" ng-class="{'bg-info': showtype == 0}" title="图形显示" ng-click="settype(0);">
+                                <div><a><i class="fa fa-th"></i>
+                                    <div>图形</div>
+                                </a></div>
+                            </div>
+                            <div class="pull-right padder-xxs text-center" style="border-radius: 4px;" ng-class="{'bg-info': showtype == 1}" title="列表显示" ng-click="settype(1);">
+                                <div><a><i class="fa fa-list-ul"></i>
+                                    <div>列表</div>
+                                </a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-ng-include="tpl" class="bg-white-only"></div>
+                    <div class="clear" ng-class="{'m-t': showtype == 0}">
+                        <div class="pull-right m-t-xs m-l">
+                            共&nbsp;<span class="text-danger">{{pagination.totalpage}}</span>&nbsp;页
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t-lg m-b">
+        <div recm-prds ctype="{{type}}"></div>
+    </div>
+</div>

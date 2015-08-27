@@ -1,0 +1,40 @@
+<div class="m-t table-responsive">
+
+    <!--table class="table b-a">
+        <tbody ng-repeat="item in gmjjNote">
+        <tr >
+            <td class="text-md" style="width: 80%">{{item.NOT_TYPE_DESC}}</td>
+            <td class="text-md " style="width: 20%">更多</td>
+        </tr>
+        <tr><td colspan="2" style="padding:0;"><hr></td></tr>
+        <tr ng-repeat="itemchild in item.list">
+            <td class="text-md" style="width: 80%">{{itemchild.NOT_TIT}}</td>
+            <td class="text-md " style="width: 20%">{{itemchild.PUB_DATE}}</td>
+        </tr>
+        </tbody>
+    </table -->
+
+    <div class=" w-full">
+        <ul ng-repeat="item in gmjjNote" class=" list-group" style=" margin-bottom: 0px">
+            <li class="list-group-item"
+                style="border-bottom: 2px solid #CCCCCC ;border-top:none;border-left:none;border-right:none;"><span
+                    class=" text-info text-lg">{{item.NOT_TYPE_DESC}}</span></li>
+            <a href="#/kfps/proNotice/{{itemchild.NOT_ID}}" target="_blank" ng-repeat="itemchild in item.list">
+                <li class="list-group-item"
+                    style=" border-top:none ; border-bottom: 1px dotted #CCCCCC  ;border-left:none;border-right:none;">
+                    {{itemchild.NOT_TIT}}<span class=" pull-right"
+                                               style="padding-right: 20px">{{itemchild.PUB_DATE}}</span></li>
+            </a>
+        </ul>
+    </div>
+
+    <div class="wrapper-sm clear">
+        <div class="pull-left"><span>共<span class="text-danger">{{pagination.totalcount >0 ? pagination.totalcount : 0 }}</span>条记录</span>
+        </div>
+        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5"
+                        ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true"
+                        rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div>
+    <style>
+        .ptlogin {
+            width: 400px;
+            overflow: hidden;
+            border: 2px solid #dee5e7 !important;
+            background-color: #fff;
+        }
+    </style>
+
+    <div class="m-t m-b">
+        <div class="row">
+            <div class="col-xs-offset-7 col-xs-5">
+                <span class="h3 text-white">用户登录</span>
+
+                <div class="ptlogin m-t">
+                    <form name="form" class="form-validation" ng-submit="subForm()">
+                        <div class="m-r-n">
+                            <div tabset class="nav-tabs-alt">
+                                <div tab id="loginbymobile" ng-click="toggleLoginType(2)" class="text-center text-md" style="width: 33%;">
+                                    <div tab-heading><span ng-class="{'text-muted': loginuser.logintype != 2}">手机号码</span></div>
+                                </div>
+                                <div tab ng-click="toggleLoginType(1)" class="text-center text-md" style="width: 34%;">
+                                    <div tab-heading><span ng-class="{'text-muted': loginuser.logintype != 1}">用户名</span></div>
+                                </div>
+                                <div tab id="loginbyfund" ng-click="toggleLoginType(3)" class="text-center text-md" style="width: 33%;">
+                                    <div tab-heading><span ng-class="{'text-muted': loginuser.logintype != 3}">资金账号</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrapper">
+                            <div class="list-group" style="margin-bottom: 27px;">
+                                <input ng-if="!loginuser.logintype || loginuser.logintype == 2" type="text" class="form-control input-lg" placeholder="请输入手机号码" ng-model="loginuser.username" ng-pattern="/^1[358][0-9]{9}$|^14[57][0-9]{8}$/" maxlength="11" required ng-init="initPlaceholder()">
+                                <input ng-if="loginuser.logintype == 1" type="text" class="form-control input-lg" placeholder="请输入用户名" ng-model="loginuser.username" ng-pattern="/^[\s\S]{6,16}$/" maxlength="16" required ng-init="initPlaceholder()">
+                                <input ng-if="loginuser.logintype == 3" type="text" class="form-control input-lg" placeholder="请输入资金账号" ng-model="loginuser.username" ng-pattern="/^[0-9]{11,12}$/" maxlength="12" required ng-init="initPlaceholder()">
+                            </div>
+                            <div class="list-group" style="margin-bottom: 27px;">
+                                <input id="kdeditCtrl" type="text" onfocus="this.type='password'" autocomplete="off" class="form-control input-lg" placeholder="交易密码" ng-if="loginuser.logintype == 3  && browserType==2" maxlength="16">
+                                <input id="kdeditCtrl" type="text" onfocus="this.type='password'" autocomplete="off" class="form-control input-lg" placeholder="登录密码" ng-if="loginuser.logintype != 3 && browserType==2" maxlength="16">
+
+                                <input type="text" class="form-control input-lg" ng-focus="checkActive()" placeholder="交易密码" ng-hide="pwdfocus" ng-if="loginuser.logintype == 3  && browserType!=2" ng-init="initPlaceholder()">
+                                <input type="text" class="form-control input-lg" ng-focus="checkActive()" placeholder="登录密码" ng-hide="pwdfocus" ng-if="loginuser.logintype != 3 && browserType!=2" ng-init="initPlaceholder()">
+
+                                <div ng-class="{'form-control': pwdfocus, 'input-lg': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                    <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="330" height="16" style="cursor: pointer;">
+                                        <param name="MaxLength" value="16">
+                                    </object>
+                                    <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="330" height="16" MaxLength=16 style="cursor: pointer;"></embed>
+                                </div>
+                            </div>
+                            <div class="list-group">
+                                <div class="input-group">
+                                    <input type="text" placeholder="验证码" ng-pattern="/^[\s\S]{4}$/" class="form-control  input-lg pull-left" ng-model="loginuser.regcode" maxlength="4" required>
+	                                <span class="input-group-btn">
+	                                    <img ng-src="{{captcha}}" ng-click="refresh()" title="看不清，换一张" style="width: 75px;height: 45px"/>
+	                                </span>
+                                </div>
+                            </div>
+                            <div class="list-group">
+                                <button type="submit" class="btn btn-lg btn-info btn-block" ng-disabled='form.$invalid || submitting == 0'>
+                                    <span ng-show="submitting==1">马上登录</span>
+                                    <span ng-show="submitting==0"><i class="fa fa-spin fa-spinner m-r-xs"></i>登录中...</span>
+                                </button>
+                            </div>
+                            <div class="list-group">
+                                <a href="#/auth/register" class="btn btn-sm btn-danger">快速注册</a>
+                                <a href="#/auth/repwstart" class="wrapper-sm">忘记密码？</a>
+                                <a href="#/page/help/2#3" target="_blank" class="help-link">常见问题</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="submitForm()">
+    <div class="panel panel-default">
+        <div ng-if="showType=='-01'" class="panel-body wrapper-lg">
+            您尚未绑定注册账号，无法修改密码。<a class="text-info" ui-sref="auth.bindregaccount">绑定注册账号</a>
+        </div>
+        <div ng-if="showType=='1'" class="panel-body wrapper-lg">
+            <div ng-if="!forbidPwUpdate" class="form-group">
+                <label class="col-xs-3 control-label text-right">原密码</label>
+                <div class="col-xs-4 text-left">
+                    <input type="password" class="form-control w-full" placeholder="请输入原密码" name="old_pwd" ng-model="user.old_pwd" required ui-focus="true">
+                </div>
+                <div class="col-xs-5 help-block error text-danger text-left text-base" ng-show="myForm.old_pwd.$invalid">
+                    <span ng-show="myForm.submitted && myForm.old_pwd.$error.required">请输入原密码</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label text-right">新密码</label>
+                <div class="col-xs-4 text-left">
+                    <input type="password" class="form-control w-full" placeholder="请输入新密码" id="first_pwd" name="first_pwd" ng-model="user.first_pwd"
+                           required ng-pattern="/^[\s\S]{6,16}$/" ng-minlength="6" ng-maxlength="16" ng-change="clearConfirmPwd()">
+                </div>
+                <div class="col-xs-5 error text-danger text-base" style="padding-top: 7px;" ng-show="myForm.first_pwd.$invalid">
+                    <span ng-show="myForm.submitted && myForm.first_pwd.$error.required">请输入新密码</span>
+                    <span ng-show="!myForm.first_pwd.$error.required && myForm.first_pwd.$dirty">密码必须为6-16位字符</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label text-right">新密码确认</label>
+                <div class="col-xs-4 text-left">
+                    <input type="password" class="form-control w-full" placeholder="请再次输入新密码" name="second_pwd" ng-model="user.second_pwd"
+                           ng-pattern="/^[\s\S]{6,16}$/" required check-re-pass-word="first_pwd">
+                </div>
+                <div class="col-xs-5 error text-danger text-base" style="padding-top: 7px;" ng-show="myForm.second_pwd.$invalid">
+                    <span ng-show="myForm.submitted && myForm.second_pwd.$error.required">请再次输入新密码</span>
+                    <span ng-show="!myForm.second_pwd.$error.required && myForm.second_pwd.$dirty">两次输入的密码不一致</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-4">
+                    <button type="submit" class="btn btn-sm btn-info w-full" ng-disabled="!myForm.$valid">修改密码</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

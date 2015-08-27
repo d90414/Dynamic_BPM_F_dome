@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-controller="baseCtrl">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>渤海证券网上营业厅</title>
+		<meta name="keywords" content="渤海证券网上营业厅">
+		<meta name="description" content="渤海证券网上营业厅">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<link rel="shortcut icon" href="public/images/favicon.ico">
+		<link rel="stylesheet" href="public/css/dev/bootstrap.css">
+		<link rel="stylesheet" href="public/css/dev/font-awesome.css">
+		<link rel="stylesheet" href="public/css/dev/base.css">
+		<link rel="stylesheet" href="public/css/dev/animate.css" type="text/css" />
+		<link rel="stylesheet" href="public/css/dev/simple-line-icons.css" type="text/css" />
+		<link rel="stylesheet" href="public/css/dev/font.css" type="text/css" />
+		<link rel="stylesheet" href="public/css/dev/kfps.css" type="text/css" />
+	</head>
+
+	<body>
+		<div id="app" class="app" ui-view></div>
+
+		<!-- In production use: -->
+		<script type="text/javascript" src="apps/spm_modules/seajs/2.3.0/dist/sea.js" id="seajsnode"></script>
+		
+		<!-- 在生产环境下，请先cd至apps目录下运行spm build合并压缩，然后去除下面的seajs-*.js引用 -->
+		<script type="text/javascript" src="apps/spm_modules/seajs-wrap/1.0.2/dist/seajs-wrap.js"></script>
+		<script type="text/javascript" src="apps/spm_modules/seajs-text/1.1.0/dist/seajs-text.js"></script>
+
+		<script type="text/javascript" src="public/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular-i18n/angular-locale_zh.js"></script>
+		
+		<!-- <script type="text/javascript" src="public/vendors/bower_components/angular-animate/angular-animate.min.js"></script> -->
+		<script type="text/javascript" src="public/vendors/bower_components/angular-cookies/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular-touch/angular-touch.min.js"></script>
+		
+		<script type="text/javascript" src="public/vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular-ui-utils/ui-utils.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+		<script type="text/javascript" src="public/vendors/bower_components/ngstorage/ngStorage.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+		
+		<script type="text/javascript" src="public/js/des.js"></script>
+		
+		<!--[if lt IE 8]>
+		<script type="text/javascript" src="public/js/qsa-polyfill-ie7.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/json2/json2.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="public/vendors/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+		<script type="text/javascript" src="public/vendors/bower_components/respond/dest/respond.min.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 10]>
+		<script type="text/javascript" src="public/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+		<![endif]-->
+		
+		<!-- Run_Env Config: -->
+		<script type="text/javascript" src="apps/config.js"></script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table m-b-none prdlist">
+        <thead>
+        <tr class="">
+            <th rowspan="2" class="text-left v-middle b-r w-md">基金名称</th>
+            <th rowspan="2" class="v-middle text-center v-middle b-r">基金代码</th>
+            <th rowspan="2" class="v-middle text-center v-middle b-r">基金类型</th>
+            <th rowspan="2" class="v-middle text-center v-middle b-r">基金净值(元)</th>
+            <th rowspan="2" class="v-middle text-center v-middle b-r">累计净值(元)</th>
+            <th ng-if="condition.fund_pro_type=='3'" colspan="2" class="v-middle text-center b-r">阶段收益率</th>
+            <th ng-if="condition.fund_pro_type!='3'" colspan="5" class="v-middle text-center b-r">阶段收益率</th>
+            <th rowspan="2" class="v-middle text-center v-middle b-r">基金状态</th>
+            <th rowspan="2" class="v-middle text-center v-middle">操作</th>
+        </tr>
+        <tr ng-if="condition.fund_pro_type!='3'" class=" v-middle text-center b-r">
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('COMM_1M')"><span class="text-u-l text-info">最近1个月</span><span ng-if="order_by == 'COMM_1M'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('COMM_3M')"><span class="text-u-l text-info">最近3个月</span><span ng-if="order_by == 'COMM_3M'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('COMM_6M')"><span class="text-u-l text-info">最近6个月</span><span ng-if="order_by == 'COMM_6M'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('COMM_1Y')"><span class="text-u-l text-info">最近1年</span><span ng-if="order_by == 'COMM_1Y'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('COMM_YEAR')"><span class="text-u-l text-info">今年以来</span><span ng-if="order_by == 'COMM_YEAR'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+        </tr>
+        <tr ng-if="condition.fund_pro_type=='3'" class=" v-middle text-center b-r">
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('EXP_RATE_SEVENDAY')"><span class="text-u-l text-info">近七日年化收益率</span><span ng-if="order_by == 'EXP_RATE_SEVENDAY'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+            <th class="v-middle text-center b-r"><a href ng-click="orderby('INC_PER_TENTHOUSAND')"><span class="text-u-l text-info">每万份收益率</span><span ng-if="order_by == 'INC_PER_TENTHOUSAND'"><i class="fa m-l-xs fa-long-arrow-down text-info" ng-if="!asc"></i><i class="fa m-l-xs fa-long-arrow-up text-info" ng-if="asc"></i></span></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="prd in prds" class="v-middle text-center">
+            <td class="v-middle text-left"><a class="text-ellipsis" ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</a></td>
+            <td class="v-middle"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">{{prd.PRO_CODE}}</a></td>
+            <td class="v-middle">{{prd.FUND_PRO_TYPE_DESC}}</td>
+            <td class="v-middle" ng-class="{'text-success': prd.NAV_VAL < 0, 'text-muted': prd.NAV_VAL == 0, 'text-danger': prd.NAV_VAL > 0}">{{(prd.NAV_VAL && prd.NAV_VAL != 0) ? prd.NAV_VAL : '--'}}</td>
+            <td class="v-middle" ng-class="{'text-success': prd.ACC_VAL < 0, 'text-muted': prd.ACC_VAL == 0, 'text-danger': prd.ACC_VAL > 0}">{{(prd.ACC_VAL && prd.ACC_VAL != 0) ? prd.ACC_VAL : '--'}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type!='3'" ng-class="{'text-success': prd.COMM_1M < 0, 'text-muted': prd.COMM_1M == 0, 'text-danger': prd.COMM_1M > 0}">{{(prd.COMM_1M && prd.COMM_1M != 0) ? prd.COMM_1M + "%" : "--"}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type!='3'" ng-class="{'text-success': prd.COMM_3M < 0, 'text-muted': prd.COMM_3M == 0, 'text-danger': prd.COMM_3M > 0}">{{(prd.COMM_3M && prd.COMM_3M != 0) ? prd.COMM_3M + "%" : "--"}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type!='3'" ng-class="{'text-success': prd.COMM_6M < 0, 'text-muted': prd.COMM_6M == 0, 'text-danger': prd.COMM_6M > 0}">{{(prd.COMM_6M && prd.COMM_6M != 0) ? prd.COMM_6M + "%" : "--"}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type!='3'" ng-class="{'text-success': prd.COMM_1Y < 0, 'text-muted': prd.COMM_1Y == 0, 'text-danger': prd.COMM_1Y > 0}">{{(prd.COMM_1Y && prd.COMM_1Y != 0) ? prd.COMM_1Y + "%" : "--"}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type!='3'" ng-class="{'text-success': prd.COMM_YEAR < 0, 'text-muted': prd.COMM_YEAR == 0, 'text-danger': prd.COMM_YEAR > 0}">{{(prd.COMM_YEAR && prd.COMM_YEAR != 0) ? prd.COMM_YEAR + "%" : "--"}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type=='3'">{{prd.EXP_RATE_SEVENDAY ? prd.EXP_RATE_SEVENDAY + "%":""}}</td>
+            <td class="v-middle" ng-if="condition.fund_pro_type=='3'">{{prd.INC_PER_TENTHOUSAND }}</td>
+            <td class="v-middle">{{prd.DIST_STAT_DESC}}</td>
+            <td class="v-middle">
+                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">
+                    <button ng-show="prd.canBuy" class="btn btn-xs btn-danger" style="width: 50px; height: 25px;">购买</button>
+                    <button ng-show="!prd.canBuy" class="btn btn-xs btn-info" style="width: 50px; height: 25px;">查看</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm b-a" ng-if="showtype == 0">
+    <div class="row padder-sm">
+        <div class="col-xs-3 no-padder" ng-repeat="prd in prds">
+            <div prd-graph-panel cols="4"></div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="m-t b-t">-->
+<!--<div class="wrapper-sm" style="background: url(public/images/icon-left.png) no-repeat 5px 13px">-->
+<!--<span class="text-md wrapper-sm">组合产品</span>-->
+<!--</div>-->
+<!--<div>-->
+<!--<div class="bg-light wrapper-sm">-->
+<!--<div class="v-middle">以下是为您推荐的组合投资列表</div>-->
+<!--</div>-->
+<!--<div>-->
+<!--<div class="wrapper-sm"><span class="font-bold text-info-dker ">积极型</span>&nbsp;&nbsp;&nbsp;<a ng-if="zhcplist.jjx.length > 0" ng-href="#/kfps/detail/{{zhcplist.jjx[0].PACK_PRO_ID}}/zhcp" class="btn btn-xs btn-info btn-rounded">马上申购该组合</a></div>-->
+<!--<table class="table m-b-none table-hover b b-info">-->
+<!--<thead>-->
+<!--<tr class="panel panel-default b-info bg-lvl0">-->
+<!--<th width="60%">基金名称</th>-->
+<!--<th width="20%">基金类型</th>-->
+<!--<th width="20%">投资比例</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="p in zhcplist.jjx">-->
+<!--<td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">[{{prd.PRO_CODE}}]{{prd.SHT_NAME}}</a></td>-->
+<!--<td>{{prd.PRO_TYPE_DESC}}</td>-->
+<!--<td>{{prd.PRO_RATIO+'%'}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div>-->
+<!--<div class="wrapper-sm"><span class="font-bold text-info-dker ">平衡型</span>&nbsp;&nbsp;&nbsp;<a ng-if="zhcplist.pwx.length > 0" ng-href="#/kfps/detail/{{zhcplist.pwx[0].PACK_PRO_ID}}/zhcp" class="btn btn-xs btn-info btn-rounded">马上申购该组合</a></div>-->
+<!--<table class="table m-b-none table-hover b b-info">-->
+<!--<thead>-->
+<!--<tr class="panel panel-default b-info bg-lvl0">-->
+<!--<th width="60%">基金名称</th>-->
+<!--<th width="20%">基金类型</th>-->
+<!--<th width="20%">投资比例</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="p in zhcplist.pwx">-->
+<!--<td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">[{{prd.PRO_CODE}}]{{prd.SHT_NAME}}</a></td>-->
+<!--<td>{{prd.PRO_TYPE_DESC}}</td>-->
+<!--<td>{{prd.PRO_RATIO+'%'}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div>-->
+<!--<div class="wrapper-sm"><span class="font-bold text-info-dker ">防御型</span>&nbsp;&nbsp;&nbsp;<a ng-if="zhcplist.fyx.length > 0" ng-href="#/kfps/detail/{{zhcplist.fyx[0].PACK_PRO_ID}}/zhcp" class="btn btn-xs btn-info btn-rounded">马上申购该组合</a></div>-->
+<!--<table class="table m-b-none table-hover b b-info">-->
+<!--<thead>-->
+<!--<tr class="panel panel-default b-info bg-lvl0">-->
+<!--<th width="60%">基金名称</th>-->
+<!--<th width="20%">基金类型</th>-->
+<!--<th width="20%">投资比例</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody>-->
+<!--<tr ng-repeat="p in zhcplist.fyx">-->
+<!--<td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/zhcp" target="_blank">[{{prd.PRO_CODE}}]{{prd.SHT_NAME}}</a></td>-->
+<!--<td>{{prd.PRO_TYPE_DESC}}</td>-->
+<!--<td>{{prd.PRO_RATIO+'%'}}</td>-->
+<!--</tr>-->
+<!--</tbody>-->
+<!--</table>-->
+<!--</div>-->

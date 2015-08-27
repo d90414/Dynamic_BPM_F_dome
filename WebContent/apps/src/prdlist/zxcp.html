@@ -1,0 +1,58 @@
+<table class="table m-b-none prdlist" ng-if="showtype == 1">
+    <thead>
+    <tr>
+        <th>产品名称</th>
+        <th>产品介绍</th>
+        <th>服务价格</th>
+        <th>服务方式</th>
+        <th>生效日期</th>
+        <th class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in prds">
+        <td><a class="text-ellipsis" ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}"
+               title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a></td>
+        <td>{{p.PRO_DESC}}</td>
+        <td>{{p.PRICES ? p.PRICES[0].FEE + "元/" + p.PRICES[0].FEE_MODE_DESC :""}}</td>
+        <td>{{p.SERVICE_WAY_DESC}}</td>
+        <td>{{p.EFF_DATE ? "T + " + p.EFF_DATE : ""}}</td>
+        <td class="text-center">
+            <a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}"
+               class="btn btn-xs btn-info btn-rounded">购买</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="wrapper-sm" ng-if="showtype == 0">
+    <div class="row padder-sm">
+        <div class="col-xs-3 no-padder m-t-sm" ng-repeat="p in prds">
+       		<div class="m-r-xs b-a clear">
+       			<div class="row wrapper-xs text-left">
+                    <div class="pull-left m-l text-xl text-ellipsis" title="{{p.PRO_NAME}}"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/zxcp">{{p.SHT_NAME}}</a></div>
+					<div class="pull-right m-r" ng-click="p.isFavorite ? deleteMyFavorites(prds, $index) : addToMyFavorite(prds, $index)" title="{{p.isFavorite ? '取消收藏' : '收藏'}}">
+						<div class="m-t-xs m-r-xs"><a class="label" ng-class="{'bg-danger': p.isFavorite, 'bg-primary': !p.isFavorite}">{{p.isFavorite ? '已收藏' : '收藏'}}</a></div>
+					</div>
+                </div>
+                <div>
+                    <div class="col-xs-5 padder-xxs">
+                        <img class="m-t-xs m-b-xs" src="public/images/info-pic-small.png"/>
+                        <span class="m-l text-danger">{{p.PRICES ? p.PRICES[0].FEE + "元/" + p.PRICES[0].FEE_MODE_DESC :""}}</span>
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="text-ellipsis-2row text-muted" style="height: 40px;"><span title="{{p.PRO_DESC}}">{{p.PRO_DESC}}</span>
+                        </div>
+                        <div class="text-muted text-xs">服务方式：<span title="{{p.SERVICE_WAY_DESC}}">{{p.SERVICE_WAY_DESC}}</span>
+                        </div>
+                        <div class="text-muted text-xs">生效日期：<span title="T日购买，T+n日生效">{{p.EFF_DATE ? "T + " + p.EFF_DATE : ""}}</span>
+                        </div>
+                        <div class="m-t-xs">
+                            <a class="btn btn-xs btn-info padder-md" ng-href="#/kfps/detail/{{p.PRO_ID}}/{{type}}">我要购买</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

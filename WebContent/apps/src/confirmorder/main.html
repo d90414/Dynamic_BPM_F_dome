@@ -1,0 +1,331 @@
+<div>
+    <div class="pull-right">
+        <span class="pull-right m-t"><a href="#/page/help/2#14" target="_blank" class="text-right m-t">常见问题</a></span>
+    </div>
+    <div class="row m-t m-b-lg" ng-show="step == '1'">
+        <div class="col-xs-offset-2 col-xs-10">
+            <div class="row text-left">
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                    <div class="m-t-xs">订单检查</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">2</span></div>
+                    <div class="m-t-xs">订单申请</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">3</span></div>
+                    <div class="m-t-xs">订单支付</div>
+                </div>
+                <div class="col-xs-3 no-padder">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">4</span></div>
+                    <div class="m-t-xs">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-t m-b-lg" ng-show="step == '2'">
+        <div class="col-xs-offset-2 col-xs-10">
+            <div class="row text-left">
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                    <div class="m-t-xs">订单检查</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                    <div class="m-t-xs">订单申请</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">3</span></div>
+                    <div class="m-t-xs">订单支付</div>
+                </div>
+                <div class="col-xs-3 no-padder">
+                    <div class="btn btn-icon btn-rounded btn-default"><span class="text-xxl">4</span></div>
+                    <div class="m-t-xs">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-t m-b" ng-show="order && showType == '1'">
+        <div class="m-t-md">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">您订购的产品信息</span>
+            </div>
+            <div class="line line-md b-b b-light"></div>
+            <div class="table-responsive b-light b b-2x">
+                <table class="table m-b-none" ng-if="order.LVL1_TYPE == '3'">
+                    <thead>
+                    <tr class="bg-light">
+                        <th>产品代码</th>
+                        <th>产品名称</th>
+                        <th>单价</th>
+                        <th>购买周期</th>
+                        <th>购买数量</th>
+                        <th>小计</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="v-middle">
+                            <div><a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank"
+                                    ng-bind="order.PRO_CODE"></a></div>
+                        </td>
+                        <td class="v-middle">
+                            <div><a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank"
+                                    ng-bind="order.SHT_NAME"></a></div>
+                        </td>
+                        <td class="v-middle">
+                                <span ng-repeat="pri in zxcp.PRICE" class="m-l-xs">
+                                    <span class="font-bold text-danger-lt text-md">{{pri.FEE}}</span>元/{{pri.FEE_MODE_DESC}}
+                                </span>
+                        </td>
+                        <td class="v-middle">
+                            <select class="form-control input-sm w-xs m-n" style="width: 135px" ng-model="zxcp.buy_period"
+                                    ng-change="change(order, true)"
+                                    ng-options=" option.FEE as option.FEE_MODE_DESC for option in order.PRICE "></select>
+                        </td>
+                        <td class="v-middle">
+                            <input type="text" class="form-control  input-sm w-xs m-n" ng-model="order.buy_num"
+                                   ng-change="change(order, true)" style="width: 135px">
+
+                        </td>
+                        <td class="v-middle">
+                            <select class="form-control input-sm w-xs m-n" ng-model="order.BUY_NUM"
+                                    ng-change="change(order, true)">
+                                <option ng-repeat="count in countlist">{{count}}</option>
+                            </select>
+                        </td>
+                        <td class="v-middle text-danger">
+                            <div><i class="fa fa-cny"></i><span ng-bind="order.paymoney"></span></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table m-b-none" ng-if="order.LVL1_TYPE == '1'">
+                    <thead>
+                    <tr class="bg-light">
+                        <th>产品代码</th>
+                        <th>产品名称</th>
+                        <th>投资起点(元)</th>
+                        <th>购买金额(元)</th>
+                        <th>小计(元)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="v-middle">
+                            <div>
+                                <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank"
+                                   ng-bind="order.PRO_CODE"></a></div>
+                        </td>
+                        <td class="v-middle">
+                            <div>
+                                <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank"
+                                   ng-bind="order.SHT_NAME"></a></div>
+                        </td>
+                        <td class="v-middle">
+                            <div ng-bind="order.INVE_START"></div>
+                        </td>
+                        <td class="v-middle"><input type="text" min="{{order.INVE_START}}"
+                                                    class="form-control  input-sm w-xs m-n" ng-model="order.BUY_MONEY"
+                                                    ng-change="change(order, false)" style="width: 135px"></td>
+                        <td class="v-middle text-danger">
+                            <div><i class="fa fa-cny"></i><span ng-bind="order.paymoney"></span></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="m-t">
+            <div class="b-b" style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">选择支付方式：</span>
+            </div>
+            <div class="radio text-danger m-l-md" ng-repeat="way in order.PAY_TYPE.split(',')">
+                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': isIE8}">
+                    <input type="radio" ng-click="chooseBuyWay(way)">
+                    <i></i>
+                    {{payWays[way]}}
+                </label>
+            </div>
+        </div>
+        <div class="m-t">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">应付总额：</span>
+            </div>
+            <div class="wrapper-xs b-t">
+                <div class="m-l-lg v-middle text-danger">
+                    <div><i class="fa fa-cny"></i><span ng-bind="SUMPAYMONEY"></span>(元)</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-t m-b" ng-show="order.PRO_SOU=='2'">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">签署协议</span>
+            </div>
+            <div class="b wrapper-md" hight="200px;">
+                &nbsp;&nbsp;&nbsp;&nbsp; 甲方：产品认购申请人（以下简称“甲方”） <br/>&nbsp;&nbsp;&nbsp;&nbsp;乙方：渤海证券（以下简称“乙方”） <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                《渤海证券产品协议书》（以下简称“本协议”）为甲方购买乙方销售的理财产品之协议书。 经甲方与乙方协商一致，就甲方向乙方购买理财产品，达成协议如下：
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;一、风险提示：银行销售的理财产品与存款存在明显区别。投资理财产品可能面临信用风险、市场风险、流动性风险等风险，具体风险因素由乙方在风险揭示书中揭示。乙方应仔细阅读并充分理解产品说明书及风险揭示书中的详细条款及可能发生的风险。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;二、甲方申明：甲方是具有完全民事行为能力的个人，接受并签署本协议、产品说明书、风险揭示书及客户权益须知等产品文件，对有关条款不存在任何疑问和异议；甲方以本人合法持有的资金购买乙方的产品，并能充分理解所购买产品的内容，完全知晓产品可能出现的各种风险，愿意承担这些风险。乙方向甲方提供的市场分析和预测仅供参考，甲方据此做出的任何决策出于甲方自己的判断，乙方不承担任何责任。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;三、本协议仅适用于甲方向乙方购买的单笔个人理财产品，不同笔理财产品协议书的效力及其履行情况相对独立。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;四、双方权利和义务：
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（一）甲方认购理财产品并签署本协议后，即授权平安银行按委托金额于认购日冻结本人指定资金账户（卡内主账户）认购资金，并授权平安银行于产品认购划款日从此账户扣划相应的认购资金(委托金额、认购日及产品成立日等均详见《理财产品委托类申请表》内容栏的相应记载和产品说明书)。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（二）甲方有权依照约定在产品存续期内获得投资收益。认购划款日到成立日期间为认购清算期，产品到期日（或提前终止日）到理财资金到账日为还本清算期，认购清算期和还本清算期内不计付利息。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（三）因甲方指定资金账户资金余额不足或处于非正常状态（挂失、冻结、销户等状态）致使乙方无法按时办理扣款或到期理财资金及收益无法入账，或者引起其他一切风险与损失的，均由甲方承担。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（四）乙方有权收取一定的理财产品管理费，具体收费方式和标准在产品说明书中载明。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（五）本理财产品收益为未扣税收益，乙方应根据国家规定自行纳税。如根据有关法律规定或税务机关要求，甲方有权代扣代缴。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;五、本协议自甲、乙双方在本协议及甲方认购本理财产品所对应的产品说明书、《理财产品委托类申请表》、风险揭示书及客户权益须知上签署后生效。如客户认购理财产品失败、理财产品不成立、银行行使提前终止权、理财产品到期并结清后，本协议自动终止。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;六、在发生下列情况之一时，本协议终止：
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（一）乙方拥有提前终止本协议的权利（以下简称“提前终止权”），若乙方未行使提前终止权，则本协议有效期至本理财产品到期清算后终止；若乙方行使了提前终止权，则本协议有效期至该终止权执行并清算后终止。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;（二）如甲方理财资金在本理财产品到期日之前被有权机关扣划或者采取其它限制权利的措施，则视同甲方违约，乙方有权自扣划或采取其它限制权利的措施之日起终止本协议，甲方应自行承担违约导致的损失。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;七、因法律法规或监管政策变化、自然灾害、意外事故、战争、系统故障、通讯故障等乙方不可控制的因素，导致乙方无法或延后履行本协议的有关义务，乙方不承担责任，但应在条件允许的情况下通知甲方，并采取一切必要的补救措施以减少有关损失。
+                <br/>&nbsp;&nbsp;&nbsp;&nbsp;八、本协议适用中华人民共和国法律；法律、法规或规章无明文规定的，可适用通行的金融惯例。如本协议履行过程中部分条款与法律、法规或规章的规定相抵触时，有关的权利和义务应按相关法律、法规或规章的规定履行。
+            </div>
+            <div class="m-t m-b-md">
+                <label class="i-checks i-checks-sm">
+                    <input type="checkbox" ng-click="otcAgreement != otcAgreement"><i></i>我确认购买此产品，签订上述协议
+                </label>
+            </div>
+        </div>
+        <div ng-if="order.PRO_SOU=='2'" class="m-t">
+            <div class="line line-md b-b b-light"></div>
+            <div class="wrapper-xs text-right">
+                <button ng-if="" class="btn btn-info btn-sm" ng-click="submit(order)" ng-disabled="!otcAgreement">
+                    <i class="fa fa-check m-r-xs"></i>提交订单
+                </button>
+            </div>
+        </div>
+        <div ng-if="order.PRO_SOU!='2'" class="m-t">
+            <div class="line line-md b-b b-light"></div>
+            <div class="wrapper-xs text-right">
+                <button class="btn btn-info btn-sm" ng-click="submit(order)" ng-disabled="!checked">
+                    <i class="fa fa-check m-r-xs"></i>提交订单
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b row" ng-show="showType == '3'">
+        <div class="list-group m-t text-center">
+            <!-- TODO: 链接到哪里？ -->
+            <span class="h3">您的账户暂未开通购买OTC产品的权限，<a class="text-primary">立即开通</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b row" ng-show="showType == '7'">
+        <div class="list-group m-t text-center">
+            <span class="h3">您还没有开通{{order.REGI_ORG_DESC}}基金账户，
+                <a class="text-primary" ui-sref="kibh.biz.openFund({businessId: $root.openFundId})" target="_blank">立即开通</a>
+            </span>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '4'">
+        <div class="list-group m-t text-center">
+            <span class="h3">您的风险评测已过期，<a ui-sref="kibh.biz.stockRiskTest({businessId: $root.stockRiskTestId})" target="_blank" class="text-primary">立即评测</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '9'">
+        <div class="list-group m-t text-center">
+            <span class="h3">您尚未进行风险评测或您的风险评测已过期，<a ui-sref="kibh.biz.stockRiskTest({businessId: $root.stockRiskTestId})" target="_blank" class="text-primary">立即评测</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '8'">
+        <div class="list-group m-t text-center">
+        <span class="h3">您的风险评测未评估，<a ng-click="nextstep()" class="text-primary">继续购买</a>或者<a
+                ui-sref="kibh.biz.stockRiskTest({businessId: $root.stockRiskTestId})" target="_blank"
+                class="text-primary">立即评测</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '5'">
+        <div class="list-group m-t text-center">
+        <span class="h3">您的适当性匹配不成功，<a ui-sref="kibh.biz.stockRiskTest({businessId: $root.stockRiskTestId})" target="_blank"
+                                       class="text-primary">重新评测</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '6'">
+        <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+            <span class="font-bold m-l-md">适当性匹配</span>
+        </div>
+        <div class="m-t m-b">
+            您的适当性不匹配。
+        </div>
+        <label class="wrapper i-checks i-checks-sm">
+            <button class="btn btn-info btn-sm" ng-click="nextstep()"><i></i>清楚风险匹配结果，确认继续购买</button>
+        </label>
+    </div>
+    <div class="m-t m-b" ng-show="showType == '01'">
+        <div class="text-center">
+            <span class="h3">您尚未绑定交易账户，无法购买产品，<a ui-sref="auth.binddealaccount" class="text-primary">立即绑定</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b" ng-show="showType == '02'">
+        <div class="text-center">
+            <span class="h3">您尚未绑定注册号，无法购买产品，<a ui-sref="auth.bindregaccount" class="text-primary">立即绑定</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b" ng-show="showType == '10'">
+        <div ng-show="!showAgreement" class="text-center">
+            <span class="h3">您尚未签署约定书，无法购买产品，<a class="h3 text-center text-primary" ng-click="showAgreement = !showAgreement">立即签署</a></span>
+        </div>
+        <div ng-if="showAgreement" class="m-t m-b">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">电子签名约定书</span>
+            </div>
+            <pre style="height: 250px;" ng-bind-html="agreement"></pre>
+            <div class="m-t m-b-md">
+                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                    <input type="checkbox" ng-model="agreeRiskDisclosure"><i></i>本人/机构已认真阅读并完全理解约定书的全部内容，愿意承担各种风险和损失。
+                </label>
+            </div>
+            <div class="text-center">
+                <a class="h3 btn btn-info" ng-click="signAgreement()">下一步</a>
+            </div>
+        </div>
+    </div>
+    <div class="m-t m-b " ng-show="showType == '13'">
+        <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+            <span class="font-bold m-l-md">风险揭示书</span>
+        </div>
+        <div class="m-t m-b">
+            <pre style="height:250px;" ng-bind-html="riskDisclosure"></pre>
+        </div>
+        <div class="m-t m-b-md">
+            <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                <input type="checkbox" ng-model="agreeRiskDisclosure"><i></i>本人/机构已认真阅读并完全理解风险揭示书的全部内容，愿意承担各种风险和损失。
+            </label>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info btn-sm" ng-click="check()" ng-disabled="!agreeRiskDisclosure"><i></i>下一步</button>
+        </div>
+    </div>
+    <div class="m-t m-b" ng-show="showType == '11'">
+        <div ng-show="!showContract" class="text-center">
+            <span class="h3">您尚未签署理财合同，无法购买产品，<a class="h3 text-center text-primary" ng-click="showContract = !showContract">立即签署</a></span>
+        </div>
+        <div ng-if="showContract" class="m-t m-b">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">理财合同</span>
+            </div>
+            <pre style="height: 250px;" ng-bind-html="contract"></pre>
+            <div class="m-t m-b-md">
+                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">
+                    <input type="checkbox" ng-model="agreeContract"><i></i>本人/机构已认真阅读并完全理解合同的全部内容，愿意承担各种风险和损失。
+                </label>
+            </div>
+            <div class="text-center">
+                <a class="h3 btn btn-info" ng-click="signContract()" ng-disabled="!agreeContract">确定签署</a>
+            </div>
+        </div>
+    </div>
+    <div class="m-t m-b" ng-show="showType == '12'">
+        <div class="text-center">
+        <span class="h3">您的适当性不匹配，无法购买该产品，<a ui-sref="kibh.biz.stockRiskTest({businessId: $root.stockRiskTestId})" target="_blank"
+                                             class="text-primary">重新做风险测评</a></span>
+        </div>
+    </div>
+    <div class="m-t m-b">
+        <div recm-prds></div>
+    </div>
+</div>

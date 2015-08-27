@@ -1,0 +1,3 @@
+<div ng-click="prd.isFavorite ? deleteMyFavorites(prds, $index) : addToMyFavorite(prds, $index)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+    <div class="m-t-xs m-r-xs"><a class="label font-thin text-white" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+</div>

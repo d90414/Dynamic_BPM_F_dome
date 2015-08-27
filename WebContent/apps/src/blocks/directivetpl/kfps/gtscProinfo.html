@@ -1,0 +1,144 @@
+<div class="m-t">
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td class="active" colspan="2">产品名称：</td>
+            <td>{{prd.PRO_NAME}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">产品代码：</td>
+            <td>{{prd.PRO_CODE}}</td>
+        </tr>
+        <tr>
+            <td class="active " colspan="2">挂钩标的及方向：</td>
+            <td>{{prd.REFER_OBJ}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">发行人：</td>
+            <td>{{prd.ISS_NAME}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">登记机构：</td>
+            <td>{{prd.REGI_ORG_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">本期发行规模：</td>
+            <td>{{prd.RAISE_ISSU_SIZE | moneyFomat:'2'}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">本期最低发行规模：</td>
+            <td>{{prd.MIN_RAISE_SIZE | moneyFomat:'2'}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">产品期限：</td>
+            <td>{{prd.DURA_TIME}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">最低认购金额：</td>
+            <td>{{prd.INVE_START | moneyFomat:'2'}}</td>
+        </tr>
+        <tr>
+            <td class="active v-middle" style="width: 80px;" rowspan="3">收益率：</td>
+            <td class="active" style="width: 110px;">收益构成：</td>
+            <td>{{prd.INCOME_DIST_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="w-xs active">固定收益率：</td>
+            <td>{{prd.FIX_RATE}}</td>
+        </tr>
+        <tr>
+            <td class="active">浮动收益率：</td>
+            <td>{{prd.FLOAT_RATE}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">年度计息天数：</td>
+            <td>{{prd.INTER_DAYS}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">发行对象：</td>
+            <td>{{prd.ISS_OBJ}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">产品风险等级：</td>
+            <td>{{prd.RISK_LVL_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">发行场所：</td>
+            <td>{{prd.ISS_CHNL_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">增信措施：</td>
+            <td>{{prd.CREDIT_ENHA}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">投资者人数上限：</td>
+            <td>{{prd.MAX_ACCT_NUM ? prd.MAX_ACCT_NUM + '人' : ''}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">募集方式：</td>
+            <td>{{prd.RAISE_WAY}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">募集资金用途：</td>
+            <td>{{prd.FUND_USE}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">发行方式：</td>
+            <td>{{prd.ISS_WAY_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">认购期：</td>
+            <td>{{prd.RAISE_BGN_DATE}}<span ng-if="prd.RAISE_BGN_DATE && prd.RAISE_END_DATE">&nbsp;至&nbsp;</span>{{prd.RAISE_END_DATE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">缴款日：</td>
+            <td>{{prd.CASH_DATE}}<span ng-if="prd.CASH_DATE && prd.CASH_DATE_END">&nbsp;至&nbsp;</span>{{prd.CASH_DATE_END}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">登记日：</td>
+            <td>{{prd.REGI_DATE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">起息日：</td>
+            <td>{{prd.INTER_DATE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">到期日：</td>
+            <td>{{prd.TERM_DATE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">兑付日：</td>
+            <td>{{prd.PAY_DATE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">兑付价格：</td>
+            <td>{{prd.PAY_PRICE}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm active" colspan="2">兑付方式：</td>
+            <td>{{prd.PAY_METH}}</td>
+        </tr>
+        <tr>
+            <td class="w-sm  active" colspan="2">撤单：</td>
+            <td>{{prd.CANCEL_WAY_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">份额赎回：</td>
+            <td>{{prd.REDE_WAY_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">提前购回：</td>
+            <td>{{prd.REPUR_WAY_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">份额转让：</td>
+            <td>{{prd.TRAN_WAY_DESC}}</td>
+        </tr>
+        <tr>
+            <td class="active" colspan="2">信息披露内容及方式：</td>
+            <td>{{prd.INFO_DISC_WEB}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

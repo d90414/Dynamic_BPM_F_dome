@@ -1,0 +1,70 @@
+<div>
+    <div class="wrapper">
+        <div class="row b" style="border-color: #FFA382;">
+            <div class="col-xs-8">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <div class="m-l-n-sm m-t-xs">
+                            <img src="public/images/info-pic-small.png" class="b-a w-full" style="height:238px;">
+                        </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="text-left m-t-md"><span class="text-xxl text-ellipsis" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</span></div>
+                        <div class="text-ellipsis-2row text-muted text-md" style="height: 40px;"><span title="{{prd.PRO_DESC}}">{{prd.PRO_DESC}}</span></div>
+                        <div class="text-md">服务方式：<span title="{{prd.SERVICE_WAY_DESC}}">{{prd.SERVICE_WAY_DESC}}</span></div>
+                        <div class="text-md">生效日期：<span title="T日购买，T+n日生效">{{prd.EFF_DATE ? "T + " + prd.EFF_DATE : ""}}</span></div>
+                        <div class="text-md" ng-if="priceMode">服务价格：
+                            <span ng-repeat="pri in priceMode" class="m-l-md">
+                                <span class="font-bold text-danger-lt text-md">{{pri.FEE}}</span>元/{{pri.FEE_MODE_DESC}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--产品信息  -->
+            <div class="col-xs-4 b-l" style="border-color: #FFA382; background-color: #FFF7F0;">
+                <div class="clearfix">
+                    <div class="pull-right" ng-click="prd.isFavorite ? deleteMyFavorites(prd) : addToMyFavorite(prd)" title="{{prd.isFavorite ? '取消收藏' : '收藏'}}">
+                        <div class="m-t-xs m-r-n-xs"><a class="label" ng-class="{'bg-danger': prd.isFavorite, 'bg-primary': !prd.isFavorite}">{{prd.isFavorite ? '已收藏' : '收藏'}}</a></div>
+                    </div>
+                </div>
+                <div class="">
+                    <form class="form-horizontal ng-pristine ng-valid text-nowrap" role="form">
+                        <div class="form-group">
+                            <label class="col-xs-5 text-left">支付方式: </label>
+                            <div class="col-xs-7 m-l-n-xl">{{prd.PAY_WAY_DESC}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label text-left">购买周期: </label>
+                            <div class="col-xs-7 m-l-n-xl">
+                                <select class="form-control w" ng-model="buy.buy_period" ng-options="option.FEE as option.FEE_MODE_DESC for option in priceMode "></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label text-left">购买数量: </label>
+                            <div class="col-xs-7 m-l-n-xl">
+                                <input type="text" class="form-control w" ng-model="buy.num" style="width: 135px">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-5"></div>
+                            <div class="col-xs-7 m-l-n-xl">
+                                <button class="btn btn-danger font-bold w" ng-click="addToOrder()">
+                                    <i class="fa fa-cubes"></i>立即购买
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-5 text-left">可申购时间：</label>
+                            <div class="col-xs-7 m-l-n-xl">交易日9:30-11:30 13:00-15:00</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-t m-b ">
+    <div recm-prds ctype="{{type}}"></div>
+</div>

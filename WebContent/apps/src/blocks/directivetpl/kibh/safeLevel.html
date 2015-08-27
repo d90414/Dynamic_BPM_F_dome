@@ -1,0 +1,29 @@
+<div>
+    <div class="form-group" ng-show="safelevel[1]">
+        <label class="col-xs-3 control-label">验证码：</label>
+
+        <div class="col-xs-6">
+            <div class="input-group">
+                <input type="text" placeholder="请输入手机验证码" class="form-control" name="code" ng-pattern="/^\d{6}$/"
+                       ng-model="code" ng-disabled="!codeid" ng-required>
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-info" ng-bind-html="codetip" ng-click="getcode()"
+                            ng-disabled="codetip!='获取验证码'"></button>
+				</span>
+            </div>
+            <span class="help-block m-b-none text-danger" ng-show="!code && code != ''">请输入6位验证码</span>
+			<span class="help-block text-xs">
+				<span class="text-info">您的交易账户手机号将收到短信验证码。</span>
+			</span>
+        </div>
+    </div>
+    <div class="form-group" ng-show="safelevel[2]">
+        <label class="col-xs-3 control-label">资金密码：</label>
+
+        <div class="col-xs-6">
+            <input type="password" placeholder="请输入资金密码" ng-pattern="/^[\s\S]{6,16}$/" class="form-control"
+                   name="fundpwd" ng-model="fundpwd" ng-required>
+            <span class="help-block m-b-none text-danger" ng-show="!fundpwd && fundpwd != ''">请输入6-16位密码</span>
+        </div>
+    </div>
+</div>

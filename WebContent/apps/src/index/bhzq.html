@@ -1,0 +1,135 @@
+<style>
+    .title {
+        font-size: 26px;
+    }
+
+    .btn-text {
+        font-size: 20px;
+    }
+
+    .highlight {
+        font-size: 100px;
+        font-weight: bold;
+    }
+
+    #plus1 {
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    #plus2 {
+        font-size: 90px;
+        font-weight: bold;
+    }
+
+    .prd-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #D3B55A;
+    }
+
+</style>
+<div class="m-t">
+    <div class="m-t-lg m-b-xxl">
+        <div class="row no-padder">
+            <div class="col-xs-6">
+                <div class="padder w-full text-white" style="width:560px; height: 323px; background: url(public/images/index_register.png) no-repeat">
+                    <div class="wrapper title">在此受益的投资者</div>
+                    <div style="height: 50px;"></div>
+                    <div class="m-t-n m-b-n text-center">
+                        <span class="highlight" ng-bind="$root.global.pageviews"></span>
+                        <span id="plus1">+</span>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-xs-offset-3 col-xs-6 text-center">
+                            <a href="http://kh.bhzq.com" target="_blank">
+                                <div class="m-t b b-2x b-white r-3x" style="width: 255px;">
+                                    <div class="m-t-xs m-b-xs text-white text-center font-thin btn-text">猛戳开户</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding-right: 0">
+                <div class="padder w-full m-l" style="height: 323px; background: url(public/images/index_product.png) no-repeat">
+                    <div class="wrapper title" style="color:#000000!important;">让人怦然心动的高收益金融产品</div>
+                    <div class="m-l m-t-n prd-name"  style="height: 28px;" ng-bind="superPrd.SHT_NAME"></div>
+                    <div class="text-right title" style="padding-right: 120px; color: #FFA200;">预期年化收益</div>
+                    <div class="m-t-n m-b-n text-center" style="color: #FFA200;">
+                        <span id="plus2">+</span>
+                        <span class="highlight" ng-bind="superPrd.EXPE_YIELDS ? superPrd.EXPE_YIELDS + '%' : 0 + '%'"></span>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-xs-3">
+                            <img ng-show="!superPrd.canBuy" ng-src="public/images/icon_sold_out.png">
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <a ng-href="#/kfps/detail/{{superPrd.PRO_ID}}/{{superPrd.LVL2_TYPE | transtype}}" target="_blank">
+                                <div class="m-t b b-2x r-3x" style="width: 255px; background-color: #FFA200;">
+                                    <div class="m-t-xs m-b-xs text-white text-center font-thin btn-text">
+                                        <span ng-show="superPrd.canBuy">猛戳购买</span>
+                                        <span ng-show="!superPrd.canBuy">立即查看</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 网厅业务办理链接 -->
+    <div>
+        <div class="row">
+            <div class="col-xs-1 wrapper">
+                <div class="padder-xs h2 text-center text-white m-t-n" style="height: 227px;padding-top: 30px;background-color: #FF916E">
+                    网上营业厅<i class="fa fa-caret-right" style="color: #FF916E;position: absolute;left: 84px;top: 100px"></i>
+                </div>
+            </div>
+            <div class="col-xs-11 b-t m-l-n" style="border-color: #FF916E">
+                <div class="row m-l-none m-r-none">
+                    <div class="col-xs-3 wrapper-xs" ng-class="{'gray': item.SHOW_USE == 0, 'm-b-md': $index < 4}" ng-repeat="item in commonBizs" ng-if="item.IS_COMMON_USE == 1">
+                        <div class="row m-l-none m-r-none wrapper-xs">
+                            <div class="col-xs-4 m-t-sm">
+                                <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><img ng-src="{{item.MENU_ICON}}"></a>
+                                <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1"><img ng-src="{{item.MENU_ICON}}"></a>
+                                <a ng-if="item.SHOW_USE == 0" class="text-muted"><img ng-src="{{item.MENU_ICON}}"></a>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="text-black text-lg text-ellipsis">
+                                    <a ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>{{item.MENU_NAME}}</span></a>
+                                    <a ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1" target="_blank"><span>{{item.MENU_NAME}}</span></a>
+                                    <a ng-if="item.SHOW_USE == 0" class="text-muted"><span>{{item.MENU_NAME}}</span></a>
+                                </div>
+                                <div class="m-t-xs text-xs text-muted text-ellipsis" title="{{item.MENU_REMARK}}">{{item.MENU_REMARK}}</div>
+                                <div class="m-t">
+                                    <a class="text-info" ui-sref='{{item.MENU_URL}}' ng-if="!item.ISHREF && item.SHOW_USE == 1"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                    <a target="_blank" ng-href="{{item.MENU_URL_OLD}}" ng-if="item.ISHREF && item.SHOW_USE == 1"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                    <a class="text-muted" ng-if="item.SHOW_USE == 0"><span>立即{{item.MENU_NAME.substr(item.MENU_NAME.length - 2, 2)}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 wrapper-xs">
+                        <div class="row m-l-none m-r-none wrapper-xs">
+                            <div class="col-xs-4 m-t-sm">
+                                <a ui-sref="kibh.index"><img ng-src="public/images/more.png"></a>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="text-black text-lg text-ellipsis">
+                                    <a ui-sref="kibh.index"><span>更多业务</span></a>
+                                </div>
+                                <div class="m-t-xs text-xs text-muted text-ellipsis">网上营业厅</div>
+                                <div class="m-t">
+                                    <a class="text-info" ui-sref="kibh.index"><span>立即查看</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+<div>
+    <div class="pull-right">
+        <span class="pull-right m-t"><a href="#/page/help/2#14" target="_blank" class="text-right m-t">常见问题</a></span>
+    </div>
+    <div class="row m-t m-b-lg">
+        <div class="col-xs-offset-2 col-xs-10">
+            <div class="row text-left">
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">1</span></div>
+                    <div class="m-t-xs">订单检查</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_bline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-info"><span class="text-xxl">2</span></div>
+                    <div class="m-t-xs">订单申请</div>
+                </div>
+                <div class="col-xs-3 no-padder" style="background: url(public/images/step_gline.png) no-repeat 34px 15px">
+                    <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">3</span></div>
+                    <div class="m-t-xs">订单支付</div>
+                </div>
+                <div class="col-xs-3 no-padder">
+                    <div class="btn btn-icon btn-rounded btn-dark disabled"><span class="text-xxl">4</span></div>
+                    <div class="m-t-xs">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div class="m-t-md">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">您订购的产品信息</span>
+            </div>
+            <div class="line line-md b-b b-light"></div>
+            <div ng-switch="order.LVL1_TYPE" class="table-responsive b-light b b-2x">
+                <table ng-switch-default class="table m-b-none">
+                    <thead>
+                    <tr class="bg-light">
+                        <th>产品代码</th>
+                        <th>产品名称</th>
+                        <th ng-if="order.LVL2_TYPE=='486'">产品期限</th>
+                        <th ng-if="order.LVL2_TYPE=='486'">收益类型</th>
+                        <th ng-class="{'w-md': order.LVL2_TYPE!='486'}">投资起点(元)</th>
+                        <th class="w-md">购买金额(元)</th>
+                        <th class="w-md">小计(元)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="v-middle">
+                            <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank" ng-bind="order.PRO_CODE"></a>
+                        </td>
+                        <td class="v-middle">
+                            <a ng-href="#/kfps/detail/{{order.PRO_ID}}/{{type}}" target="_blank" ng-bind="order.SHT_NAME"></a>
+                        </td>
+                        <td  ng-if="order.LVL2_TYPE=='486'" class="v-middle">{{order.DURA_TIME}}</td>
+                        <td  ng-if="order.LVL2_TYPE=='486'" class="v-middle">{{order.REVE_TYPE_DESC}}</td>
+                        <td class="v-middle">
+                            <span ng-bind="order.INVE_START"></span>
+                        </td>
+                        <td class="v-middle">
+                            <input type="text" class="form-control input-sm w-sm" name="buy_money" ng-model="order.BUY_MONEY" ng-change="updateTotal(order)">
+                        </td>
+                        <td class="v-middle text-danger">
+                            <i class="fa fa-cny"></i><span ng-bind="subtotal"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="m-t">
+            <div class="b-b" style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">选择支付方式：</span>
+            </div>
+            <div class="radio text-danger m-l-md" ng-repeat="way in order.PAY_TYPE.split(',')">
+                <label ng-class="{'i-checks': !isIE8, 'i-checks-sm': isIE8}">
+                    <input type="radio" ng-click="chooseBuyWay(way)">
+                    <i></i>
+                    {{payWays[way]}}
+                </label>
+            </div>
+        </div>
+        <div class="m-t">
+            <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                <span class="font-bold m-l-md">应付总额：</span>
+            </div>
+            <div class="wrapper-xs b-t">
+                <div class="m-l-lg v-middle text-danger">
+                    <div><i class="fa fa-cny"></i><span>{{total}}</span>(元)</div>
+                </div>
+            </div>
+        </div>
+        <!--<div ng-if="order.PRO_SOU == '2'" class="m-t">-->
+            <!--<div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">-->
+                <!--<span class="font-bold m-l-md">签署电子合同：</span>-->
+            <!--</div>-->
+            <!--<div class="wrapper-xs b-t">-->
+                <!--<label class="m-l" ng-class="{'i-checks': !isIE8, 'i-checks-sm': !isIE8}">-->
+                    <!--<input type="checkbox" ng-click="signOtcContract()"><i></i>&nbsp;本人/机构已认真阅读并完全理解电子合同的全部内容，愿意承担各种风险和损失，确认签署电子合同。-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="m-t line line-md b-b"></div>
+        <div class="row m-t text-right">
+            <form class="col-xs-12 form-inline" role="form">
+                <div class="form-group">
+                    <label class="control-label">推荐人：</label>
+                    <input type="text" class="form-control w-xl" placeholder="如有推荐人，请在此填写" ng-model="recommended">
+                </div>
+            </form>
+        </div>
+        <div class="row m-t m-r-xxs text-right">
+            <!--<button class="btn btn-info btn-sm" ng-click="submitOrder(order)" ng-disabled="!checked || !agreeOtcContract">-->
+            <button class="btn btn-info btn-sm" ng-click="submitOrder(order)" ng-disabled="!checked">
+                <i class="fa fa-check m-r-xs"></i>提交订单
+            </button>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div recm-prds></div>
+    </div>
+</div>

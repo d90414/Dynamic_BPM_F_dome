@@ -1,0 +1,48 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table prdlist">
+        <thead>
+        <tr>
+            <th>产品名称</th>
+            <th width="7.3%" class="v-middle text-center">产品代码</th>
+            <th width="10%" class="v-middle text-center">参与起点</th>
+            <th width="10%" class="v-middle text-center">追加金额</th>
+            <th width="7.3%" class="v-middle text-center">产品期限</th>
+            <th width="11.2%" class="v-middle text-center">预期收益率</th>
+            <th width="7%" class="v-middle text-center">风险等级</th>
+            <th width="10%" class="v-middle text-center">单位净值(元)</th>
+            <th width="10%" class="v-middle text-center">累计净值(元)</th>
+            <th width="7%" class="v-middle text-center">产品状态</th>
+            <th width="6.6%" class="v-middle text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="prd in prds" class="v-middle text-center">
+            <td class="v-middle text-left"><a class="text-ellipsis" ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</a></td>
+            <td class="v-middle"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">{{prd.PRO_CODE}}</a></td>
+            <td class="v-middle">{{prd.INVE_START | moneyFomat:'2'}}</td>
+            <td class="v-middle">{{prd.ADDTO_MIN_BUY ? (prd.ADDTO_MIN_BUY | moneyDivide) + '元' : ''}}</td>
+            <td class="v-middle">{{prd.INVEST_HORI }}</td>
+            <td class="v-middle" ng-class="{'text-success': prd.EXPE_YIELDS < 0, 'text-danger': prd.EXPE_YIELDS > 0}">{{0 != prd.EXPE_YIELDS ? prd.EXPE_YIELDS + '%' : '浮动收益'}}</td>
+            <td class="v-middle">{{prd.RISK_LVL_DESC}}</td>
+            <td class="v-middle" ng-class="{'text-success': prd.NAV_VAL < 0, 'text-muted': prd.NAV_VAL == 0, 'text-danger': prd.NAV_VAL > 0}">{{(prd.NAV_VAL && prd.NAV_VAL != 0) ? prd.NAV_VAL : '--'}}</td>
+            <td class="v-middle" ng-class="{'text-success': prd.ACC_VAL < 0, 'text-muted': prd.ACC_VAL == 0, 'text-danger': prd.ACC_VAL > 0}">{{(prd.ACC_VAL && prd.ACC_VAL != 0) ? prd.ACC_VAL : '--'}}</td>
+            <td class="v-middle">{{prd.DIST_STAT_DESC}}</td>
+            <td class="v-middle text-center">
+                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{type}}">
+                    <button ng-show="prd.canBuy" class="btn btn-xs btn-danger" style="width: 50px; height: 25px;">购买</button>
+                    <button ng-show="!prd.canBuy" class="btn btn-xs btn-info" style="width: 50px; height: 25px;">查看</button>
+                </a>
+            </td>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm b-a" ng-if="showtype == 0">
+    <div class="row padder-sm">
+        <div class="col-xs-3 no-padder" ng-repeat="prd in prds">
+            <div prd-graph-panel cols="4"></div>
+        </div>
+    </div>
+</div>
+
+

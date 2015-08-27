@@ -1,0 +1,306 @@
+{
+  "721003": [
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023090",
+      "msg_text": "资金帐号不存在",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023093",
+      "msg_text": "资金帐号不允许以该操作方式[7]登录",
+      "msg_desc": ""
+    }
+  ],
+  "721004": [
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023090",
+      "msg_text": "资金帐号不存在",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "1",
+      "msg_text": "此资金账户已绑定",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "注册用户绑定资金账户不成功"
+    }
+  ],
+  "721007": [
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023090",
+      "msg_text": "资金帐号不存在",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "资金账户交易密码验证不成功"
+    }
+  ],
+  "721008": [
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023090",
+      "msg_text": "资金帐号不存在",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "交易密码验证登录不成功"
+    }
+  ],
+  "721014": [
+    {
+      "msg_code": "-160920400",
+      "msg_text": "转帐金额超出单笔交易限制!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-1609200008",
+      "msg_text": "星期[6]不允许转帐!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "160915090",
+      "msg_text": "银行状态不正常",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "168000026",
+      "msg_text": "资金密码错误!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "168000055",
+      "msg_text": "客户证件号码错误!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "160901010",
+      "msg_text": "客户对应的营业部及总部都无客户对应的第三方存管银行设置!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "168000018",
+      "msg_text": "银行帐号状态不正常!",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "银证转账不成功"
+    }
+  ],
+  "721016": [
+    {
+      "msg_code": "-980023090",
+      "msg_text": "资金账号不存在",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-410301021",
+      "msg_text": "输入的资金账号不完整",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "-980023096",
+      "msg_text": "客户密码错误或账号密码不匹配",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "资金帐户交易密码校验不成功"
+    }
+  ],
+  "740008": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "订单支付不成功"
+    }
+  ],
+  "740009": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "订单检查不成功"
+    }
+  ],
+  "740010": [
+    {
+      "msg_code": "-410804040",
+      "msg_text": "委托状态不正确，不能撤单！",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "撤单不成功"
+    }
+  ],
+  "740011": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "产品查询不成功"
+    }
+  ],
+  "740012": [
+    {
+      "msg_code": "-410803030",
+      "msg_text": "基金赎回不能低于赎回下限！",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "基金赎回不成功"
+    }
+  ],
+  "740013": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "查询是否为首次购买不成功"
+    }
+  ],
+  "740014": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "签署集合理财产品的约定书以及合同不成功"
+    }
+  ],
+  "740015": [
+    {
+      "msg_code": "200207",
+      "msg_text": "系统字典[操作渠道]尚未定义该字典项[8]",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "27050032",
+      "msg_text": "该证件号已在系统中开户",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "27050071",
+      "msg_text": "资产账户在该登记机构已经开户]",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "OTC开户不成功"
+    }
+  ],
+  "740016": [
+    {
+      "msg_code": "27030046",
+      "msg_text": "产品机构信息初始化[外部代码]的值无效",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "登记账户开通不成功"
+    }
+  ],
+  "740017": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "基金开户不成功"
+    }
+  ],
+  "740023": [
+    {
+      "msg_code": "11000001",
+      "msg_text": "指定的用户代码在系统内尚未开户",
+      "msg_desc": ""
+    }
+  ],
+  "740025": [
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "获取风险测评结果不成功"
+    }
+  ],
+  "770030": [
+    {
+      "msg_code": "-410801060",
+      "msg_text": "该资金账号未开设基金账号，且未设置自助开户协议！",
+      "msg_desc": ""
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "签署约定书和电子合同不成功"
+    }
+  ],
+  "860004": [
+    {
+      "msg_code": "11000007",
+      "msg_text": "用户认证信息不满足认证策略的弱密控制,不能设置为[弱密码表控制值]",
+      "msg_desc": "您输入的密码过于简单，请输入较为复杂的密码"
+    },
+    {
+      "msg_code": "11000003",
+      "msg_text": "用户认证信息不满足认证策略的有效字符设置",
+      "msg_desc": "您输入的密码有特殊字符，请输入没有特殊字符的密码"
+    },
+    {
+      "msg_code": "11000010",
+      "msg_text": "用户认证信息不能为空",
+      "msg_desc": "您未输入旧密码，请输入正确的旧密码"
+    },
+    {
+      "msg_code": "default",
+      "msg_text": "",
+      "msg_desc": "修改密码不成功"
+    }
+  ],
+  "890010": [
+    {
+      "msg_code": "-990257010",
+      "msg_text": "柜员代码不存在",
+      "msg_desc": ""
+    }
+  ],
+  "860038": [
+    {
+      "msg_code": "-240110000",
+      "msg_text": "柜员不能操作机构的资金分类",
+      "msg_desc": ""
+    }
+  ]
+}

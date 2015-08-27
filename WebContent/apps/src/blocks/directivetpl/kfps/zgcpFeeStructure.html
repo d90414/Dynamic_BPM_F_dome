@@ -1,0 +1,41 @@
+<div class="m-t">
+    <table class="table prdlist table-bordered">
+        <thead>
+        <tr>
+            <th width="15%" class="text-center">费用</th>
+            <th width="50%" class="text-center">金额/持有期</th>
+            <th class="text-center">费率</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>管理费</td>
+            <td colspan="2" class="text-center">{{fees['1241'][0].FEE}}</td>
+        </tr>
+        <tr>
+            <td>托管费</td>
+            <td colspan="2" class="text-center">{{fees['1251'][0].FEE}}</td>
+        </tr>
+        <tr>
+            <td rowspan="{{fees['1271'].length + 1}}">参与费用</td>
+            <td colspan="2" ng-if="!fees['1271'] || !fees['1271'].length"></td>
+        </tr>
+        <tr class="text-center" ng-repeat="f in fees['1271']">
+            <td ng-bind-html="f.MONEY_CON"></td>
+            <td ng-bind-html="f.FEE"></td>
+        </tr>
+        <tr>
+            <td rowspan="{{fees['1273'].length + 1}}">退出费用</td>
+            <td colspan="2" ng-if="!fees['1273'] || !fees['1273'].length"></td>
+        </tr>
+        <tr class="text-center" ng-repeat="f in fees['1273']">
+            <td ng-bind-html="f.HOLD_CON"></td>
+            <td ng-bind-html="f.FEE"></td>
+        </tr>
+        <tr ng-if="prd.PERF_RATE">
+            <td>业绩报酬</td>
+            <td colspan="2" class="text-center">{{prd.PERF_RATE}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

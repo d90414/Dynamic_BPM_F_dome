@@ -1,0 +1,66 @@
+<div>
+    <div class="wrapper">
+        <div class="row b bg-white-only" style="border-color: #FFA382;">
+            <div class="col-xs-8">
+                <div class="m-t-sm m-b-sm">
+                    <span>代码：</span><span>{{prd.PRO_CODE}}</span>
+                    <span class="m-l-lg text-xxl text-danger" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</span>
+                </div>
+                <table class="table w-full text-left">
+                    <tr>
+                        <td width="15%">参与起点：</td>
+                        <td width="35%" class="text-info">{{prd.INVE_START | moneyFomat:'2'}}</td>
+                        <td width="15%">追加金额：</td>
+                        <td width="35%" class="text-info">{{prd.ADDTO_MIN_BUY ? (prd.ADDTO_MIN_BUY | moneyDivide) + '元' : ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>产品期限：</td>
+                        <td class="text-info">{{prd.DURA_TIME}}</td>
+                        <td class="text-nowrap">预期收益率：</td>
+                        <td class="text-info">{{prd.EXP_GAINS ? prd.EXP_GAINS : '浮动收益'}}</td>
+                    </tr>
+                    <tr>
+                        <td>风险等级：</td>
+                        <td class="text-info">{{prd.RISK_LVL_DESC}}</td>
+                        <td>产品规模：</td>
+                        <td class="text-info">{{prd.ISSUE_MODE ? (prd.ISSUE_MODE | moneyDivide) + '元' : ''}}</td>
+                    </tr>
+                    <tr>
+                        <td>管理人：</td>
+                        <td class="text-info">{{prd.MANAGER_USER_DESC}}</td>
+                        <td>登记机构：</td>
+                        <td class="text-info">{{prd.REGI_ORG_DESC}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-4 b-l" style="border-color: #FFA382; background-color: #FFF7F0; height: 219px;">
+                <div detail-buy-panel></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t m-b">
+        <div class="b-a bg-white-only">
+            <div class="wrapper b-b b-light">
+                <div tabset class="nav-tabs-alt">
+                    <div tab>
+                        <div tab-heading><span class="font-bold">产品概况</span></div>
+                        <div gtsc-proinfo proid="{{pro_id}}"></div>
+                    </div>
+                    <div tab ng-click="gtscTabs.notice.active = true;">
+                        <div tab-heading><span class="font-bold">产品公告</span></div>
+                        <div ng-if="gtscTabs.notice.active" gmjj-note proid="{{pro_id}}" partype="1"></div>
+                    </div>
+                    <div tab ng-click="gtscTabs.law.active = true;">
+                        <div tab-heading><span class="font-bold">法律文件</span></div>
+                        <div ng-if="gtscTabs.law.active" gmjj-note proid="{{pro_id}}" partype="2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-t-lg m-b ">
+    <div recm-prds ctype="{{type}}"></div>
+</div>

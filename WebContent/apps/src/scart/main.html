@@ -1,0 +1,267 @@
+<div>
+<div class="m-t m-b">
+<div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+    <span class="font-bold m-l-md">放入购物车的产品(<span class="text-danger" ng-bind="shoppinglist.length"></span>)</span>
+</div>
+<div class="line line-md b-b b-light"></div>
+<div ng-show="shoppinglist.length">
+<div class="m-t-md" ng-show="zxcplist.length">
+    <div class="font-bold">资讯产品(<span class="text-danger" ng-bind="zxcplist.length"></span>)</div>
+    <div class="line line-md b-b b-light"></div>
+    <div class="table-responsive b-light b b-2x">
+        <table class="table m-b-none">
+            <thead>
+            <tr class="bg-light">
+                <th></th>
+                <th>产品代码</th>
+                <th>产品名称</th>
+                <th>单价</th>
+                <th>购买周期</th>
+                <th>购买数量</th>
+                <th>小计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="zxcp in zxcplist">
+                <td class="v-middle">
+                    <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                        <input type="checkbox" ng-model="zxcp.checked"
+                               ng-click="check(zxcplist, $index)"><i></i>
+                    </label>
+                </td>
+                <td class="v-middle">
+                    <div><a ng-href="#/kfps/detail/{{zxcp.PRO_ID}}/zxcp" target="_blank"
+                            ng-bind="zxcp.PRO_CODE"></a></div>
+                </td>
+                <td class="v-middle">
+                    <div><a ng-href="#/kfps/detail/{{zxcp.PRO_ID}}/zxcp" target="_blank"
+                            ng-bind="zxcp.SHT_NAME"></a></div>
+                </td>
+                <td class="v-middle">
+                    <div>
+                                    <span ng-repeat="pri in zxcp.PRICE" class="m-l-xs">
+                                        <span class="font-bold text-danger-lt text-md">{{pri.FEE}}</span>元/{{pri.FEE_MODE_DESC}}
+                                    </span>
+                    </div>
+                </td>
+                <td class="v-middle">
+                    <select class="form-control input-sm w-xs m-n" ng-disabled="zxcp.checked==false"
+                            style="width: 135px" ng-model="zxcp.buy_period" ng-change="change(zxcplist, $index)"
+                            ng-options=" option.FEE as option.FEE_MODE_DESC for option in zxcp.PRICE "></select>
+                </td>
+                <td class="v-middle">
+                    <input type="text" ng-pattern="/^[0-9]*$/" ng-disabled="zxcp.checked==false"
+                           class="form-control  input-sm w-xs m-n" ng-model="zxcp.buy_num"
+                           ng-change="change(zxcplist, $index)" style="width: 135px">
+                </td>
+                <td class="v-middle text-danger">
+                    <div><i class="fa fa-cny"></i><span ng-bind="zxcp.paymoney"></span></div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <label class="i-checks i-checks-sm" ng-show="zxcplist.length">
+                            <input type="checkbox" ng-model="zxcplist.allcheck"
+                                   ng-click="checkeach(zxcplist)"><i></i>{{zxcplist.allcheck ? "取消全选" : "选择全部"}}
+                        </label>
+                        <a class="label bg-danger text-white m-l text-sm" ng-show="zxcplist.checkcount"
+                           ng-click="remove(zxcplist)">删除</a>
+                    </div>
+                </td>
+                <td colspan="3" class="text-right">
+                    <div><span>合计：</span></div>
+                </td>
+                <td colspan="1">
+                    <div class="text-danger"><i class="fa fa-cny"></i><span ng-bind="zxcplist.paymoney"></span>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="m-t-md" ng-show="lccplist.length">
+    <div class="font-bold">理财产品(<span class="text-danger" ng-bind="lccplist.length"></span>)</div>
+    <div class="line line-md b-b b-light"></div>
+    <div class="table-responsive b-light b b-2x">
+        <table class="table m-b-none">
+            <thead>
+            <tr class="bg-light">
+                <th></th>
+                <th>产品代码</th>
+                <th>产品名称</th>
+                <th>投资起点</th>
+                <th>购买金额(元)</th>
+                <th>小计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="lccp in lccplist">
+                <td class="v-middle">
+                    <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                        <input type="checkbox" ng-model="lccp.checked"
+                               ng-click="check(lccplist, $index)"><i></i>
+                    </label>
+                </td>
+                <td class="v-middle">
+                    <div>
+                        <a ng-href="#/kfps/detail/{{lccp.PRO_ID}}/gtsc" target="_blank" ng-bind="lccp.PRO_CODE"
+                           ng-if="lccp.LVL2_TYPE==486"></a>
+                        <a ng-href="#/kfps/detail/{{lccp.PRO_ID}}/zgcp" target="_blank" ng-bind="lccp.PRO_CODE"
+                           ng-if="lccp.LVL2_TYPE==4"></a>
+                    </div>
+                </td>
+                <td class="v-middle">
+                    <div>
+                        <a ng-href="#/kfps/detail/{{lccp.PRO_ID}}/gtsc" target="_blank" ng-bind="lccp.SHT_NAME"
+                           ng-if="lccp.LVL2_TYPE==486"></a>
+                        <a ng-href="#/kfps/detail/{{lccp.PRO_ID}}/zgcp" target="_blank" ng-bind="lccp.SHT_NAME"
+                           ng-if="lccp.LVL2_TYPE==4"></a></div>
+                </td>
+                <td class="v-middle">
+                    <div ng-bind="lccp.INVE_START">元</div>
+                </td>
+                <td class="v-middle">
+                    <input type="text" ng-pattern="/^[0-9.]*$/" ng-disabled="lccp.checked==false"
+                           class="form-control  input-sm w-xs m-n" ng-model="lccp.buy_money"
+                           ng-change="change(lccplist, $index)" style="width: 135px">
+                </td>
+                <td class="v-middle text-danger">
+                    <div><i class="fa fa-cny"></i><span ng-bind="lccp.paymoney"></span></div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <label class="i-checks i-checks-sm" ng-show="lccplist.length">
+                            <input type="checkbox" ng-model="lccplist.allcheck"
+                                   ng-click="checkeach(lccplist)"><i></i>{{lccplist.allcheck ? "取消全选" : "选择全部"}}
+                        </label>
+                        <a class="label bg-danger text-white m-l text-sm" ng-show="lccplist.checkcount"
+                           ng-click="remove(lccplist)">删除</a>
+                    </div>
+                </td>
+                <td colspan="2" class="text-right">
+                    <div><span>合计：</span></div>
+                </td>
+                <td colspan="1">
+                    <div class="text-danger"><i class="fa fa-cny"></i><span ng-bind="lccplist.paymoney"></span>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="m-t-md" ng-show="gmjjlist.length">
+    <div class="font-bold">公募基金(<span class="text-danger" ng-bind="gmjjlist.length"></span>)</div>
+    <div class="line line-md b-b b-light"></div>
+    <div class="table-responsive b-light b b-2x">
+        <table class="table m-b-none">
+            <thead>
+            <tr class="bg-light">
+                <th></th>
+                <th>产品代码</th>
+                <th>产品名称</th>
+                <th>投资起点</th>
+                <th>购买金额(元)</th>
+                <th>小计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="gmjj in gmjjlist">
+                <td class="v-middle">
+                    <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                        <input type="checkbox" ng-model="gmjj.checked"
+                               ng-click="check(gmjjlist, $index)"><i></i>
+                    </label>
+                </td>
+                <td class="v-middle">
+                    <div><a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/gmjj" target="_blank"
+                            ng-bind="gmjj.PRO_CODE"></a></div>
+                </td>
+                <td class="v-middle">
+                    <div><a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/gmjj" target="_blank"
+                            ng-bind="gmjj.SHT_NAME"></a></div>
+                </td>
+                <td class="v-middle">
+                    <div ng-bind="gmjj.INVE_START"></div>
+                </td>
+                <td class="v-middle">
+                    <input type="text" ng-pattern="/^[0-9.]*$/" ng-disabled="gmjj.checked==false"
+                           class="form-control  input-sm w-xs m-n" ng-model="gmjj.buy_money"
+                           ng-change="change(gmjjlist, $index)" style="width: 135px">
+                </td>
+                <td class="v-middle text-danger">
+                    <div><i class="fa fa-cny"></i><span ng-bind="gmjj.paymoney"></span></div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <label class="i-checks i-checks-sm" ng-show="gmjjlist.length">
+                            <input type="checkbox" ng-model="gmjjlist.allcheck"
+                                   ng-click="checkeach(gmjjlist)"><i></i>{{gmjjlist.allcheck ? "取消全选" : "选择全部"}}
+                        </label>
+                        <a class="label bg-danger text-white m-l text-sm" ng-show="gmjjlist.checkcount"
+                           ng-click="remove(gmjjlist)">删除</a>
+                    </div>
+                </td>
+                <td colspan="2" class="text-right">
+                    <div><span>合计：</span></div>
+                </td>
+                <td colspan="1">
+                    <div class="text-danger"><i class="fa fa-cny"></i><span ng-bind="gmjjlist.paymoney"></span>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<div class="m-t m-b" ng-show="shoppinglist.length">
+    <div class="b-t b-b clear">
+        <div class="col-xs-6 m-t">
+            <label class="i-checks i-checks-sm">
+                <input type="checkbox" ng-model="shoppinglist.allcheck" ng-click="checkall(shoppinglist)"><i></i>{{shoppinglist.allcheck
+                ? "取消全选" : "选择全部"}}
+            </label>
+            <a class="label bg-danger text-white m-l text-sm" ng-show="shoppinglist.checkcount"
+               ng-click="remove(shoppinglist)">删除</a>
+        </div>
+        <div class="col-xs-6 m-t-sm m-b-sm text-right">
+            <span class="m-r">已选择<span class="font-bold text-danger" ng-bind="shoppinglist.checkcount"></span>件产品</span>
+            <span class="m-r">总金额：<span class="text-danger"><i class="fa fa-cny"></i><span
+                    ng-mode="shoppinglist.paymoney" ng-bind="shoppinglist.paymoney"></span></span></span>
+            <button class="btn btn-danger btn-sm" ng-disabled="shoppinglist.checkcount == 0"
+                    ng-click="pay(shoppinglist)"><i class="fa fa-check m-r-xs"></i>立即下单
+            </button>
+        </div>
+    </div>
+</div>
+<div class="m-t m-b" ng-show="shoppinglist.length == 0">
+    <div class="clear">
+        <div class="col-xs-6 m-t-md text-right">
+            <span>您的购物车为空，</span>
+        </div>
+        <div class="col-xs-6 m-t-md m-l-n-lg">
+            请到商城<a ui-sref="kfps.index" class="text-info">随便逛逛</a>
+        </div>
+    </div>
+</div>
+
+<div class="m-t m-b">
+    <div recm-prds></div>
+</div>
+</div>

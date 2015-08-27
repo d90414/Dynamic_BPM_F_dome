@@ -1,0 +1,77 @@
+<div class="panel bg-white-only">
+    <div class="panel-heading">
+        <div class="pull-right"><a ng-href="#/kfps/prdlist/zgcp" class="text-info btn-link">查看更多></a></div>
+        <div class="pull-left m-t-n-xs" style="width: 31px;height: 31px;background: url('public/images/mall-icon-floor.png') -32px"></div>
+        <span class="text-md font-bold">资管产品</span>
+        <div class="m-t-xs b-a"></div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="m-b-lg floor2-item" ng-repeat="p in prds track by $index">
+                    <div>
+                        <div class="pull-left" style="width: 202px; height: 50px; background: url('public/images/mall-prd-title-bg2.png') 0 100px">
+                            <div>
+                                <div class="text-md font-bold m-l-sm m-t-xxs text-ellipsis"><a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}" title="{{p.SHT_NAME}}">{{p.SHT_NAME}}</a></div>
+                                <div class="m-l-sm text-xs">代码：<a ng-href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">{{p.PRO_CODE}}</a></div>
+                                <div ng-if="0 != p.EXPE_YIELDS">
+                                    <div class="m-l-md m-t-sm">预计年化收益率</div>
+                                    <div class="m-l-md font-bold text-ellipsis" ng-class="{'text-success': p.EXPE_YIELDS < 0, 'text-danger': p.EXPE_YIELDS > 0}" title="{{(p.EXPE_YIELDS && p.EXPE_YIELDS != 0) ? p.EXPE_YIELDS + '%' : 0}}">
+                                        <span ng-show="p.EXPE_YIELDS > 0" class="text-lg">+</span><span style="font-size: 34px;">{{(p.EXPE_YIELDS && p.EXPE_YIELDS != 0) ? p.EXPE_YIELDS : '--'}}</span><span class="text-lg">{{(p.EXPE_YIELDS && p.EXPE_YIELDS != 0) ? '%' : ''}}</span>
+                                    </div>
+                                </div>
+                                <div ng-if="!p.EXPE_YIELDS || 0 == p.EXPE_YIELDS">
+                                    <div class="m-l-md m-t-sm">最新净值</div>
+                                    <div class="m-l-md font-bold text-ellipsis" ng-class="{'text-success': p.NAV_VAL < 0, 'text-muted': P.NAV_VAL == 0,'text-danger': p.NAV_VAL > 0}" title="{{(p.NAV_VAL && p.NAV_VAL != 0) ? p.NAV_VAL + '元' : ''}}">
+                                        <span ng-show="p.NAV_VAL > 0" class="text-lg">+</span><span style="font-size: 34px;">{{(p.NAV_VAL && p.NAV_VAL != 0) ? p.NAV_VAL : '--'}}</span><span class="text-lg">{{(p.NAV_VAL && p.NAV_VAL != 0) ? '元' : ''}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right m-xxs" style="width: 34px;height: 34px;background: url('public/images/mall-prd-icon-recommend.png') no-repeat"></div>
+                    </div>
+                    <div class="m-l-sm" style="background: #FCFACE;">
+                        <div class="bg-white b b-3x" style="margin-left: 173px; padding-left: 25px; height:122px; border-color: #FCFACE;">
+                            <div style="margin-right: 40px; padding-top: 5px;">
+                                <div class="btn-group-justified">
+                                    <div class="btn-group v-top text-center">
+                                        <div><span class="text-md text-ellipsis">产品期限</span></div>
+                                        <div class="m-t-sm"><h4>{{p.DURA_TIME}}</h4></div>
+                                    </div>
+                                    <div class="btn-group v-top text-center b-l b-r">
+                                        <div><span class="text-md text-ellipsis">风险等级</span></div>
+                                        <div class="row">
+                                            <div class="col-xs-offset-4 col-xs-4 padder-xxs">
+                                                <h4 class="btn btn-xs text-md text-white {{bgOfRiskLvl[p.RISK_LVL]}}" style="cursor: auto;">{{p.RISK_LVL_DESC}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group text-center v-top">
+                                        <div><span class="text-md text-ellipsis">投资起点</span></div>
+                                        <div class="m-t-sm"><h4>{{p.INVE_START | moneyFomat}}</h4></div>
+                                    </div>
+                                    <div class="btn-group text-center">
+                                        <a href="#/kfps/detail/{{p.PRO_ID}}/{{p.LVL2_TYPE | transtype}}">
+                                            <span ng-if="p.canBuy" class="w-xs btn btn-danger btn-sm text-base">购买</span>
+                                            <span ng-if="!p.canBuy" class="w-xs btn btn-info btn-sm text-base">查看</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full m-t">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <span class="m-l">产品规模：</span>{{(prd.ISSUE_MODE && prd.ISSUE_MODE != 0) ? (prd.ISSUE_MODE | moneyDivide) + '元' : '--'}}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <span>支付方式：</span>{{p.PAY_WAY_DESC}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

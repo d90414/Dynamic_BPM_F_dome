@@ -1,0 +1,52 @@
+<!--<div class="panel m-t-sm prd-graph-panel" ng-class="{'m-r-xs': ($index + 1) % cols != 0}">-->
+<div class="panel m-t-sm prd-graph-panel m-r-sm" ng-class="{'m-l-sm': $index == 0}">
+    <div class="">
+        <div ng-if="img" class="pull-left">
+            <div style="{{img}}"></div>
+        </div>
+        <div class="pull-right" favorite-label></div>
+        <div class="wrapper padder {{prd.RISK_LVL && prd.RISK_LVL < bgOfRiskLvl.length ? bgOfRiskLvl[prd.RISK_LVL] : 'bg-info lter'}}">
+            <h4 class="text-md m-b-sm text-white">代码：<a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}" class="text-white">{{prd.PRO_CODE}}</a></h4>
+            <h2 class="m-t-none">
+                <span class="text-xl text-lt text-ellipsis" title="{{prd.SHT_NAME}}"><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}" class="text-white">{{prd.SHT_NAME}}</a></span>
+            </h2>
+        </div>
+    </div>
+    <div class="w-full m-t-sm">
+        <div class="pull-right">
+            <!--<div class="m-t-xxs m-r-xs text-right"><span class="btn btn-xs text-md text-white {{bgOfRiskLvl[prd.RISK_LVL]}}" style="cursor: auto;">{{prd.RISK_LVL_DESC}}</span>-->
+            <div class="m-t-xxs m-r-xs text-right"><span class="{{colorOfRiskLvl[prd.RISK_LVL]}}">{{prd.RISK_LVL_DESC}}</span>
+            </div>
+        </div>
+        <div ng-if="'6' != prd.LVL2_TYPE && 0 != prd.EXPE_YIELDS" class="padder-xs">
+            <div style="height: 60px;">
+                <div class="m-t-xxs" style="height: 20px;"><span>预计年化收益率</span></div>
+                <div class="h1 font-bold text-danger text-ellipsis" ng-class="{'text-success': prd.EXPE_YIELDS < 0, 'text-muted': prd.EXPE_YIELDS == 0,'text-danger': prd.EXPE_YIELDS > 0}">
+                    <span ng-show="prd.EXPE_YIELDS > 0" style="font-size: 20px;">+</span>{{prd.EXPE_YIELDS != 0 ? prd.EXPE_YIELDS + '%': '--'}}
+                </div>
+            </div>
+            <div class="line line-dashed b-a"></div>
+        </div>
+        <div ng-if="!('6' != prd.LVL2_TYPE && 0 != prd.EXPE_YIELDS)" class="padder-xs" style="height: 67px;">
+            <div style="height: 60px; line-height: 30px;">
+                <div class="">最新净值：<span class="text-lg" ng-class="{'text-success': prd.NAV_VAL < 0, 'text-muted': prd.NAV_VAL == 0, 'text-danger': prd.NAV_VAL > 0}">{{prd.NAV_VAL != 0 ? prd.NAV_VAL + '元' : '--'}}</span></div>
+                <div class="">累计净值：<span class="text-lg" ng-class="{'text-success': prd.ACC_VAL < 0, 'text-muted': prd.ACC_VAL == 0, 'text-danger': prd.ACC_VAL > 0}">{{prd.ACC_VAL != 0 ? prd.ACC_VAL + '元' : '--'}}</span></div>
+            </div>
+            <div class="line line-dashed b-a"></div>
+        </div>
+        <div class="padder-xs row h-xxs" ng-class="{'m-t-xs': !('6' != prd.LVL2_TYPE && 0 != prd.EXPE_YIELDS)}">
+            <div class="col-xs-4" style="line-height: 60px; margin: 0 auto; padding: 0 auto;">
+                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">
+                    <button ng-show="prd.canBuy" class="btn btn-danger">猛戳抢购</button>
+                    <button ng-show="!prd.canBuy" class="btn btn-info">立即查看</button>
+                </a>
+            </div>
+            <div class="col-xs-8" style="line-height: 30px; margin: 0 auto; padding: 0 auto;">
+                <div class="text-base text-ellipsis">
+                    <span>起售金额：</span><span title="{{prd.INVE_START | moneyFomat}}" class="text-highlight">{{prd.INVE_START | moneyFomat}}</span>
+                </div>
+                <div class="text-base text-ellipsis">支付方式：<span title="{{prd.PAY_WAY_DESC}}">{{prd.PAY_WAY_DESC}}</span></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a ui-sref="kfps.index"><i class="fa fa-fw fa-home"></i>首页</a></li>
+        <li class="active">绑定证券账户</li>
+    </ul>
+    <div ng-if="'bhzq' != isBhzq" class="b-a wrapper">
+        <form name="form" class="form-horizontal form-validation" ng-submit="bindregaccount()">
+            <div class="form-group">
+                <label class="col-xs-3 control-label text-right">手机号</label>
+                <div class="col-xs-4 textt-left">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="mobile" ng-model="user.mobile" ng-pattern="/^1[0-9]{10}$/" required ng-disabled="codetip != '验证手机号'"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" ng-click="checkmobile()" ng-disabled="form.mobile.$invalid || codetip != '验证手机号'">
+                                <span>{{codetip}}</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-5 text-danger text-left" style="padding-top: 7px;" ng-show="form.mobile.$invalid">
+                    <span ng-show="form.mobile.$dirty">请输入11位数字手机号(暂只支持大陆号段)</span>
+                </div>
+            </div>
+            <div ng-if="checktype==1" class="form-group">
+                <label class="col-xs-offset-3 col-xs-9 control-label text-left">
+                    该手机号已注册，请输入对应的登录密码进行绑定
+                </label>
+            </div>
+            <div ng-if="checktype==1" class="form-group">
+                <label class="col-xs-3 control-label text-right">登录密码</label>
+                <div class="col-xs-4 textt-left">
+                    <input class="form-control" type="password" name="password" ng-model="user.password" required/>
+                </div>
+                <div class="col-xs-5 text-danger text-left" style="padding-top: 7px;">
+                    <span ng-show="form.password.$dirty && form.password.$invalid">请输入登录密码</span>
+                </div>
+            </div>
+            <div ng-if="checktype==2" class="form-group">
+                <label class="col-xs-3 control-label text-right">验证码</label>
+                <div class="col-xs-4 textt-left">
+                    <input class="form-control" type="number" placeholder="请输入接收到的短信验证码" name="code" ng-model="user.code" ng-pattern="/^[0-9]{6}$/" required/>
+                </div>
+                <div class="col-xs-5 text-danger text-left" style="padding-top: 7px;" ng-show="form.code.$invalid">
+                    <span ng-show="form.code.$dirty">请输入6位数字验证码</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-4">
+                    <button type="submit" class="btn btn-sm btn-info w-full text-md" ng-disabled="form.$invalid">绑定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div ng-if="'bhzq' == isBhzq" class="m-t m-b">
+        <div class="m-t-lg m-b-lg">
+            <span class="h4 font-bold m-r"><i class="fa fa-check-circle m-r-xs text-success"></i><span>此资金账号首次在网城网厅登录使用，请选择如下一种方式操作：</span></span>
+
+            <div class="line line-xs b-b m-t m-b"></div>
+            <div class="row m-l-none m-r-none">
+                <div class="col-xs-6">
+                    <div class="h-xl panel wrapper-lg" style="background: #bdd6fc;">
+                        <div class="text-center">
+                            <span class="text-lg">已有注册用户</span>
+                        </div>
+                        <div class="line line-xs b-b m-t-md"></div>
+                        <div class="text-center m-t-md">
+                            <span class="text-md">在登录页，以已有注册用户登录，<br/>绑定资金账号或者个人中心我的账户中绑定资金账号</span>
+                        </div>
+                        <div class="text-center m-t-xxl">
+                            <a href="#/auth/login" class="btn btn-lg btn-primary font-bold m-t m-b-xl padder-xxl">立即登录</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="h-xl panel wrapper-lg" style="background: #fcbdbd;">
+                        <div class="text-center">
+                            <span class="text-lg">我还没有注册账户</span>
+                        </div>
+                        <div class="line line-xs b-b m-t-md"></div>
+                        <div class="text-center m-t-md">
+                            <span class="text-md">在快速注册页，完成注册用户成功，以注册用户登录绑定资金账户。</span>
+                        </div>
+                        <div class="text-center m-t-xxl">
+                            <a href="#/auth/register" class="btn btn-lg btn-danger font-bold m-t-xl m-b-xl padder-xxl">快速注册</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

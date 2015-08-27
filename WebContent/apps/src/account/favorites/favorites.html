@@ -1,0 +1,504 @@
+<div tabset class="nav-tabs-alt">
+    <!-- 全部收藏产品 -->
+    <div tab ng-click="changeTab('all')" active="showTab.all">
+        <div tab-heading>
+            <span class="font-bold">全部收藏产品</span>
+        </div>
+        <!-- 全部收藏产品下没有收藏 -->
+        <div ng-if="gtscPrds.totalCount <=0 && gmjjPrds.totalCount <=0 && zxPrds.totalCount <=0 && zgPrds.totalCount <=0" class="m-t-md">
+            <div class="text-center">
+                您还没有收藏任何产品。
+            </div>
+        </div>
+        <!-- /全部收藏产品下没有收藏 -->
+        <!-- 全部收藏产品下的柜台市场产品 -->
+        <div ng-if="allgtscPrds.length > 0" class="m-t-md">
+            <div class="panel">
+                <div class="panel-heading">
+                    <span class="font-bold">柜台市场产品</span>
+                    <a class="pull-right text-right" ng-click="changeTab('gtsc')">查看全部</a>
+                </div>
+                <div>
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>产品名称</th>
+                            <th>产品代码</th>
+                            <th>参与起点</th>
+                            <!--<th>追加金额</th>-->
+                            <th>产品期限</th>
+                            <th>预期收益率(%)</th>
+                            <th>风险等级</th>
+                            <th>产品状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="gtsc in allgtscPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="gtsc.checked" ng-click="check(allgtscPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gtsc.PRO_ID}}/{{gtsc.LVL2_TYPE | transtype}}" target="_blank">{{gtsc.SHT_NAME}}</a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gtsc.PRO_ID}}/{{gtsc.LVL2_TYPE | transtype}}" target="_blank">{{gtsc.PRO_CODE}}</a>
+                            </td>
+                            <td>{{gtsc.GTSCCP_INVE_START | moneyFomat:'2'}}</td>
+                            <!--<td>{{gtsc.GTSCCP_ADDTO_MIN_BUY | moneyFomat:'2'}}</td>-->
+                            <td>{{gtsc.GTSCCP_DURA_TIME }}</td>
+                            <td>{{gtsc.GTSCCP_EXPE_YIELDS ? gtsc.GTSCCP_EXPE_YIELDS + '%' : '浮动收益'}}</td>
+                            <td>{{gtsc.GTSCCP_RISK_LVL_DESC}}</td>
+                            <td>{{gtsc.GTSCCP_DIST_STAT_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="9" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="allgtscPrds.length > 0">
+                                    <input type="checkbox" ng-model="allgtscPrds.allcheck" ng-click="checkeach(allgtscPrds)"><i></i>&nbsp;&nbsp;{{allgtscPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="allgtscPrds.checkcount > 0" ng-click="addToCart(allgtscPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="allgtscPrds.checkcount > 0" ng-click="remove(allgtscPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /全部收藏产品下的柜台市场产品 -->
+        <!-- 全部收藏产品下的资管产品 -->
+        <div ng-if="allzgPrds.length > 0" class="m-t-md">
+            <div class="panel panel-default no-border">
+                <div class="panel-heading">
+                    <span class="font-bold">资管产品</span>
+                    <a class="pull-right text-right" ng-click="changeTab('zg')">查看全部</a>
+                </div>
+                <div>
+                    <table class="table prdlist">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>产品名称</th>
+                            <th>产品代码</th>
+                            <th>参与起点</th>
+                            <!--<th>追加金额</th>-->
+                            <th>产品期限</th>
+                            <th>预期收益率(%)</th>
+                            <th>风险等级</th>
+                            <th>单位净值(元)</th>
+                            <th>累计净值(元)</th>
+                            <th>产品状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="zg in allzgPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="zg.checked" ng-click="check(allzgPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td><a ng-href="#/kfps/detail/{{zg.PRO_ID}}/{{zg.LVL2_TYPE | transtype}}" target="_blank">{{zg.SHT_NAME}}</a></td>
+                            <td><a ng-href="#/kfps/detail/{{zg.PRO_ID}}/{{zg.LVL2_TYPE | transtype}}" target="_blank">{{zg.PRO_CODE}}</a></td>
+                            <td>{{zg.ZGCP_INVE_START | moneyFomat:'2'}}</td>
+                            <!--<td>{{zg.ZGCP_ADDTO_MIN_BUY | moneyFomat:'2'}}</td>-->
+                            <td>{{zg.ZGCP_DURA_TIME }}</td>
+                            <td>{{zg.ZGCP_EXPE_YIELDS ? zg.ZGCP_EXPE_YIELDS + '%' : '浮动收益'}}</td>
+                            <td>{{zg.ZGCP_RISK_LVL_DESC}}</td>
+                            <td>{{zg.ZGCP_NAV_VAL}}</td>
+                            <td>{{zg.ZGCP_ACC_VAL }}</td>
+                            <td>{{zg.ZGCP_DIST_STAT_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="allzgPrds.length > 0">
+                                    <input type="checkbox" ng-model="allzgPrds.allcheck" ng-click="checkeach(allzgPrds)"><i></i>&nbsp;&nbsp;{{allzgPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="allzgPrds.checkcount > 0" ng-click="addToCart(allzgPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="allzgPrds.checkcount > 0" ng-click="remove(allzgPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /全部收藏产品下的资管产品 -->
+        <!-- 全部收藏产品下的公募基金产品 -->
+        <div ng-if="allgmjjPrds.length > 0" class="m-t-md">
+            <div class="panel panel-default no-border">
+                <div class="panel-heading">
+                    <span class="font-bold">公募基金产品</span>
+                    <a class="pull-right text-right" ng-click="changeTab('gmjj')">查看全部</a>
+                </div>
+                <div>
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>基金名称</th>
+                            <th>基金代码</th>
+                            <th>基金类别</th>
+                            <th>单位净值(元)</th>
+                            <th>累计净值(元)</th>
+                            <th>基金状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="gmjj in allgmjjPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="gmjj.checked" ng-click="check(allgmjjPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/{{gmjj.LVL2_TYPE | transtype}}" target="_blank">{{gmjj.SHT_NAME}}</a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/{{gmjj.LVL2_TYPE | transtype}}" target="_blank">{{gmjj.PRO_CODE}}</a>
+                            </td>
+                            <td>{{gmjj.PRO_TYPE_DESC}}</td>
+                            <td>{{gmjj.GMJJCP_NAV_VAL}}</td>
+                            <td>{{gmjj.GMJJCP_ACC_VAL}}</td>
+                            <td>{{gmjj.GMJJCP_DIST_STAT_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="8" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="allgmjjPrds.length > 0">
+                                    <input type="checkbox" ng-model="allgmjjPrds.allcheck" ng-click="checkeach(allgmjjPrds)"><i></i>&nbsp;&nbsp;{{allgmjjPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="allgmjjPrds.checkcount > 0" ng-click="addToCart(allgmjjPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="allgmjjPrds.checkcount > 0" ng-click="remove(allgmjjPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /全部收藏产品下的公募基金产品 -->
+        <!-- 全部收藏产品下的资讯产品 -->
+        <div ng-if="allzxPrds.length > 0" class="m-t-md">
+            <div class="panel panel-default no-border">
+                <div class="panel-heading">
+                    <span class="font-bold">资讯产品</span>
+                    <a class="pull-right text-right" ng-click="changeTab('zx')">查看全部</a>
+                </div>
+                <div>
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>产品编码</th>
+                            <th>产品名称</th>
+                            <th>产品介绍</th>
+                            <th>服务方式</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="zx in allzxPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="zx.checked" ng-click="check(allzxPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{zx.PRO_ID}}/{{zx.LVL2_TYPE | transtype}}" target="_blank">{{zx.PRO_CODE}}</a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{zx.PRO_ID}}/{{zx.LVL2_TYPE | transtype}}" target="_blank">{{zx.SHT_NAME}}</a>
+                            </td>
+                            <td>{{zx.ZXCP_PRO_DESC}}</td>
+                            <td>{{zx.ZXCP_SERVICE_WAY_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="allzxPrds.length > 0">
+                                    <input type="checkbox" ng-model="allzxPrds.allcheck" ng-click="checkeach(allzxPrds)"><i></i>&nbsp;&nbsp;{{allzxPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="allzxPrds.checkcount > 0" ng-click="addToCart(allzxPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="allzxPrds.checkcount > 0" ng-click="remove(allzxPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /全部收藏产品下的资讯产品 -->
+    </div>
+    <!-- /全部收藏产品 -->
+    <!-- 柜台市场产品 -->
+    <div tab ng-if="gtscPrds.totalCount > 0" ng-click="changeTab('gtsc')" active="showTab.gtsc">
+        <div tab-heading>
+            <div class="font-bold">柜台市场产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>产品名称</th>
+                            <th>产品代码</th>
+                            <th>参与起点</th>
+                            <th>追加金额</th>
+                            <th>产品期限</th>
+                            <th>预期收益率(%)</th>
+                            <th>风险等级</th>
+                            <th>销售状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="gtsc in gtscPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="gtsc.checked" ng-click="check(gtscPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gtsc.PRO_ID}}/{{gtsc.LVL2_TYPE | transtype}}" target="_blank">{{gtsc.SHT_NAME}}
+                                </a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gtsc.PRO_ID}}/{{gtsc.LVL2_TYPE | transtype}}" target="_blank">{{gtsc.PRO_CODE}}</a>
+                            </td>
+                            <td>{{gtsc.GTSCCP_INVE_START | moneyFomat:'2'}}</td>
+                            <td>{{gtsc.GTSCCP_ADDTO_MIN_BUY ? (gtsc.GTSCCP_ADDTO_MIN_BUY | moneyDivide) + '元' : ''}}</td>
+                            <td>{{gtsc.GTSCCP_DURA_TIME }}</td>
+                            <td>{{gtsc.GTSCCP_EXPE_YIELDS ? gtsc.GTSCCP_EXPE_YIELDS + '%' : '浮动收益'}}</td>
+                            <td>{{gtsc.GTSCCP_RISK_LVL_DESC}}</td>
+                            <td>{{gtsc.GTSCCP_SALE_STA_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="9" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="gtscPrds.length > 0">
+                                    <input type="checkbox" ng-model="gtscPrds.allcheck" ng-click="checkeach(gtscPrds)"><i></i>&nbsp;&nbsp;{{gtscPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="gtscPrds.checkcount > 0" ng-click="addToCart(gtscPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="gtscPrds.checkcount > 0" ng-click="remove(gtscPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /柜台市场产品 -->
+    <!-- 资管产品 -->
+    <div tab ng-if="zgPrds.totalCount > 0" ng-click="changeTab('zg')" active="showTab.zg">
+        <div tab-heading>
+            <div class="font-bold">资管产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>产品名称</th>
+                            <th>产品代码</th>
+                            <th>参与起点</th>
+                            <!--<th>追加金额</th>-->
+                            <th>产品期限</th>
+                            <th>预期收益率(%)</th>
+                            <th>风险等级</th>
+                            <th>单位净值(元)</th>
+                            <th>累计净值(元)</th>
+                            <th>产品状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="zg in zgPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="zg.checked" ng-click="check(zgPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td><a ng-href="#/kfps/detail/{{zg.PRO_ID}}/{{zg.LVL2_TYPE | transtype}}" target="_blank">{{zg.SHT_NAME}}</a>
+                            </td>
+                            <td><a ng-href="#/kfps/detail/{{zg.PRO_ID}}/{{zg.LVL2_TYPE | transtype}}" target="_blank">{{zg.PRO_CODE}}</a>
+                            </td>
+                            <td>{{zg.ZGCP_INVE_START | moneyFomat:'2'}}</td>
+                            <!--<td>{{zg.ZGCP_ADDTO_MIN_BUY | moneyFomat:'2'}}</td>-->
+                            <td>{{zg.ZGCP_DURA_TIME }}</td>
+                            <td>{{zg.ZGCP_EXPE_YIELDS ? zg.ZGCP_EXPE_YIELDS + '%' : '浮动收益'}}</td>
+                            <td>{{zg.ZGCP_RISK_LVL_DESC}}</td>
+                            <td>{{zg.ZGCP_NAV_VAL}}</td>
+                            <td>{{zg.ZGCP_ACC_VAL }}</td>
+                            <td>{{zg.ZGCP_DIST_STAT_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="zgPrds.length > 0">
+                                    <input type="checkbox" ng-model="zgPrds.allcheck" ng-click="checkeach(zgPrds)"><i></i>&nbsp;&nbsp;{{zgPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="zgPrds.checkcount > 0" ng-click="addToCart(zgPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="zgPrds.checkcount > 0" ng-click="remove(zgPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /资管产品 -->
+    <!-- 公募基金产品 -->
+    <div tab ng-if="gmjjPrds.totalCount > 0" ng-click="changeTab('gmjj')" active="showTab.gmjj">
+        <div tab-heading>
+            <div class="font-bold">公募基金产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>基金名称</th>
+                            <th>基金代码</th>
+                            <th>基金类型</th>
+                            <th>基金净值(元)</th>
+                            <th>累计净值(元)</th>
+                            <th>基金状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="gmjj in gmjjPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="gmjj.checked" ng-click="check(gmjjPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/{{gmjj.LVL2_TYPE | transtype}}" target="_blank">{{gmjj.SHT_NAME}}
+                                </a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{gmjj.PRO_ID}}/{{gmjj.LVL2_TYPE | transtype}}" target="_blank">{{gmjj.PRO_CODE}}</a>
+                            </td>
+                            <td>{{gmjj.PRO_TYPE_DESC}}</td>
+                            <td>{{gmjj.GMJJCP_NAV_VAL}}</td>
+                            <td>{{gmjj.GMJJCP_ACC_VAL}}</td>
+                            <td>{{gmjj.GMJJCP_DIST_STAT_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="8" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="gmjjPrds.length > 0">
+                                    <input type="checkbox" ng-model="gmjjPrds.allcheck" ng-click="checkeach(gmjjPrds)"><i></i>&nbsp;&nbsp;{{gmjjPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="gmjjPrds.checkcount > 0" ng-click="addToCart(gmjjPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="gmjjPrds.checkcount > 0" ng-click="remove(gmjjPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /公募基金产品 -->
+    <!-- 资讯产品 -->
+    <div tab ng-if="zxPrds.totalCount > 0" ng-click="changeTab('zx')" active="showTab.zx">
+        <div tab-heading>
+            <div class="font-bold">资讯产品</div>
+        </div>
+        <div class="m-t-md">
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table class="table m-b-none prdlist" data-filter="#filter" data-page-size="5">
+                        <thead>
+                        <tr class="bg-light">
+                            <th></th>
+                            <th>产品编码</th>
+                            <th>产品名称</th>
+                            <th>产品介绍</th>
+                            <th>服务方式</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="zx in zxPrds">
+                            <td class="no-order">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}">
+                                    <input type="checkbox" ng-model="zx.checked" ng-click="check(zxPrds, $index)"><i></i>
+                                </label>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{zx.PRO_ID}}/{{zx.LVL2_TYPE | transtype}}" target="_blank">{{zx.PRO_CODE}}</a>
+                            </td>
+                            <td>
+                                <a ng-href="#/kfps/detail/{{zx.PRO_ID}}/{{zx.LVL2_TYPE | transtype}}" target="_blank">{{zx.SHT_NAME}}</a>
+                            </td>
+                            <td>{{zx.ZXCP_PRO_DESC}}</td>
+                            <td>{{zx.ZXCP_SERVICE_WAY_DESC}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6" class="v-middle">
+                                <label ng-class="{'i-checks': !isIE, 'i-checks-sm': !isIE}" ng-if="zxPrds.length > 0">
+                                    <input type="checkbox" ng-model="zxPrds.allcheck" ng-click="checkeach(zxPrds)"><i></i>&nbsp;&nbsp;{{zxPrds.allcheck ? "取消全选" : "选择全部"}}
+                                </label>
+                                <!--<a class="m-l-md btn-sm btn-info" ng-show="zxPrds.checkcount > 0" ng-click="addToCart(zxPrds)">加入购物车</a>-->
+                                <a class="m-l-md btn-sm btn-danger" ng-show="zxPrds.checkcount > 0" ng-click="remove(zxPrds)">删除</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="wrapper-sm clear">
+                        <div class="pull-left">
+                            <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>款产品</span>
+                        </div>
+                        <div class="pull-right" ng-if="pagination.totalcount > pagination.pagesize">
+                            <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /资讯产品 -->
+</div>

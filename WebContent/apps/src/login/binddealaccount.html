@@ -1,0 +1,81 @@
+<div>
+    <ul class="breadcrumb bg-white b-a">
+        <li><a ui-sref="kfps.index"><i class="fa fa-fw fa-home"></i>首页</a></li>
+        <li class="active">绑定证券账户</li>
+    </ul>
+    <div class="panel bg-white-only">
+        <div class="panel-heading b-b">
+            <span class="h2 m-r"><i class="fa fa-check-circle m-r-xs text-success"></i><span>您未绑定证券账户，请立即绑定</span></span>
+            <span class="pull-right m-t"><a href="#/page/help/2#7" class="text-right help-link" target="_blank">常见问题</a></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-6">
+                <form name="form" role="form" novalidate class="form-horizontal form-validation" autocomplete="off">
+                    <div class="panel h-xl" style="background: #bdd6fc;">
+                        <div class="panel-heading text-center text-lg b-b">我是渤海证券用户</div>
+                        <div class="panel-body m-t">
+                            <div class="form-group">
+                                <label class="col-xs-4 control-label text-right text-md">资金账号:</label>
+                                <div class="col-xs-6 text-left">
+                                    <input type="text" class="form-control w-md" name="name" ng-model="user.name" ng-disabled="check==1" ng-pattern="/^[0-9]{11,12}$/" maxlength="12" required ui-focus="true">
+                                    <span class="text-left text-md text-danger m-t-xs" ng-show="!form.name.$pristine && form.name.$invalid">请输入正确的资金账号</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="check==0">
+                                <label class="col-xs-4 control-label text-right text-md">交易密码:</label>
+                                <div class="col-xs-6 text-left">
+                                    <input ng-if="browserType==2" type="text" onfocus="this.type='password'" autocomplete="off" id="kdeditCtrl" class=" form-control w-md" maxlength="16">
+                                    <input ng-if="browserType!=2" type="text" class="form-control w-md" ng-focus="checkActive()" ng-hide="pwdfocus" ng-init="initPlaceholder()">
+                                    <div ng-if="browserType!=2" ng-class="{'form-control w-md': pwdfocus, 'cursor': pwdfocus}" ng-style="{position: !pwdfocus ? 'absolute' : 'initial', top: '-1000px'}">
+                                        <object id="kdeditCtrl" ng-if="browserType==0" classid="CLSID:0A74EC2D-365B-4E0D-9DC3-CD10400A88AF" width="215" height="16">
+                                            <param name="MaxLength" value="16">
+                                        </object>
+                                        <embed id="kdeditCtrl" ng-if="browserType==1" type="application/x-kd-edit" width="215" height="16" MaxLength=16></embed>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="check==0">
+                                <div class="col-xs-offset-4 col-xs-6">
+                                    <button ng-click="chkAcctPwd()" ng-disabled='form.name.$invalid ' class="btn btn-primary font-bold text-md w-md">验证账户</button>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="check==1">
+                                <div class="col-xs-offset-1 col-xs-9">验证是否本人操作：（向资金账号对应的手机号发送验证码）</div>
+                            </div>
+                            <div class="form-group" ng-show="check==1">
+                                <label class="col-xs-4 control-label text-right text-md">验证码:</label>
+                                <div class="col-xs-6 text-left">
+                                    <div class="input-group w-md">
+                                        <input type="text" class="form-control" placeholder="验证码" name="code" ng-model="user.code" ng-pattern="/^[0-9]{6}$/" maxlength="6" ng-disabled="codetip=='验证手机号'" required>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-info" ng-bind-html="codetip" ng-click="verifyMobile()" ng-disabled="codetip!='验证手机号'"></button>
+                                            </span>
+                                    </div>
+                                    <span class="text-left text-md text-danger m-t-xs" ng-show="!form.code.$pristine && form.code.$invalid">请输入6位验证码</span>
+                                </div>
+                            </div>
+                            <div class="form-group text-center" ng-show="check==1">
+                                <a ng-click="changeFundId()" class="btn btn-primary font-bold w m-r">换一个资金账号？</a>
+                                <a ng-click="chkMobileCode()" ng-disabled='form.code.$invalid' class="btn btn-primary font-bold w">立即绑定</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel h-xl" style="background: #fcbdbd;">
+                    <div class="panel-heading text-center text-lg b-b">我还没有证券账户</div>
+                    <div class="panel-body">
+                        <div class="text-center m-t-lg" style="height: 43px;">
+                            <span class="text-lg">三分钟便捷开户，开启财富大门</span>
+                        </div>
+                        <div class="text-center m-t-xl">
+                            <a href="http://kh.bhzq.com" target="_blank" class="btn btn-danger text-md font-bold w-md">我要开户</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-2x"><i class="fa fa-times-circle m-r-xs text-danger"></i><a class="h2" href="#/page/account/info">我不想验证，跳过此步骤！</a></div>
+    </div>
+</div>

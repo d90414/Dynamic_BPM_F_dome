@@ -1,0 +1,44 @@
+<div class="table-responsive" ng-if="showtype == 1">
+    <table class="table prdlist">
+        <thead>
+        <tr>
+            <th class="text-left">序号</th>
+            <th class="text-center">产品编号</th>
+            <th class="text-center">产品代码</th>
+            <th>产品简称</th>
+            <th class="text-center">销售状态</th>
+            <th class="text-center">风险级别</th>
+            <th class="text-center">发行状态</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="prd in prds" class="text-center">
+            <td class="text-left">{{(((pagination.currentpage == 0 ? 1 : pagination.currentpage) - 1) * pagination.pagesize) + $index + 1}}</td>
+            <td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.PRO_ID}}</a></td>
+            <td><a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">{{prd.PRO_CODE}}</a></td>
+            <td class="text-left"><a class="text-ellipsis" ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}" title="{{prd.SHT_NAME}}">{{prd.SHT_NAME}}</a></td>
+            <td>{{prd.SALE_STA_DESC}}</td>
+            <td>{{prd.RISK_LVL_DESC}}</td>
+            <td>
+                <a ng-if="prd.DIST_STAT == 2" class="label bg-info dk">{{prd.DIST_STAT_DESC}}</a>
+                <span ng-if="prd.DIST_STAT != 2" class="label bg-light dk">{{prd.DIST_STAT_DESC}}</span>
+            </td>
+            <td class="text-center">
+                <a ng-href="#/kfps/detail/{{prd.PRO_ID}}/{{prd.LVL2_TYPE | transtype}}">
+                    <button ng-show="prd.canBuy" class="btn btn-xs btn-danger" style="width: 50px; height: 25px;">购买</button>
+                    <button ng-show="!prd.canBuy" class="btn btn-xs btn-info" style="width: 50px; height: 25px;">查看</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="wrapper-sm" ng-if="showtype == 0">
+    <div class="row padder-sm">
+		<div class="col-xs-3 no-padder" ng-repeat="prd in prds">
+            <div prd-graph-panel cols="4" img="width: 53px;height: 53px;background: url('public/images/mall-prd-icon-hot.png') 53px"></div>
+        </div>
+    </div>
+</div>

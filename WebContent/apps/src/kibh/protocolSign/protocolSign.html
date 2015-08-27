@@ -1,0 +1,40 @@
+<div>
+    <div class="m-t-sm m-b-xs">
+        <span class="text-lg text-info"><img src="public/images/sign.png" class="m-r-xs" style="margin-top: -3px;">{{menutitle}}</span>
+    </div>
+
+    <div class="line line-xs b-b b-light"></div>
+    <div class="m-t-sm wrapper-xs bg-light">
+        <div class="wrapper-lg bg-white">
+            <div ng-switch on="step">
+                <div ng-switch-when="1">
+                    <div class="text-danger text-lg text-center">
+                        <span>尊敬的客户，为保障您的权益，您需要仔细阅读并签署以下协议</span>
+                    </div>
+                    <div class="b m-t m-b">
+                        <div class="l-h-2x text-muted padder-xxs" style="text-indent: 2em;overflow-y: scroll"
+                             ng-style="myHeight" ng-include="protocolPath"></div>
+                    </div>
+                    <div class="wrapper text-center">
+                        <button class="btn btn-md btn-danger" ng-bind-html="signtip" ng-click="agree()"
+                                ng-disabled="!isRead"></button>
+                    </div>
+                </div>
+                <div ng-switch-when="2">
+                    <div class="font-bold text-lg text-center">
+                        <span><i class="fa fa-check-circle text-success m-r-xs"></i>您已成功签署电子协议约定书</span>
+                    </div>
+                    <div class="text-center m-t hide" ng-if="$root.beforeProtocolSignUrl">
+                        <button class="btn btn-sm btn-info w-xs" ng-click="back()">返回商城</button>
+                    </div>
+                    <div class="line b-b m-t m-b"></div>
+                    <div class="wrapper-lg text-center">
+                        <div>您已成功签署电子协议约定书，如您在交易遇到任何问题，可以拨打我们的客服热线：</div>
+                        <div class="wrapper-md text-2x text-info">400-651-5988</div>
+                        <div>我们的客服人员将竭诚为您服务！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

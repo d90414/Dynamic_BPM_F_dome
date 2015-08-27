@@ -1,0 +1,199 @@
+<div ng-if="showType=='-01'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定注册用户，无法查看订单。</span>
+    <a class="text-primary btn-link" ui-sref="auth.bindregaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-02'" class="wrapper-xl text-center text-md">
+    <span class="">您尚未绑定交易账户，无法查看订单。</span>
+    <a class="text-primary btn-link" ui-sref="auth.binddealaccount">立即绑定</a>
+</div>
+<div ng-if="showType=='-03'" class="wrapper-xl text-center text-md">
+    <span class="">您需要登录您的资金账户才能查看订单。</span>
+    <a class="text-primary btn-link" ui-sref="auth.login">登录</a>
+</div>
+<div ng-show="showType=='1'">
+    <div class="m-t m-b">
+        <div class="row">
+            <div class="col-xs-6">
+                <div style="padding-top: 2px;padding-bottom: 2px;background: url(public/images/icon-left.png) no-repeat 5px 5px">
+                    <span class="text-md font-bold m-l-md">我的订单</span>
+                </div>
+            </div>
+            <!--<div class="col-xs-6">-->
+            <!--<div class="input-group m-t-n-sm">-->
+            <!--<input type="text" placeholder="商品名称/商品编号/订单编号" class="form-control input-sm w-lg pull-right">-->
+            <!--<span class="input-group-btn">-->
+            <!--<a class="btn btn-default btn-sm b-1x b-info bg-info text-white">搜索</a>-->
+            <!--</span>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="line b-a"></div>
+        <div class="wrapper m-t b" style="border-color: #B6D5E9; background: #F7FCFF">
+            <div class="row">
+                <div class="col-xs-8">
+                    <form name="myForm" role="myForm" novalidate class="form-horizontal form-validation" ng-submit="datePick()">
+                        <div class="form-group">
+                            <label class="col-xs-3 font-bold m-t-xs m-r-n-xxl">起止日期：</label>
+                            <div class="col-xs-4 m-l-n-lg">
+                                <div class="input-group">
+                                    <input id="start" type="text" class="form-control" ng-model="condition.startDate" readonly datepicker-popup datepicker-options="dateOptions" is-open="startDateOpened"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openStartDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <label class="col-xs-1 font-bold m-t-xs m-l-n">-</label>
+                            <div class="col-xs-4 m-l-n-lg">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="condition.endDate" readonly datepicker-popup datepicker-options="dateOptions" is-open="endDateOpened"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-sm" ng-class="{'btn-default': !item.selected, 'btn-info': item.selected}" ng-click="select($index)" ng-repeat="item in dateRangeOptions">{{item['value']}}
+                    </button>
+                </div>
+            </div>
+            <!--<div style="padding: 45px 69px 30px 69px;">-->
+            <div class="wrapper m-t">
+                <div id="slider"></div>
+            </div>
+        </div>
+        <div tabset class="nav-tabs-alt m-t">
+            <div tab ng-click="changeTab('tobePaidOrders')" active="orders.tobePaidOrders.active">
+                <div tab-heading><span class="font-bold">待支付订单</span></div>
+            </div>
+            <div tab ng-click="changeTab('acceptedOrders')" active="orders.acceptedOrders.active">
+                <div tab-heading><span class="font-bold">已受理订单</span></div>
+            </div>
+            <div tab ng-click="changeTab('processedOrders')" active="orders.processedOrders.active">
+                <div tab-heading><span class="font-bold">已处理订单</span></div>
+            </div>
+            <div tab ng-click="changeTab('canceledOrders')" active="orders.canceledOrders.active">
+                <div tab-heading><span class="font-bold">已撤订单</span></div>
+            </div>
+            <div tab ng-click="changeTab('failedToPayOrders')" active="orders.failedToPayOrders.active">
+                <div tab-heading><span class="font-bold">失败订单</span></div>
+            </div>
+        </div>
+        <div class="table-responsive m-t-md">
+            <div ng-src="public/images/loading.gif"></div>
+            <table class="table prdlist">
+                <thead>
+                <tr>
+                    <th class="text-center">序号</th>
+                    <th class="text-center">产品代码</th>
+                    <th class="text-center">产品名称</th>
+                    <th class="text-center">
+                        <span ng-if="showTab == 'tobePaidOrders'|| showTab == 'failedToPayOrders'">购买金额(元)</span>
+                        <span ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders'">委托金额(元)</span>
+                        <span ng-if="showTab == 'processedOrders'">成交金额(元)</span>
+                    </th>
+                    <th class="text-center" ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders' || showTab == 'processedOrders'">
+                        <span ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders'">委托数量</span>
+                        <span ng-if="showTab == 'processedOrders'">成交数量</span>
+                    </th>
+                    <th class="text-center">下单时间</th>
+                    <th class="text-center">订单状态</th>
+                    <th ng-if="showTab != 'canceledOrders'" class="text-center">支付方式</th>
+                    <th class="text-center" ng-if="showTab!='processedOrders' && showTab!='canceledOrders'">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="isLoading">
+                    <td colspan="{{showTab == 'acceptedOrders' ? 9 : (showTab == 'canceledOrders' ? 7 : 8)}}">
+                        <div class="text-center" style="width: 200px; height: 50px; line-height: 50px; background: #ccc; margin:0 auto;">
+                            <img ng-src="public/images/loading.gif"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat="order in currentPageOrders" class="text-center">
+                    <td>{{$index+1}}</td>
+                    <td>
+                        <a ng-if="showTab == tobePaidOrders || showTab == failedToPayOrders" ng-href="#/kfps/detail/{{order.PRO_ID}}/{{order.LVL2_TYPE | transtype}}">{{order.PRO_CODE}}</a>
+                        <span ng-if="showTab != tobePaidOrders && showTab != failedToPayOrders">{{order.PRO_CODE}}</span>
+                    </td>
+                    <td>
+                        <div class="text-left text-ellipsis">
+                            <a ng-if="showTab == tobePaidOrders || showTab == failedToPayOrders" ng-href="#/kfps/detail/{{order.PRO_ID}}/{{order.LVL2_TYPE | transtype}}">{{order.SHT_NAME}}</a>
+                            <span ng-if="showTab != tobePaidOrders && showTab != failedToPayOrders">{{order.SHT_NAME}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="text-right padder-xl">
+                            <span ng-if="showTab == 'tobePaidOrders'|| showTab == 'failedToPayOrders'">{{order.BUY_MONEY | moneyDivide}}</span>
+                            <span ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders'">{{order.ORDERAMT | moneyDivide}}</span>
+                            <span ng-if="showTab == 'processedOrders'">{{order.MATCHAMT | moneyDivide}}</span>
+                        </div>
+                    </td>
+                    <td ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders' || showTab == 'processedOrders'">
+                        <span ng-if="showTab == 'acceptedOrders'|| showTab == 'canceledOrders'">{{order.ORDERQTY}}</span>
+                        <span ng-if="showTab == 'processedOrders'">{{order.MATCHQTY}}</span>
+                    </td>
+                    <td>{{order.APP_DATE}}</td>
+                    <td>{{order.TRD_STA_DESC}}</td>
+                    <td ng-if="showTab != 'canceledOrders'">{{order.PAY_WAY_DESC}}</td>
+                    <td ng-if="showTab!='processedOrders' && showTab!='canceledOrders'" class="text-danger">
+                        <div ng-if="showTab=='tobePaidOrders'">
+                            <a class="btn btn-xs btn-success" ng-click="pay(order)">支付</a>
+                            <a class="btn btn-xs btn-danger" ng-click="deleteSingleOrder(order)">删除</a>
+                        </div>
+                        <div ng-if="showTab=='acceptedOrders'">
+                            <a class="btn btn-xs btn-info" ng-click="cancelSingleOrder(order)">撤单</a>
+                        </div>
+                        <div ng-if="showTab=='failedToPayOrders'">
+                            <a class="btn btn-xs btn-danger" ng-click="deleteSingleOrder(order)">删除</a>
+                        </div>
+                    </td>
+                </tr>
+                <!--<tr ng-repeat="subOrder in order.subOrders">-->
+                <!--<td></td>-->
+                <!--<td>{{subOrder.APP_SNO}}</td>-->
+                <!--<td>-->
+                <!--<div class="text-ellipsis">-->
+                <!--<a ng-if="showTab == tobePaidOrders || showTab == failedToPayOrders" ng-href="#/kfps/detail/{{subOrder.PRO_ID}}/{{subOrder.LVL2_TYPE | transtype}}">{{subOrder.SHT_NAME}}</a>-->
+                <!--<span ng-if="showTab != tobePaidOrders && showTab != failedToPayOrders">{{subOrder.SHT_NAME}}</span>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--</tr>-->
+                </tbody>
+                <!--<tfoot>-->
+                <!--<tr>-->
+                <!--<td colspan="{{(showTab!='processedOrders' && showTab!='canceledOrders') ? 8 : 7}}">-->
+                <!--<div class=" clear">-->
+                <!--<div class="pull-left m">-->
+                <!--<span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>个订单</span>-->
+                <!--</div>-->
+                <!--<div class="pull-right m" ng-if="pagination.totalcount > pagination.pagesize">-->
+                <!--<pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--</tfoot>-->
+            </table>
+            <div class="clear">
+                <div class="pull-left m">
+                    <span>共<span class="text-danger">{{pagination.totalcount == -1 ? 0 : pagination.totalcount}}</span>个订单</span>
+                </div>
+                <div class="pull-right m-t m-r m-b-none m-l" ng-if="pagination.totalcount > pagination.pagesize">
+                    <pagination total-items="pagination.totalcount" items-per-page="pagination.pagesize" max-size="5" ng-model="pagination.currentpage" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" previous-text="<" next-text=">" first-text="<<" last-text=">>"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-t-lg m-b">
+        <div recm-prds></div>
+    </div>
+</div>
