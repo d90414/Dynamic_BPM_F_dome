@@ -43,4 +43,16 @@ angular.module('ASS.account').controller('SecurityCtrl', ['$rootScope', '$scope'
             $scope.links.pop();
         }
 
+        if($rootScope.flowName=='three'){
+            $('#inlineRadioThree').attr("checked","checked");
+             $('#inlineRadioTwo').removeAttr("checked");
+        }
+         if($rootScope.flowName=='two'){
+            $('#inlineRadioTwo').attr("checked","checked");
+            $('#inlineRadioThree').removeAttr("checked");
+        }
+        $scope.setJBPM = function(){
+           var fn = $('input[name="inlineRadioOptions"]:checked').val();
+           $rootScope.flowName=fn;
+        }
     }]);
